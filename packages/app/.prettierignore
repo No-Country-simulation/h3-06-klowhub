@@ -1,0 +1,28 @@
+
+# Ignorar los archivos generados por Next.js
+.next/
+out/
+
+
+# Ignorar directorios o archivos específicos de la aplicación
+public/
+
+# Ignorar archivos y directorios comunes
+node_modules/
+dist/
+build/
+
+
+# Ignorar archivos de configuración de TypeScript
+tsconfig.json
+tsconfig.build.json
+tsconfig.base.json
+
+# Ignorar archivos de configuración de Prettier
+.prettierrc
+.prettierignore
+
+# Ignorar otros directorios que no deben ser formateados
+dist/
+
+

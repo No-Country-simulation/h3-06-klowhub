@@ -1,0 +1,14 @@
+{  "compilerOptions": {
+    "target": "es2020",
+    "module": "ESNext",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "files": [],
+  "references": [
+    { "path": "packages/app" },
+    { "path": "packages/api" },
+    { "path": "packages/shared" }
+  ]
+}

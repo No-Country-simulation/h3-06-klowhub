@@ -1,0 +1,20 @@
+{
+  "name": "h3-06-klowhub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "front:dev": "concurrently \"pnpm --filter shared run watch\" \"pnpm --filter app dev\"",
+    "back:dev": "concurrently \"pnpm --filter shared run watch\" \"pnpm --filter api start:dev\"",
+    "dev": "concurrently \"pnpm --filter shared run watch\" \"pnpm --filter app dev\" \"pnpm --filter api start:dev\""
+  },
+  "keywords": [],
+  "author": "Maria Villen",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "pnpm": "^9.13.0",
+    "typescript": "^5.1.3"
+  }
+}

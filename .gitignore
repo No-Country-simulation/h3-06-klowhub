@@ -1,0 +1,57 @@
+# Node.js
+node_modules/
+.pnpm-store/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# TypeScript
+*.tsbuildinfo
+
+# Build outputs
+dist/
+build/
+out/
+
+# Next.js specific
+packages/app/.next/
+packages/app/out/
+packages/app/.env.local
+packages/app/.env.*.local
+
+# NestJS specific
+packages/api/.env
+packages/api/.env.local
+packages/api/dist/
+packages/api/.env.*.local
+
+# Shared environment files
+packages/shared/.env
+packages/shared/.env.local
+packages/shared/.env.*.local
+
+# Jest and testing
+coverage/
+*.lcov
+*.lcov.*
+
+# VS Code
+.vscode/
+
+# macOS Finder Tags
+.DS_Store
+
+# Additional ignores
+.env
+.env.local
+.env.*.local
+.idea/

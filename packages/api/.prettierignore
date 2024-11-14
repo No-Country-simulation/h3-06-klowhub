@@ -1,0 +1,28 @@
+# Ignorar archivos y directorios comunes
+node_modules/
+dist/
+build/
+
+
+# Ignorar archivos de configuración de TypeScript
+tsconfig.json
+tsconfig.build.json
+tsconfig.base.json
+
+# Ignorar archivos de configuración de Prettier
+.prettierrc
+.prettierignore
+
+# Ignorar otros directorios que no deben ser formateados
+dist/
+
+
+# Ignorar archivos de entorno y configuración
+.env
+.env.*
+
+# Ignorar otros directorios que no deben ser formateados
+coverage/
+
+# Ignorar archivos generados por herramientas de testing como Jest
+*.snap
