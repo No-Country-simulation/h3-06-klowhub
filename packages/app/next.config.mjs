@@ -4,7 +4,7 @@ const nextConfig = {
     if (!dev) {
       config.module.rules.push({
         test: /\.stories\.tsx$/, // Coincide con archivos de historias
-        loader: 'null-loader',  // Ignora estos archivos
+        loader: 'null-loader', // Ignora estos archivos
       });
     }
     return config;

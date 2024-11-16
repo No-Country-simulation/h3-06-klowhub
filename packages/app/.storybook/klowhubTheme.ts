@@ -6,9 +6,9 @@ export const klowhubTheme = create({
   fontBase: '"Lato", "Open Sans", sans-serif',
   fontCode: 'monospace',
 
-  brandTitle: 'Grawiki',
+  brandTitle: 'Klowhub',
   brandUrl: '',
-  brandImage: 'https://storybook.js.org/images/placeholders/350x150.png',
+  brandImage: '',
   brandTarget: '_self',
 
   //
