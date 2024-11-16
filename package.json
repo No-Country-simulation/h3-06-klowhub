@@ -8,12 +8,14 @@
     "front:dev": "concurrently \"pnpm --filter shared run watch\" \"pnpm --filter app dev\"",
     "back:dev": "concurrently \"pnpm --filter shared run watch\" \"pnpm --filter api start:dev\"",
     "dev": "concurrently \"pnpm --filter shared run watch\" \"pnpm --filter app dev\" \"pnpm --filter api start:dev\"",
-    "storybook": "pnpm --filter app storybook"
+    "storybook": "pnpm --filter app storybook",
+    "front:build": "pnpm --filter app run build"
   },
   "keywords": [],
   "author": "Maria Villen",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^20.3.1",
     "concurrently": "^9.1.0",
     "pnpm": "^9.13.0",
     "typescript": "^5.1.3"

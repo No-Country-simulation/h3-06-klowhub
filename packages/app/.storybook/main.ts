@@ -1,5 +1,4 @@
 import type { StorybookConfig } from '@storybook/nextjs';
-
 import path from 'path';
 
 const getAbsolutePath = (packageName: string): any =>
