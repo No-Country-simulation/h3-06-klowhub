@@ -1,7 +1,12 @@
 import Image from 'next/image';
 import styles from './page.module.css';
+import { setRequestLocale } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 
-export default function Home() {
+export default function Home({ params }: { params: { locale: string } }) {
+  setRequestLocale(params.locale);
+  const t = useTranslations('Index');
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -34,7 +39,7 @@ export default function Home() {
               width={20}
               height={20}
             />
-            Deploy now
+            {t('buttonDeploy')}
           </a>
           <a
             href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
