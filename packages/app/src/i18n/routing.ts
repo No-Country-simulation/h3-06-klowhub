@@ -10,6 +10,15 @@ export const routing = defineRouting({
 
   // Used when a locale is detected
   localeDetection: true,
+
+  pathnames: {
+    '/': '/',
+    '/about': {
+      en: '/about',
+      es: '/sobre-nosotros',
+      fr: '/a-propos',
+    },
+  },
 });
 
 // Lightweight wrappers around Next.js' navigation APIs

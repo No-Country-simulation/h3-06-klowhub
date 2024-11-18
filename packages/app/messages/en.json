@@ -5,5 +5,8 @@
   },
   "Home": {
     "buttonDeploy": "Deploy now"
+  },
+  "About": {
+    "default": "About us"
   }
 }

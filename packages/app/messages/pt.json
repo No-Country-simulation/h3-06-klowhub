@@ -3,7 +3,10 @@
     "title": "Início",
     "description": "Klowhub é uma rede social para desenvolvedores No Code"
   },
-  "Index": {
+  "Home": {
     "buttonDeploy": "Implantar agora"
+  },
+  "About": {
+    "default": "Sobre nos"
   }
 }
