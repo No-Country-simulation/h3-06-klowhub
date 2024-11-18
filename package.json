@@ -7,16 +7,19 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "front:dev": "concurrently \"pnpm --filter shared run watch\" \"pnpm --filter app dev\"",
     "back:dev": "concurrently \"pnpm --filter shared run watch\" \"pnpm --filter api start:dev\"",
-    "dev": "concurrently \"pnpm --filter shared run watch\" \"pnpm --filter app dev\" \"pnpm --filter api start:dev\""
+    "dev": "concurrently \"pnpm --filter shared run watch\" \"pnpm --filter app dev\" \"pnpm --filter api start:dev\"",
+    "storybook": "pnpm --filter app storybook",
+    "front:build": "pnpm --filter app run build"
   },
   "keywords": [],
   "author": "Maria Villen",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^20.3.1",
     "concurrently": "^9.1.0",
     "pnpm": "^9.13.0",
     "typescript": "^5.1.3",
-    "@types/node": "^20.3.1",
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.0",
+    "eslint": "^8.0.0"
   }
 }
