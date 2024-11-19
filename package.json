@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "front:dev": "concurrently \"pnpm --filter shared run watch\" \"pnpm --filter app dev\"",
     "back:dev": "concurrently \"pnpm --filter shared run watch\" \"pnpm --filter api start:dev\"",
-    "dev": "concurrently \"pnpm --filter shared run watch\" \"pnpm --filter app dev\" \"pnpm --filter api start:dev\""
+    "dev": "concurrently \"pnpm --filter shared run watch\" \"pnpm --filter app dev\" \"pnpm --filter api start:dev\"",
+    "storybook": "pnpm --filter app run storybook"
   },
   "keywords": [],
   "author": "Maria Villen",
