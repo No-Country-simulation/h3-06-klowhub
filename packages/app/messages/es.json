@@ -1,0 +1,12 @@
+{
+  "Metadata": {
+    "title": "Inicio",
+    "description": "Klowhub es una red social para desarrolladores de no-code"
+  },
+  "Home": {
+    "buttonDeploy": "Desplegar ahora"
+  },
+  "About": {
+    "default": "Acerca de nosotros"
+  }
+}

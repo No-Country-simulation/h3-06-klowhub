@@ -1,7 +1,15 @@
 import Image from 'next/image';
 import styles from './page.module.css';
+import { useTranslations } from 'next-intl';
 
 export default function Home() {
+  const t = useTranslations('Home');
+
+  console.log(
+    'button deploiy',
+    t('buttonDeploy', { defaultMessage: 'Deploy now' }),
+  );
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -34,7 +42,7 @@ export default function Home() {
               width={20}
               height={20}
             />
-            Deploy now
+            {t('buttonDeploy', { defaultMessage: 'Deploy now' })}
           </a>
           <a
             href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
