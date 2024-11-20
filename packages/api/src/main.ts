@@ -15,10 +15,10 @@ async function bootstrap() {
   // Configurar ValidationPipe global
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true, // Remueve propiedades no permitidas en los DTOs
-      forbidNonWhitelisted: true, // Genera error si se detectan propiedades no permitidas
-      transform: true, // Convierte los datos al tipo definido en el DTO
-      errorHttpStatusCode: 422, // Cambia el código de estado a 422 para errores de validación
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+      errorHttpStatusCode: 422,
     }),
   );
 

@@ -6,17 +6,14 @@ export interface IUser extends Document {
   password: string;
 }
 
-// Definición del esquema de Mongoose
 export const userSchema = new Schema<IUser>({
   userName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
 });
 
-// Modelo de usuario
 export const User = model<IUser>('User', userSchema);
 
-// Clase de entidad para instancias de usuario
 export class UserEntity {
   userName: string;
   email: string;
