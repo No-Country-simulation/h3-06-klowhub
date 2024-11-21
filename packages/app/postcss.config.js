@@ -4,4 +4,5 @@ const postcssconfig = {
     autoprefixer: {},
   },
 };
-export default postcssconfig;
+
+module.exports = postcssconfig; 
