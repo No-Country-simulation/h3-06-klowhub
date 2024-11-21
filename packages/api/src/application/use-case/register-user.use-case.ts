@@ -1,34 +1,47 @@
-import { Injectable } from '@nestjs/common';
-import { RegisterUserDto } from '../dtos/register-user.dto';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { UserRepository } from '../../infrastructure/repositories/user.repository';
-import { UserEntity } from '../../domain/models/user.model';
+import { RegisterUserDto } from '../dtos/register-user.dto';
 import { PasswordUtil } from '../../infrastructure/utils/password.util';
 import { IUser } from '../../domain/interfaces/user.interface';
+import { EmailService } from '../../infrastructure/utils/email.service';
 
 @Injectable()
 export class RegisterUserUseCase {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly passwordUtil: PasswordUtil,
+    private readonly emailService: EmailService,
   ) {}
 
-  async execute(registerUserDto: RegisterUserDto): Promise<UserEntity> {
+  async execute(registerUserDto: RegisterUserDto): Promise<IUser> {
+    const existingUser = await this.userRepository.findByEmail(
+      registerUserDto.email,
+    );
+    if (existingUser) {
+      throw new BadRequestException('El correo ya está registrado.');
+    }
+
     const hashedPassword = await this.passwordUtil.hashPassword(
       registerUserDto.password,
     );
 
-    const newUser: IUser = {
+    const newUser: Partial<IUser> = {
       userName: registerUserDto.userName,
+      fullName: registerUserDto.fullName,
       email: registerUserDto.email,
       password: hashedPassword,
-    } as IUser;
+    };
 
     const createdUser = await this.userRepository.create(newUser);
 
-    return new UserEntity(
-      createdUser.userName,
+    const confirmationLink = `http://localhost:3000/auth/confirm?email=${createdUser.email}`;
+
+    await this.emailService.sendConfirmationEmail(
       createdUser.email,
-      createdUser.password,
+      createdUser.userName,
+      confirmationLink,
     );
+
+    return createdUser;
   }
 }

@@ -9,13 +9,22 @@ import {
 
 export class RegisterUserDto {
   @IsString()
-  @Matches(/^[A-Za-z]+\s[A-Za-z\s]+$/, {
-    message: 'El nombre completo debe contener al menos dos palabras.',
+  @Matches(/^[a-zA-Z0-9._-]{3,30}$/, {
+    message:
+      'El userName debe tener entre 3 y 30 caracteres y solo puede contener letras, números, puntos, guiones o guiones bajos.',
+  })
+  @MaxLength(30, {
+    message: 'El userName no debe superar los 30 caracteres.',
+  })
+  userName: string;
+  @IsString()
+  @MinLength(3, {
+    message: 'El nombre completo debe tener al menos 3 caracteres.',
   })
   @MaxLength(100, {
     message: 'El nombre completo no debe superar los 100 caracteres.',
   })
-  userName: string;
+  fullName: string;
 
   @IsEmail({}, { message: 'El email debe tener un formato válido.' })
   @MinLength(5, { message: 'El email debe tener al menos 5 caracteres.' })

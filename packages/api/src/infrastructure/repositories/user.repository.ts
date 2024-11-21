@@ -7,8 +7,12 @@ import { IUser } from '../../domain/interfaces/user.interface';
 export class UserRepository {
   constructor(@InjectModel('User') private readonly userModel: Model<IUser>) {}
 
-  async create(user: IUser): Promise<IUser> {
+  async create(user: Partial<IUser>): Promise<IUser> {
     const createdUser = new this.userModel(user);
     return createdUser.save();
+  }
+
+  async findByEmail(email: string): Promise<IUser | null> {
+    return this.userModel.findOne({ email });
   }
 }
