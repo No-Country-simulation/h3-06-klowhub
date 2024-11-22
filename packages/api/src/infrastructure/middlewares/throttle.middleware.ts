@@ -1,36 +1,70 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import {
+  Injectable,
+  NestMiddleware,
+  BadRequestException,
+} from '@nestjs/common';
+import * as Redis from 'ioredis';
 
 @Injectable()
 export class ThrottleMiddleware implements NestMiddleware {
-  private attempts: Map<string, { count: number; timer: NodeJS.Timeout }> =
-    new Map();
+  private redisClient: Redis.Redis;
 
-  use(req: any, res: any, next: () => void) {
-    const ip = req.ip;
+  private readonly MAX_ATTEMPTS = 5; // Intentos permitidos
+  private readonly ATTEMPT_WINDOW = 10 * 60; // Ventana de 10 minutos (en segundos)
+  private readonly BLOCK_DURATION = 24 * 60 * 60; // Bloqueo de 24 horas (en segundos)
 
-    if (!this.attempts.has(ip)) {
-      this.attempts.set(ip, { count: 0, timer: null });
+  constructor() {
+    this.redisClient = new Redis.default({
+      host: 'localhost', // Cambiar según la configuración de Redis
+      port: 6379,
+    });
+
+    this.redisClient.on('error', (err) => {
+      console.error('Error en Redis:', err);
+    });
+  }
+
+  async use(req: any, res: any, next: () => void) {
+    try {
+      const ip = req.ip;
+      const attemptsKey = `rate_limit:${ip}:attempts`;
+      const blockKey = `rate_limit:${ip}:blocked`;
+
+      // Verificar si la IP está bloqueada
+      const isBlocked = await this.redisClient.get(blockKey);
+      if (isBlocked) {
+        throw new BadRequestException(
+          'Demasiados intentos. Esta IP está bloqueada por 24 horas.',
+        );
+      }
+
+      // Incrementar el contador de intentos
+      const attempts = await this.redisClient.incr(attemptsKey);
+      if (attempts === 1) {
+        // Establecer una ventana de tiempo para los intentos
+        await this.redisClient.expire(attemptsKey, this.ATTEMPT_WINDOW);
+      }
+
+      // Verificar si se excedieron los intentos
+      if (attempts > this.MAX_ATTEMPTS) {
+        // Bloquear la IP por 24 horas
+        await this.redisClient.set(
+          blockKey,
+          'blocked',
+          'EX',
+          this.BLOCK_DURATION,
+        );
+        throw new BadRequestException(
+          'Demasiados intentos. Esta IP está bloqueada por 24 horas.',
+        );
+      }
+
+      next();
+    } catch (error) {
+      console.error('Error en ThrottleMiddleware:', error);
+      throw error instanceof BadRequestException
+        ? error
+        : new BadRequestException('Error en la validación de solicitudes.');
     }
-
-    const attemptData = this.attempts.get(ip);
-    attemptData.count++;
-    if (attemptData.count > 3) {
-      res.set('X-Require-Captcha', 'true');
-    }
-    if (attemptData.count > 5) {
-      return res
-        .status(429)
-        .send('Demasiados intentos, por favor inténtalo más tarde.');
-    }
-
-    if (!attemptData.timer) {
-      attemptData.timer = setTimeout(
-        () => this.attempts.delete(ip),
-        10 * 60 * 1000,
-      );
-    }
-
-    this.attempts.set(ip, attemptData);
-    next();
   }
 }
