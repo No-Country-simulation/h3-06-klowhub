@@ -1,5 +1,5 @@
 // Import Link from i18n/routing to use the routing configuration with language prefixes and custom names
-import SingUpForm from '@/components/SingUpForm';
+import SingUpForm from '@/components/organisms/SingUpForm';
 import { Link } from '@/i18n/routing';
 
 const SignUpPage = () => {

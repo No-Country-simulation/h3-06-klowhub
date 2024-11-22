@@ -1,7 +1,7 @@
 'use client';
 import { signUp } from '@/_lib/services/auth';
-import Input from '@/ui/input/Input';
-import SubmitButton from '@/ui/submitButton/SubmitButton';
+import Input from '@/components/ui/input/Input';
+import SubmitButton from '@/components/ui/submitButton/SubmitButton';
 import { useFormState } from 'react-dom';
 import { useTranslations } from 'next-intl';
 

@@ -1,8 +1,8 @@
 'use client';
 import { Link } from '@/i18n/routing';
 import { signIn } from '@/_lib/services/auth';
-import Input from '@/ui/input/Input';
-import SubmitButton from '@/ui/submitButton/SubmitButton';
+import Input from '@/components/ui/input/Input';
+import SubmitButton from '@/components/ui/submitButton/SubmitButton';
 import { useTranslations } from 'next-intl';
 import { useFormState } from 'react-dom';
 

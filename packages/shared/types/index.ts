@@ -1,2 +1,2 @@
 export * from './formState';
-export * from './users';
+export * from '../models/IUserShared';

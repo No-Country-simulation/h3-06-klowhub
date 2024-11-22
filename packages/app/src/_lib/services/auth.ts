@@ -1,25 +1,25 @@
 'use server';
 import { getTranslations, getLocale } from 'next-intl/server';
 //import { BACKEND_URL } from '@/_lib/constants';
-import { TFormState, TSignInUser, TSignUpUser } from '@shared/types/formState';
+import { TFormState } from '@shared/types/formState';
 import { SignInSchema, SignUpSchema } from '@shared/validation';
 import { redirect } from '@/i18n/routing';
-import { access } from 'fs';
+import { createSession } from '../modules/session';
 
 export async function signUp(
   state: TFormState,
   formData: FormData,
 ): Promise<TFormState> {
   const validationFields = SignUpSchema.safeParse({
-    fullname: formData.get('fullname') as string,
-    username: formData.get('username') as string,
+    fullName: formData.get('fullName') as string,
+    userName: formData.get('userName') as string,
     email: formData.get('email') as string,
     password: formData.get('password') as string,
   });
 
   if (!validationFields.success) {
     return {
-      error: validationFields.error?.flatten().fieldErrors as TSignUpUser,
+      error: validationFields.error?.flatten().fieldErrors,
     };
   }
 
@@ -64,7 +64,7 @@ export async function signIn(
 
   if (!validationFields.success) {
     return {
-      error: validationFields.error?.flatten().fieldErrors as TSignInUser,
+      error: validationFields.error?.flatten().fieldErrors,
     };
   }
 
@@ -78,6 +78,7 @@ export async function signIn(
   //     password: formData.get('password') as string,
   //   }),
   // });
+
   const t = await getTranslations('UserServerResponses');
 
   const response = {
@@ -87,9 +88,9 @@ export async function signIn(
     data: {
       user: {
         id: 'id',
-        username: 'username',
-        fullname: 'fullname',
-        email: 'email',
+        userName: 'maria',
+        fullName: 'Maria Perez',
+        email: 'maria@klowhub.com',
       },
       accessToken: 'accessToken',
       refreshToken: 'refreshToken',
@@ -102,8 +103,8 @@ export async function signIn(
     await createSession({
       user: {
         id: result.user.id,
-        username: result.user.username,
-        fullname: result.user.fullname,
+        userName: result.user.userName,
+        fullName: result.user.fullName,
         email: result.user.email,
       },
       refreshToken: result.refreshToken,

@@ -1,6 +1,6 @@
 import StepperBarList from './components/StepperBarList';
 import StepperBtnControl from './components/StepperBtnControl';
-import { ArrowLeft, ArrowRigth } from '@/ui/icons';
+import { ArrowLeft, ArrowRigth } from '@/components/ui/icons';
 import useStepperBar from './useStepperBar';
 
 export type TStepperBarProps = {

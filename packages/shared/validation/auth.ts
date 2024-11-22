@@ -2,12 +2,12 @@ import { z } from 'zod';
 
 // Validation for register (request)
 export const SignUpSchema = z.object({
-  fullname: z
+  fullName: z
     .string()
     .min(3, { message: 'fullname.minLength' }) //"Full name must be at least 3 characters long"
     .max(50, { message: 'fullname.maxLength' }), //"Full name must be at least 3 characters long"
 
-  username: z
+  userName: z
     .string()
     .min(3, { message: 'username.minLength' }) //"User name must be at least 3 characters"
     .max(50, { message: 'username.maxLength' }) //"User name must be at least 3 characters"

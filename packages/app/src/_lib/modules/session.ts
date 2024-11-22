@@ -1,5 +1,5 @@
 'use server';
-import { TLoggedUser as TSession } from '@shared/types/formState';
+import { TLoggedUser as TSession } from '@shared/types/user';
 import { jwtVerify, SignJWT } from 'jose';
 import { SESSION_SECRET_KEY } from '../config/constants';
 import { cookies } from 'next/headers';
@@ -41,4 +41,8 @@ export async function getSession() {
     const locale = await getLocale();
     redirect({ href: '/auth/signin', locale });
   }
+}
+
+export async function destroySession() {
+  cookies().delete('session');
 }
