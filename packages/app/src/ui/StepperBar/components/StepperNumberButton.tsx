@@ -1,5 +1,5 @@
 import { HTMLAttributes } from 'react';
-import { cn } from '@/_lib/cn-utility-function';
+import { cn } from '@/_lib/utils/cn-utility-function';
 
 /**
  * Circle Button is only for the pagination bar

@@ -8,5 +8,29 @@
   },
   "About": {
     "default": "A propos de nous"
+  },
+  "UserServerResponses": {
+    "userCreated": "Utilisateur créé avec succès",
+    "userAlreadyExists": "L'utilisateur existe déjà",
+    "userLoggedIn": "Utilisateur connecté avec succès",
+    "invalidCredentials": "Identifiants invalides",
+    "sessionVerifyError": "Échec de la vérification de la session"
+  },
+  "ValidationMessages": {
+    "user": {
+      "fullname": {
+        "minLength": "Le nom complet doit avoir au moins 3 caractères"
+      },
+      "username": {
+        "minLength": "Le nom d'utilisateur doit avoir au moins 3 caractères"
+      },
+      "email": {
+        "invalid": "Adresse e-mail non valide"
+      },
+      "password": {
+        "invalid": "Le mot de passe doit contenir au moins 8 caractères, au plus 50 caractères, au moins une lettre majuscule, au moins une lettre minuscule, au moins un chiffre et au moins un caractère spécial",
+        "required": "Le mot de passe est requis"
+      }
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { cn } from '@/_lib/cn-utility-function';
+import { cn } from '@/_lib/utils/cn-utility-function';
 import { HTMLAttributes } from 'react';
 
 const StepperBtnControl = ({

@@ -18,6 +18,16 @@ export const routing = defineRouting({
       es: '/sobre-nosotros',
       fr: '/a-propos',
     },
+    '/auth/signin': {
+      en: '/auth/signin',
+      es: '/auth/iniciar-sesion',
+      fr: '/auth/connexion',
+    },
+    '/auth/signup': {
+      en: '/auth/signup',
+      es: '/auth/registrarse',
+      fr: '/auth/inscription',
+    },
   },
 });
 

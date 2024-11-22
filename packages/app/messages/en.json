@@ -8,5 +8,29 @@
   },
   "About": {
     "default": "About us"
+  },
+  "UserServerResponses": {
+    "userCreated": "User created successfully",
+    "userAlreadyExists": "User already exists",
+    "userLoggedIn": "User logged in successfully",
+    "invalidCredentials": "Invalid credentials",
+    "sessionVerifyError": "Failed to verify session"
+  },
+  "ValidationMessages": {
+    "user": {
+      "fullname": {
+        "minLength": "Full name must be at least 3 characters long"
+      },
+      "username": {
+        "minLength": "User name must be at least 3 characters"
+      },
+      "email": {
+        "invalid": "Invalid email address"
+      },
+      "password": {
+        "invalid": "Password must contain at least 8 character, no more than 50 characters, at least one uppercase letter, at least one lowercase letter, at least one number and at least one special character",
+        "required": "Password is required"
+      }
+    }
   }
 }
