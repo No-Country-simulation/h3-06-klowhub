@@ -6,7 +6,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { getTranslations } from 'next-intl/server';
 import '../globals.css';
-import AppBar from '@/components/ui/appbar/appbar';
+import AppBar from '@/components/molecules/appbar/appbar';
 
 const geistSans = localFont({
   src: '../fonts/GeistVF.woff',

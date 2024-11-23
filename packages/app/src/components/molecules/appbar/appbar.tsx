@@ -7,6 +7,7 @@ const AppBar = () => {
       <Link href="/">Home</Link>
       <Link href="/about">About</Link>
       <Link href="/dashboard">Dashboard</Link>
+      <Link href="/profile">Profile</Link>
       <SignInButton />
     </div>
   );
