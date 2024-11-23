@@ -28,6 +28,16 @@ export const routing = defineRouting({
       es: '/auth/registrarse',
       fr: '/auth/inscription',
     },
+    '/auth/signout': {
+      en: '/auth/signout',
+      es: '/auth/cerrar-sesion',
+      fr: '/auth/deconnexion',
+    },
+    '/dashboard': {
+      en: '/dashboard',
+      es: '/dashboard',
+      fr: '/dashboard',
+    },
   },
 });
 
