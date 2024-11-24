@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import {
   detectLocale,
   removeLocalePrefix,
@@ -8,8 +8,10 @@ import { PROTECTED_ROUTES } from './protected-routes';
 import { PATHNAMES, IPathnames } from '@/i18n/config/pathnames';
 import { DEFAULT_LOCALE } from '../../i18n/config/supportedLang';
 import { NextURL } from 'next/dist/server/web/next-url';
+import { getSession } from '@/_lib/modules/session';
 
-export const authMiddleware = (req: Request) => {
+export const authMiddleware = async (req: NextRequest) => {
+  console.log('req.url', req.url);
   const url = new URL(req.url);
   const pathname = url.pathname;
   const locale = detectLocale(req);
@@ -18,32 +20,22 @@ export const authMiddleware = (req: Request) => {
   const pathnameWithoutLocals = removeLocalePrefix(pathname);
 
   if (protectedPaths.includes(pathnameWithoutLocals)) {
-    console.log('protected route');
-    const session = req.headers
-      .get('session')
-      ?.match(/accessToken=([^;]*)/)?.[1];
-
-    if (!session) {
-      console.log('no session');
+    const session = await getSession();
+    console.log('session: ', session ? 'true' : 'false');
+    if (!session || !session.user) {
       const loginPath =
         locale !== null
           ? (PATHNAMES['/auth/signin'] as IPathnames)[locale].toString()
           : (PATHNAMES['/auth/signin'] as IPathnames)[
               DEFAULT_LOCALE
             ].toString();
-
-      console.log('loginPath', loginPath);
-
       const loginUrl = new NextURL(`/${locale ?? ''}${loginPath}`, req.url);
-
-      console.log('loginUrl', loginUrl);
-
       return NextResponse.redirect(loginUrl);
-    } else {
-      console.log('sesion valida, no redirigira');
     }
-    console.log('no es una ruta protegida');
+    console.log('continuar a', req.nextUrl.pathname);
+    return false;
+  } else {
+    console.log('No protegida: continuar a ', req.nextUrl.pathname);
+    return false;
   }
-
-  return NextResponse.next();
 };
