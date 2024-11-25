@@ -6,6 +6,7 @@ export type TSignUpUser = {
   userName: string;
   email: string;
   password: string;
+  role: string;
   // acceptTerms: boolean;
 };
 
@@ -14,7 +15,11 @@ export type TSignInUser = Omit<TSignUpUser, 'fullName' | 'userName'>;
 
 // User Login Response Type
 export type TLoggedUser = {
-  user: Omit<IUserShared, 'password'>;
+  user: {
+    id: string;
+    userName: string;
+    role: string;
+  };
   accessToken: string;
   refreshToken: string;
 };

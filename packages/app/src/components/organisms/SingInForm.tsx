@@ -1,6 +1,6 @@
 'use client';
 import { Link } from '@/i18n/routing';
-import { signIn } from '@/_lib/services/auth';
+import { signIn } from '@/_lib/actions/auth.actions';
 import Input from '@/components/ui/input/Input';
 import SubmitButton from '@/components/ui/submitButton/SubmitButton';
 import { useTranslations } from 'next-intl';

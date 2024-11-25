@@ -6,7 +6,10 @@ const Dashboard = async () => {
   const session = await getSession();
   const locale = await getLocale();
 
-  if (!session || !session.user) redirect({ href: '/auth/signin', locale });
+  //  if (!session || !session.user) redirect({ href: '/auth/signin', locale });
+  if (!session || !session.user || !(session.user.role !== 'admin'))
+    redirect({ href: '/auth/signin', locale });
+
   return <div>Dashboard</div>;
 };
 

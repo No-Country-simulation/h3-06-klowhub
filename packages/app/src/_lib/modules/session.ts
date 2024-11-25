@@ -34,7 +34,7 @@ export async function getSession() {
     const { payload } = await jwtVerify(cookie, encodedKey, {
       algorithms: ['HS256'],
     });
-    return payload;
+    return payload as TSession;
   } catch (error) {
     // const t = await getTranslations('UserServerResponses');
     console.error('sessionVerifyError', error);
@@ -45,4 +45,32 @@ export async function getSession() {
 
 export async function deleteSession() {
   await cookies().delete('session');
+}
+
+export async function updateTokens({
+  accessToken,
+  refreshToken,
+}: {
+  accessToken: string;
+  refreshToken: string;
+}) {
+  const cookie = cookies().get('session')?.value;
+  if (!cookie) {
+    return null;
+  }
+  try {
+    const { payload } = await jwtVerify<TSession>(cookie, encodedKey, {
+      algorithms: ['HS256'],
+    });
+
+    if (!payload) throw new Error('Session not found');
+
+    const newPayload: TSession = {
+      user: { ...payload.user },
+      accessToken,
+      refreshToken,
+    };
+
+    await createSession(newPayload);
+  } catch (error) {}
 }

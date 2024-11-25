@@ -1,3 +1,3 @@
 export * from './config/constants';
-export * from './services';
+export * from './actions';
 export * from './utils/cn-utility-function';

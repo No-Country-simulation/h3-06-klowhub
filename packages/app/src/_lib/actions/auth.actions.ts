@@ -4,7 +4,7 @@ import { getTranslations, getLocale } from 'next-intl/server';
 import { TFormState } from '@shared/types/formState';
 import { SignInSchema, SignUpSchema } from '@shared/validation';
 import { redirect } from '@/i18n/routing';
-import { createSession } from '../modules/session';
+import { createSession, updateTokens } from '../modules/session';
 
 export async function signUp(
   state: TFormState,
@@ -22,7 +22,6 @@ export async function signUp(
       error: validationFields.error?.flatten().fieldErrors,
     };
   }
-
   // const response = await fetch(`${BACKEND_URL}/auth/signup`, {
   //   method: 'POST',
   //   headers: {
@@ -68,6 +67,7 @@ export async function signIn(
     };
   }
 
+  // TODO: Call the api for singin
   // const response = await fetch(`${BACKEND_URL}/auth/signin`, {
   //   method: 'POST',
   //   headers: {
@@ -89,8 +89,7 @@ export async function signIn(
       user: {
         id: 'id',
         userName: 'maria',
-        fullName: 'Maria Perez',
-        email: 'maria@klowhub.com',
+        role: 'admin',
       },
       accessToken: 'accessToken',
       refreshToken: 'refreshToken',
@@ -99,17 +98,21 @@ export async function signIn(
 
   if (response.ok) {
     const result = response.data;
-    //TODO: create a session for authenticated user
+
     await createSession({
       user: {
         id: result.user.id,
         userName: result.user.userName,
-        fullName: result.user.fullName,
-        email: result.user.email,
+        role: result.user.role,
       },
       refreshToken: result.refreshToken,
       accessToken: result.accessToken,
     });
+
+    //TODO: redirect to the last page visited and not only home
+
+    const locale = await getLocale();
+    redirect({ href: '/', locale });
   } else {
     return {
       message:
@@ -117,3 +120,46 @@ export async function signIn(
     };
   }
 }
+
+export const refreshToken = async (oldRefreshToken: string) => {
+  try {
+    // const response = await fetch(`${BACKEND_URL}/auth/refresh`, {
+    // method: 'POST',
+    // headers: {
+    //   'Content-Type': 'application/json',
+    // },
+    // body: JSON.stringify({
+    //   refreshToken: oldRefreshToken,
+    // }),
+
+    const response = {
+      ok: true,
+      status: 200,
+      statusText: '',
+      data: JSON.stringify({
+        refreshToken: 'refreshToken',
+        accessToken: 'accessToken',
+      }),
+    };
+
+    if (!response.ok) {
+      throw new Error('Failed to refresh token' + response.statusText);
+    }
+    const { refreshToken, accessToken } = JSON.parse(response.data);
+
+    // update session with new tokens
+    const updateRes = await fetch('http://localhost:3000/api/auth/update', {
+      method: 'POST',
+      body: JSON.stringify({
+        accessToken,
+        refreshToken,
+      }),
+    });
+    if (!updateRes.ok) throw new Error('Failed to update the tokens');
+
+    return accessToken;
+  } catch (error) {
+    console.error('Refresh token failed:', error);
+    return null;
+  }
+};

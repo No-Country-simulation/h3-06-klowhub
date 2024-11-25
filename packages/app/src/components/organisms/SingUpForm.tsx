@@ -1,5 +1,5 @@
 'use client';
-import { signUp } from '@/_lib/services/auth';
+import { signUp } from '@/_lib/actions/auth.actions';
 import Input from '@/components/ui/input/Input';
 import SubmitButton from '@/components/ui/submitButton/SubmitButton';
 import { useFormState } from 'react-dom';
@@ -21,15 +21,15 @@ const SingUpForm = () => {
             id="fullname"
           />
         </div>
-        {state?.error?.fullname && (
-          <p className="text-red-500">{t(`${state.error.fullname}`)}</p>
+        {state?.error?.fullName && (
+          <p className="text-red-500">{t(`${state.error.fullName}`)}</p>
         )}
         <div>
           <label htmlFor="username">User Name</label>
           <Input type="text" name="username" id="username" />
         </div>
-        {state?.error?.username && (
-          <p className="text-red-500">{t(`${state.error.username}`)}</p>
+        {state?.error?.userName && (
+          <p className="text-red-500">{t(`${state.error.userName}`)}</p>
         )}
         <div>
           <label htmlFor="email">Email</label>
