@@ -9,14 +9,14 @@ import * as Redis from 'ioredis';
 export class ThrottleMiddleware implements NestMiddleware {
   private redisClient: Redis.Redis;
 
-  private readonly MAX_ATTEMPTS = 5; // Intentos permitidos
-  private readonly ATTEMPT_WINDOW = 10 * 60; // Ventana de 10 minutos (en segundos)
-  private readonly BLOCK_DURATION = 24 * 60 * 60; // Bloqueo de 24 horas (en segundos)
+  private readonly MAX_ATTEMPTS = 5;
+  private readonly ATTEMPT_WINDOW = 10 * 60;
+  private readonly BLOCK_DURATION = 24 * 60 * 60;
 
   constructor() {
     this.redisClient = new Redis.default({
-      host: 'localhost', // Cambiar según la configuración de Redis
-      port: 6379,
+      host: process.env.REDIS_HOST || 'localhost',
+      port: Number(process.env.REDIS_PORT) || 6379,
     });
 
     this.redisClient.on('error', (err) => {
