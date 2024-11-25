@@ -1,19 +1,18 @@
-import createMiddleware from 'next-intl/middleware';
-import { routing } from './i18n/routing';
+import { NextRequest, NextResponse } from 'next/server';
+import { intlMiddleware } from './middlewares/intlMiddleware.ts/intl.middleware';
+import { authMiddleware } from './middlewares/authMiddleware.ts/auth.middleware';
 
-export default createMiddleware(routing);
+export async function middleware(req: NextRequest) {
+  const intlResponse = intlMiddleware(req);
+  if (intlResponse) {
+    const authResponse = await authMiddleware(req);
+    if (authResponse) return authResponse;
+    return intlResponse;
+  }
+
+  return NextResponse.next();
+}
 
 export const config = {
-  matcher: [
-    // Enable a redirect to a matching locale at the root
-    '/',
-
-    // Set a cookie to remember the previous locale for
-    // all requests that have a locale prefix
-    '/(es|en|fr)/:path*',
-
-    // Enable redirects that add missing locales
-    // (e.g. `/pathnames` -> `/en/pathnames`)
-    '/((?!_next|_vercel|.*\\..*).*)',
-  ],
+  matcher: ['/', '/(es|en|fr)/:path*', '/((?!api|_next|_vercel|.*\\..*).*)'],
 };

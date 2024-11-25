@@ -6,6 +6,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { getTranslations } from 'next-intl/server';
 import '../globals.css';
+import AppBar from '@/components/molecules/appbar/appbar';
 
 const geistSans = localFont({
   src: '../fonts/GeistVF.woff',
@@ -38,6 +39,7 @@ export default async function LocaleLayout({
 }) {
   // Ensure that the incoming `locale` is valid
   if (!routing.locales.includes(locale as never)) {
+    console.log('not locale');
     notFound();
   }
 
@@ -51,6 +53,7 @@ export default async function LocaleLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
+          <AppBar />
           {children}
         </NextIntlClientProvider>
       </body>

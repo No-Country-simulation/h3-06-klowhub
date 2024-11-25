@@ -1,4 +1,4 @@
-import { cn } from '@/_lib/cn-utility-function';
+import { cn } from '@/_lib/utils/cn-utility-function';
 import { VariantProps, cva } from 'class-variance-authority';
 import { ReactElement, ButtonHTMLAttributes, FC } from 'react';
 
