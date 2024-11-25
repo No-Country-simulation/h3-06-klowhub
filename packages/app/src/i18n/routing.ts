@@ -18,8 +18,6 @@ export const routing = defineRouting({
       es: '/sobre-nosotros',
       fr: '/a-propos',
     },
-<<<<<<< Updated upstream
-=======
     '/auth/signin': {
       en: '/auth/signin',
       es: '/auth/iniciar-sesion',
@@ -40,7 +38,6 @@ export const routing = defineRouting({
       es: '/dashboard',
       fr: '/dashboard',
     },
->>>>>>> Stashed changes
   },
 });
 
