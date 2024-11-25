@@ -37,9 +37,13 @@ export class AuthController {
       return { message: 'La cuenta ya está confirmada.' };
     }
 
+    // Actualizar el estado del usuario a "activo"
     user.isActive = true;
-    await user.save();
+    const updatedUser = await this.userRepository.update(user);
 
-    return { message: 'Cuenta confirmada exitosamente.' };
+    return {
+      message: 'Cuenta confirmada exitosamente.',
+      user: updatedUser,
+    };
   }
 }

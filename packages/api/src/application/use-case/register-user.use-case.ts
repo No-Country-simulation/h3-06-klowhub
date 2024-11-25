@@ -2,8 +2,8 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 import { UserRepository } from '../../infrastructure/repositories/user.repository';
 import { RegisterUserDto } from '../dtos/register-user.dto';
 import { PasswordUtil } from '../../infrastructure/utils/password.util';
-import { IUser } from '../../domain/interfaces/user.interface';
 import { EmailService } from '../../infrastructure/utils/email.service';
+import { UserEntity } from '../../domain/entities/user.entities';
 
 @Injectable()
 export class RegisterUserUseCase {
@@ -13,7 +13,8 @@ export class RegisterUserUseCase {
     private readonly emailService: EmailService,
   ) {}
 
-  async execute(registerUserDto: RegisterUserDto): Promise<IUser> {
+  async execute(registerUserDto: RegisterUserDto): Promise<UserEntity> {
+    // Verificar si el usuario ya existe por su email
     const existingUser = await this.userRepository.findByEmail(
       registerUserDto.email,
     );
@@ -21,21 +22,29 @@ export class RegisterUserUseCase {
       throw new BadRequestException('El correo ya está registrado.');
     }
 
+    // Hashear la contraseña
     const hashedPassword = await this.passwordUtil.hashPassword(
       registerUserDto.password,
     );
 
-    const newUser: Partial<IUser> = {
-      userName: registerUserDto.userName,
-      fullName: registerUserDto.fullName,
-      email: registerUserDto.email,
-      password: hashedPassword,
-    };
+    // Crear instancia de UserEntity
+    const userEntity = new UserEntity(
+      registerUserDto.userName,
+      registerUserDto.fullName,
+      registerUserDto.email,
+      hashedPassword,
+    );
 
-    const createdUser = await this.userRepository.create(newUser);
+    // Asignar el rol predeterminado
+    userEntity.assignRole('USUARIO_ESTANDAR');
 
+    // Guardar en la base de datos
+    const createdUser = await this.userRepository.create(userEntity);
+
+    // Generar enlace de confirmación
     const confirmationLink = `http://localhost:3000/auth/confirm?email=${createdUser.email}`;
 
+    // Enviar correo de confirmación
     await this.emailService.sendConfirmationEmail(
       createdUser.email,
       createdUser.userName,

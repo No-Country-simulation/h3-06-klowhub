@@ -7,6 +7,7 @@ export interface IUser extends Document {
   password: string;
   isActive: boolean;
   confirmationToken?: string;
+  roles: string[];
   createdAt?: Date;
   updatedAt?: Date;
 }
