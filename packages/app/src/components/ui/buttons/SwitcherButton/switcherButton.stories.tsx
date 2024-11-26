@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import SwitcherButton from './SwitcherButton';
+import { PiRocketLaunchLight } from 'react-icons/pi';
+import { RiMailLine } from 'react-icons/ri';
 
 const meta = {
   title: 'Buttons/SwitcherButton',
@@ -19,5 +21,15 @@ type Story = StoryObj<typeof meta>;
 
 // DEFAULT CATEGORY
 export const Primary: Story = {
-  args: {},
+  args: {
+    leftComponent: 'Home',
+    rightComponent: 'Platform',
+  },
+};
+
+export const Icon: Story = {
+  args: {
+    leftComponent: <RiMailLine />,
+    rightComponent: <PiRocketLaunchLight />,
+  },
 };

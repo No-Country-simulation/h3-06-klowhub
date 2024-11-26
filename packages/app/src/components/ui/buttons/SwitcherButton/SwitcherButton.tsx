@@ -1,31 +1,46 @@
-import { cva, VariantProps } from 'class-variance-authority';
-import { ButtonHTMLAttributes, useState } from 'react';
+import { cn } from '@/_lib';
+import { ButtonHTMLAttributes, FC } from 'react';
 
-const switcherButtonProps = cva('', {
-  variants: {
-    variant: {
-      primary: '',
-      secondary: '',
-    },
-    change: { true: '', false: '' },
-  },
-  defaultVariants: {
-    variant: 'primary',
-    change: false,
-  },
-});
+export type TSwitcherButtonProps = {
+  leftComponent: React.ReactNode;
+  rightComponent: React.ReactNode;
+  isActive?: boolean;
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
-export type TButtonProps = VariantProps<typeof switcherButtonProps> &
-  ButtonHTMLAttributes<HTMLButtonElement>;
-
-const SwitcherButton = ({}: TButtonProps) => {
+const SwitcherButton: FC<TSwitcherButtonProps> = ({
+  leftComponent = 'Home',
+  rightComponent = 'Platform',
+  isActive,
+  ...rest
+}) => {
   return (
-    <button className="inline-flex p-1 rounded-[50px] gap-1 align-center bg-secondary-900">
-      <span className="flex px-[6px] py-[2px] rounded-[50px] bg-transparent text-sm font-semibold align-center justify-center text-white">
-        Home
+    <button
+      className="inline-flex p-1 rounded-[50px] gap-1 align-center bg-secondary-900 overflow-hidden"
+      {...rest}
+    >
+      <span
+        className={cn(
+          'flex px-[6px] py-[2px] rounded-[50px] ',
+          'transition duration-300',
+          isActive ? 'bg-transparent' : 'bg-secondary-300',
+          isActive ? 'text-secondary-300' : 'text-white',
+          isActive && 'animate-slide-out',
+          isActive ? 'z-10' : 'z-0',
+        )}
+      >
+        {leftComponent}
       </span>
-      <span className="flex px-[6px] py-[2px] rounded-[50px] bg-secondary-300 text-sm font-semibold align-center justify-center">
-        Plataforma
+      <span
+        className={cn(
+          'flex px-[6px] py-[2px] rounded-[50px]',
+          'transition duration-300',
+          !isActive ? 'bg-transparent' : 'bg-secondary-300',
+          !isActive ? 'text-secondary-300' : 'text-white',
+          !isActive && 'animate-slide-in',
+          isActive ? 'z-10' : 'z-0',
+        )}
+      >
+        {rightComponent}
       </span>
     </button>
   );
