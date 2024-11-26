@@ -13,7 +13,20 @@ const meta = {
     componentSubtitle:
       'The `SwitcherButton` component is a versatile React SwitcherButton component that can be customized with various variants and sizes.',
   },
-  argTypes: {},
+  args: {
+    isActive: false,
+  },
+  argTypes: {
+    variant: {
+      description: 'The colors of the buttons',
+      control: 'radio',
+      options: ['primary', 'secondary'],
+    },
+    isActive: {
+      description: 'The different sizes',
+      control: 'boolean',
+    },
+  },
 } satisfies Meta<typeof SwitcherButton>;
 
 export default meta;
@@ -24,6 +37,7 @@ export const Primary: Story = {
   args: {
     leftComponent: 'Home',
     rightComponent: 'Platform',
+    variant: 'primary',
   },
 };
 
@@ -31,5 +45,6 @@ export const Icon: Story = {
   args: {
     leftComponent: <RiMailLine />,
     rightComponent: <PiRocketLaunchLight />,
+    variant: 'secondary',
   },
 };

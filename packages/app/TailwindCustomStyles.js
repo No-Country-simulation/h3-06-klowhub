@@ -6,12 +6,14 @@ export const configTailwindExtention = {
     },
     keyframes: {
       'slide-in': {
-        '0%': { transform: 'translateX(-100%)' },
+        '0%': { transform: 'translateX(0)' },
+        '50%': { transform: 'translateX(-100%)' },
         '100%': { transform: 'translateX(0)' },
       },
       'slide-out': {
         '0%': { transform: 'translateX(0)' },
-        '100%': { transform: 'translateX(100%)' },
+        '50%': { transform: 'translateX(100%)' },
+        '100%': { transform: 'translateX(0)' },
       },
     },
     screens: {
