@@ -1,4 +1,4 @@
-import { getSession } from '@/_lib/modules/session';
+import { getSession } from '@/_lib/actions/session';
 import { redirect } from '@/i18n/routing';
 import { getLocale } from 'next-intl/server';
 

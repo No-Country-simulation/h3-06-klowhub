@@ -1,9 +1,9 @@
 import React from 'react';
 import Logo from '@/ui/Logo/Logo';
-import Button from '@/ui/Button/button';
-import InputText from '@/ui/InputText/InputText';
+import Button from '@/components/ui/buttons/Button/Button';
+import InputText from '@/components/ui/InputText/InputText';
 import ButtonSocial from '@/ui/Login/ButtonSocial';
-import Footer from '@/ui/Footer/Footer'
+import Footer from '@/ui/Footer/Footer';
 import { FaGithub, FaFacebook, FaGoogle } from 'react-icons/fa';
 
 export default function Login() {
@@ -41,15 +41,17 @@ export default function Login() {
                 <FaGoogle />
               </ButtonSocial>
             </div>
-            <div className='w-full flex justify-center gap-2'>
-                <input type="checkbox" />
-                <p className='text-xs'>Quiero recibier novedades y consejos de la plataforma</p>
+            <div className="w-full flex justify-center gap-2">
+              <input type="checkbox" />
+              <p className="text-xs">
+                Quiero recibier novedades y consejos de la plataforma
+              </p>
             </div>
           </form>
         </div>
       </div>
       <div className="h-[30%]">
-        <Footer/>
+        <Footer />
       </div>
     </div>
   );

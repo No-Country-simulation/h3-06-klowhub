@@ -1,5 +1,5 @@
 'use server';
-import { TLoggedUser as TSession } from '@shared/types/user';
+import { TLoggedUser as TSession } from '@shared/types/users';
 import { jwtVerify, SignJWT } from 'jose';
 import { SESSION_SECRET_KEY } from '../config/constants';
 //import { redirect } from '@/i18n/routing';
@@ -47,6 +47,7 @@ export async function deleteSession() {
   await cookies().delete('session');
 }
 
+// TODO: esto hay que revisarlo
 export async function updateTokens({
   accessToken,
   refreshToken,

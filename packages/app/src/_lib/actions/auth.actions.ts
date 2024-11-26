@@ -4,7 +4,7 @@ import { getTranslations, getLocale } from 'next-intl/server';
 import { TFormState } from '@shared/types/formState';
 import { SignInSchema, SignUpSchema } from '@shared/validation';
 import { redirect } from '@/i18n/routing';
-import { createSession, updateTokens } from '../modules/session';
+import { createSession } from './session';
 
 export async function signUp(
   state: TFormState,
@@ -15,6 +15,7 @@ export async function signUp(
     userName: formData.get('userName') as string,
     email: formData.get('email') as string,
     password: formData.get('password') as string,
+    acceptTerms: formData.get('acceptTerms') as string,
   });
 
   if (!validationFields.success) {
@@ -101,7 +102,7 @@ export async function signIn(
 
     await createSession({
       user: {
-        id: result.user.id,
+        _id: result.user.id,
         userName: result.user.userName,
         role: result.user.role,
       },

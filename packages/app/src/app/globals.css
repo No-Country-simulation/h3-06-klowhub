@@ -33,8 +33,11 @@
   --color-secondary-800: 7, 48, 117;
   --color-secondary-900: 3, 24, 59;
 
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-error-light: 255, 171, 175;
+  --color-error-dark: 215, 0, 14;
+
+  --color-success-light: 133, 255, 204;
+  --color-success-dark: 0, 104, 60;
 }
 
 @media (prefers-color-scheme: dark) {

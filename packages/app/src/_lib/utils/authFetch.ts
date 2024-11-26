@@ -1,4 +1,4 @@
-import { getSession } from '../modules/session';
+import { getSession } from '../actions/session';
 import { refreshToken } from '../actions/auth.actions';
 
 export interface FetchOptions extends RequestInit {

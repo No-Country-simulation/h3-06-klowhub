@@ -1,7 +1,7 @@
 'use server';
 
 //import { BACKEND_URL } from '../config/constants';
-import { getSession } from '../modules/session';
+import { getSession } from './session';
 // import { authFetch } from '../utils/authFetch';
 
 export const getProfile = async () => {

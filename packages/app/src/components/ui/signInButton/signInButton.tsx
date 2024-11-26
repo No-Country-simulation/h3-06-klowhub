@@ -1,4 +1,4 @@
-import { getSession } from '@/_lib/modules/session';
+import { getSession } from '@/_lib/actions/session';
 import { Link } from '@/i18n/routing';
 
 const SignInButton = async () => {
@@ -13,7 +13,7 @@ const SignInButton = async () => {
         </>
       ) : (
         <>
-          <p>{session.user.fullName}</p>
+          <p>{session.user.userName}</p>
           <a href="/api/auth/signout">Sign Out</a>
         </>
       )}
