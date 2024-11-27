@@ -1,4 +1,3 @@
-// src/interface/controllers/course.controller.ts
 import {
   Controller,
   Post,

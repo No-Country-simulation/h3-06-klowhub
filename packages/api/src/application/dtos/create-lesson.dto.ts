@@ -1,4 +1,3 @@
-// src/application/dtos/create-lesson.dto.ts
 import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class CreateLessonDto {

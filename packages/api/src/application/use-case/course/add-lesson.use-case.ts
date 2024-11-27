@@ -1,4 +1,3 @@
-// src/application/use-case/course/add-lesson.use-case.ts
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CourseRepository } from '../../../infrastructure/repositories/course.repository';
 import { ILesson } from '../../../domain/models/course.model';

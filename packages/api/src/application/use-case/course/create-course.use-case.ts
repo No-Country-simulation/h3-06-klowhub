@@ -1,4 +1,3 @@
-// src/application/use-case/create-course.use-case.ts
 import { Injectable } from '@nestjs/common';
 import { CourseRepository } from '../../../infrastructure/repositories/course.repository';
 import { CreateCourseDto } from '../../dtos/create.course.dto';

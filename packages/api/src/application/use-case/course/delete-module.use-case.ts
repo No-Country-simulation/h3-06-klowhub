@@ -1,4 +1,3 @@
-// src/application/use-case/course/delete-module.use-case.ts
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CourseRepository } from '../../../infrastructure/repositories/course.repository';
 
