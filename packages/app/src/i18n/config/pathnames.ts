@@ -34,4 +34,24 @@ export const PATHNAMES: IPathnames = {
     es: '/perfil',
     fr: '/profil',
   },
+  '/projects': {
+    en: '/projects',
+    es: '/proyectos',
+    fr: '/projets',
+  },
+  '/mentorships': {
+    en: '/mentorships',
+    es: '/mentorias',
+    fr: '/mentorships',
+  },
+  '/applications': {
+    en: '/applications',
+    es: '/aplicaciones',
+    fr: '/applications',
+  },
+  '/courses': {
+    en: '/courses',
+    es: '/cursos',
+    fr: '/cours',
+  },
 };

@@ -1,6 +1,6 @@
 import ToggleButton from './ToggleButton';
-import { ArrowDown, ArrowTop } from '../icons';
 import type { Meta, StoryObj } from '@storybook/react';
+import { RiArrowDownSLine, RiArrowUpSLine } from 'react-icons/ri';
 
 const meta = {
   title: 'Buttons/ToggleButton',
@@ -26,8 +26,8 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: [
-      <ArrowDown key="0" className="w-4 h-4" />,
-      <ArrowTop key="1" className="w-4 h-4" />,
+      <RiArrowDownSLine key="0" className="w-4 h-4" />,
+      <RiArrowUpSLine key="1" className="w-4 h-4" />,
     ],
   },
 };

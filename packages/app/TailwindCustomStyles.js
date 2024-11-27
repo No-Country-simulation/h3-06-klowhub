@@ -75,6 +75,11 @@ export const configTailwindExtention = {
         light: 'rgba(var(--color-success-light), <alpha-value> )',
         dark: 'rgba(var(--color-success-dark), <alpha-value> )',
       },
+      background: {
+        dark: 'rgba(var(--color-background-dark), 0.8)',
+        semiDark: 'rgba(var(--color-background-semi-dark), <alpha-value> )',
+        light: 'rgba(var(--color-background-light), <alpha-value> )',
+      },
     },
   },
 };

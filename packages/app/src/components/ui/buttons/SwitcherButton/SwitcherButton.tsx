@@ -1,6 +1,6 @@
 import { cn } from '@/_lib';
 import { cva, VariantProps } from 'class-variance-authority';
-import { ButtonHTMLAttributes, FC } from 'react';
+import { ButtonHTMLAttributes, FC, useState } from 'react';
 
 const switcherButtonProps = cva(
   'flex px-[6px] py-[2px] rounded-[50px] transition duration-500',
@@ -60,30 +60,32 @@ const SwitcherButton: FC<TSwitcherButtonProps> = ({
   return (
     <button
       className={cn(
-        'inline-flex p-1 rounded-[50px] gap-1 align-center overflow-hidden',
+        ' inline-block p-1 rounded-[50px] align-center overflow-hidden',
         variant === 'primary' && 'bg-secondary-900',
         variant === 'secondary' && 'bg-primary-violet-800',
       )}
       {...rest}
     >
-      <span
-        className={cn(
-          switcherButtonProps({ variant, isActive }),
-          isActive && 'animate-slide-out',
-          isActive ? 'z-10' : 'z-0',
-        )}
-      >
-        {leftComponent}
-      </span>
-      <span
-        className={cn(
-          switcherButtonProps({ variant, isActive: !isActive }),
-          !isActive && 'animate-slide-in',
-          isActive ? 'z-0' : 'z-10',
-        )}
-      >
-        {rightComponent}
-      </span>
+      <div className="flex gap-1 items-center justify-center">
+        <span
+          className={cn(
+            switcherButtonProps({ variant, isActive }),
+            isActive && 'animate-slide-out',
+            isActive ? 'z-10' : 'z-0',
+          )}
+        >
+          {leftComponent}
+        </span>
+        <span
+          className={cn(
+            switcherButtonProps({ variant, isActive: !isActive }),
+            !isActive && 'animate-slide-in',
+            isActive ? 'z-0' : 'z-10',
+          )}
+        >
+          {rightComponent}
+        </span>
+      </div>
     </button>
   );
 };

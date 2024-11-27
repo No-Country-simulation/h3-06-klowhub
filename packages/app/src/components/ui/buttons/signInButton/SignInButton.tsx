@@ -1,15 +1,21 @@
 import { getSession } from '@/_lib/actions/session';
-import { Link } from '@/i18n/routing';
+import ButtonLink from '../../links/buttonLink/ButtonLink';
+import { getTranslations } from 'next-intl/server';
 
 const SignInButton = async () => {
   const session = await getSession();
+  const t = await getTranslations('Appbar');
 
   return (
     <div className="flex items-center gap-2 ml-auto">
       {!session || !session.user ? (
         <>
-          <Link href="/auth/signin">Sign In</Link>
-          <Link href="/auth/signup">Sign Up</Link>
+          <ButtonLink size="xs" variant="primary" href="/auth/signin">
+            {t('login')}
+          </ButtonLink>
+          <ButtonLink size="xs" variant="secondary" href="/auth/signup">
+            {t('register')}
+          </ButtonLink>
         </>
       ) : (
         <>

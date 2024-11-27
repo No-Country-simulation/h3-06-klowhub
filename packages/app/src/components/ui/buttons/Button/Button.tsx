@@ -3,7 +3,7 @@ import { cva, VariantProps } from 'class-variance-authority';
 import { ButtonHTMLAttributes } from 'react';
 
 const buttonProps = cva(
-  'text-sm text-inter font-semibold rounded-lg cursor-pointer transition-colors duration-300 ease-in-out flex items-center justify-center gap-3 ',
+  'text-sm text-inter font-semibold rounded-lg cursor-pointer transition-colors duration-300 ease-in-out flex items-center justify-center gap-3 px-6',
   {
     variants: {
       variant: {

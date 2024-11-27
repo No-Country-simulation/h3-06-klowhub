@@ -1,8 +1,8 @@
 import { cn } from '@/_lib';
+import { Link } from '@/i18n/routing';
 import { cva, VariantProps } from 'class-variance-authority';
-import { ButtonHTMLAttributes } from 'react';
 
-const buttonProps = cva(
+const buttonLinkProps = cva(
   ' py-3 text-inter text-base border font-medium cursor-pointer transition-colors duration-300 ease-in-out flex items-center justify-center gap-[10px]',
   {
     variants: {
@@ -46,21 +46,28 @@ const buttonProps = cva(
   },
 );
 
-export type TButtonProps = VariantProps<typeof buttonProps> &
-  ButtonHTMLAttributes<HTMLButtonElement>;
-
-const Button: React.FC<TButtonProps> = ({
+export type TButtonLinkProps = VariantProps<typeof buttonLinkProps> & {
+  children: React.ReactNode;
+  href: string;
+};
+const ButtonLink: React.FC<TButtonLinkProps> = ({
   variant,
   size,
   rounded,
   fullWidth,
   children,
+  href,
+  ...rest
 }) => {
   return (
-    <button className={cn(buttonProps({ variant, rounded, size, fullWidth }))}>
+    <Link
+      className={cn(buttonLinkProps({ variant, rounded, size, fullWidth }))}
+      href={href}
+      {...rest}
+    >
       {children}
-    </button>
+    </Link>
   );
 };
 
-export default Button;
+export default ButtonLink;

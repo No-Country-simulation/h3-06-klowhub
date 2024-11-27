@@ -1,8 +1,10 @@
 import type { Preview } from '@storybook/react';
 
 import '../src/app/globals.css';
+import withIntl from './decorators/withIntl';
 
 const preview: Preview = {
+  decorators: [withIntl],
   parameters: {
     controls: {
       matchers: {

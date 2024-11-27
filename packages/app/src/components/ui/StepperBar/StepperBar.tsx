@@ -1,6 +1,8 @@
+'use client';
 import StepperBarList from './components/StepperBarList';
 import StepperBtnControl from './components/StepperBtnControl';
-import { ArrowLeft, ArrowRigth } from '@/components/ui/icons';
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
+
 import useStepperBar from './useStepperBar';
 
 export type TStepperBarProps = {
@@ -38,7 +40,7 @@ const StepperBar = ({
             className="right-[calc(100%+4rem)]"
             onClick={() => handlePageChange(activePage - 1)}
           >
-            <ArrowLeft />
+            <MdKeyboardArrowLeft />
             <span>Atras</span>
           </StepperBtnControl>
         )}
@@ -58,7 +60,7 @@ const StepperBar = ({
             onClick={() => handlePageChange(activePage + 1)}
           >
             <span>Siguiente</span>
-            <ArrowRigth />
+            <MdKeyboardArrowRight />
           </StepperBtnControl>
         )}
       </div>

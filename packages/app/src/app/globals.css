@@ -38,6 +38,13 @@
 
   --color-success-light: 133, 255, 204;
   --color-success-dark: 0, 104, 60;
+
+  --color-background-bar-start: 4, 31, 77;
+  --color-background-bar-end: 67, 22, 80;
+
+  --color-background-dark: 27, 27, 31;
+  --color-background-semi-dark: 24, 25, 65;
+  --color-background-light: 52, 57, 92;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -56,5 +63,22 @@ body {
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .bg-gradient-body {
+    background: linear-gradient(
+      45deg,
+      rgba(var(--color-background-light), 1) 0%,
+      rgba(var(--color-background-semi-dark), 1) 50%,
+      rgba(var(--color-background-dark), 1) 100%
+    );
+  }
+
+  .bg-gradient-bar {
+    background: linear-gradient(
+      45deg,
+      rgba(var(--color-background-bar-start), 1) 0%,
+      rgba(var(--color-background-bar-end), 1) 100%
+    );
   }
 }

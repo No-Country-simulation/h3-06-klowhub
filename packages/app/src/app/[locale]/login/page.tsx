@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from '@/ui/Logo/Logo';
+import Logo from '@/components/ui/Logo/Logo';
 import Button from '@/components/ui/buttons/Button/Button';
 import InputText from '@/components/ui/InputText/InputText';
 import ButtonSocial from '@/ui/Login/ButtonSocial';

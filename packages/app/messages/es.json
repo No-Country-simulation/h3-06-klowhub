@@ -1,4 +1,13 @@
 {
+  "Appbar": {
+    "courses": "Cursos",
+    "applications": "Aplicaciones",
+    "projects": "Proyectos",
+    "mentorships": "Mentorías",
+    "login": "Iniciar Sesión",
+    "register": "Registrarse",
+    "logout": "Cerrar Sesión"
+  },
   "Metadata": {
     "title": "Inicio",
     "description": "Klowhub es una red social para desarrolladores de no-code"

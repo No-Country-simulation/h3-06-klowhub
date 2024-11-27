@@ -6,7 +6,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { getTranslations } from 'next-intl/server';
 import '../globals.css';
-import AppBar from '@/components/molecules/appbar/appbar';
+import AppBar from '@/components/molecules/appbar/Appbar';
 
 const geistSans = localFont({
   src: '../fonts/GeistVF.woff',
@@ -50,7 +50,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-body text-white`}
       >
         <NextIntlClientProvider messages={messages}>
           <AppBar />
