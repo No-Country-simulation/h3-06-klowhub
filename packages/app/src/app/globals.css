@@ -45,6 +45,8 @@
   --color-background-dark: 27, 27, 31;
   --color-background-semi-dark: 24, 25, 65;
   --color-background-light: 52, 57, 92;
+
+  --color-background-form: 3, 24, 59;
 }
 
 @media (prefers-color-scheme: dark) {

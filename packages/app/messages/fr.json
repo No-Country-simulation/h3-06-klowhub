@@ -1,45 +1,68 @@
 {
+  "Metadata": {
+    "title": "Accueil",
+    "description": "Klowhub est un réseau social pour les développeurs no-code"
+  },
   "Appbar": {
     "courses": "Cours",
     "applications": "Applications",
     "projects": "Projets",
-    "mentorships": "Mentorships",
-    "login": "Connexion",
-    "register": "Inscription",
-    "logout": "Déconnexion"
+    "mentorships": "Mentorat",
+    "login": "Se connecter",
+    "register": "S'inscrire",
+    "logout": "Se déconnecter"
   },
-  "Metadata": {
-    "title": "Accueil",
-    "description": "Klowhub est une réseau social pour les développeurs no code"
-  },
-  "Home": {
-    "buttonDeploy": "Déployer maintenant"
-  },
-  "About": {
-    "default": "A propos de nous"
-  },
-  "UserServerResponses": {
-    "userCreated": "Utilisateur créé avec succès",
-    "userAlreadyExists": "L'utilisateur existe déjà",
-    "userLoggedIn": "Utilisateur connecté avec succès",
-    "invalidCredentials": "Identifiants invalides",
-    "sessionVerifyError": "Échec de la vérification de la session"
-  },
-  "ValidationMessages": {
-    "user": {
-      "fullname": {
-        "minLength": "Le nom complet doit avoir au moins 3 caractères"
+  "Auth": {
+    "heroText": "Explorez, apprenez, enseignez et connectez-vous. Créez votre compte sur Klowhub et accédez à un monde de possibilités.",
+    "form": {
+      "email": "Email",
+      "password": "Mot de passe",
+      "helpPassword": "Il doit contenir au moins 1 chiffre, 1 lettre majuscule et comporter au minimum 6 caractères.",
+      "confirmPassword": "Confirmer le mot de passe",
+      "successPassword": "Les mots de passe correspondent",
+      "fullname": "Nom complet",
+      "helpFullName": "C'est ainsi que vous serez identifié sur la plateforme",
+      "username": "Nom d'utilisateur",
+      "notHaveAccount": "Vous n'avez pas de compte ?",
+      "haveAccount": "Vous avez un compte ?",
+      "Signin": "S'inscrire",
+      "Login": "Se connecter",
+      "continueWith": "O continuer avec",
+      "placeholder": {
+        "login": {
+          "identifier": "Nom d'utilisateur ou email"
+        },
+        "conditions": {
+          "accept": "En vous inscrivant, vous acceptez nos ",
+          "terms": "Conditions d'utilisation",
+          "and": " et ",
+          "privacy": "Politique de confidentialité"
+        }
       },
-      "username": {
-        "minLength": "Le nom d'utilisateur doit avoir au moins 3 caractères"
-      },
-      "email": {
-        "invalid": "Adresse e-mail non valide"
-      },
-      "password": {
-        "invalid": "Le mot de passe doit contenir au moins 8 caractères, au plus 50 caractères, au moins une lettre majuscule, au moins une lettre minuscule, au moins un chiffre et au moins un caractère spécial",
-        "required": "Le mot de passe est requis"
+      "MailSubscription": "Je souhaite recevoir des mises à jour et des conseils de la plateforme"
+    },
+    "ValidationMessages": {
+      "user": {
+        "fullname": {
+          "minLength": "Le nom complet doit comporter au moins 3 caractères"
+        },
+        "username": {
+          "minLength": "Le nom d'utilisateur doit comporter au moins 3 caractères"
+        },
+        "email": {
+          "invalid": "Adresse email invalide"
+        },
+        "password": {
+          "invalid": "Le mot de passe doit comporter au moins 8 caractères, ne pas dépasser 50 caractères, inclure au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial",
+          "required": "Le mot de passe est requis"
+        }
       }
     }
+  },
+  "Home": {
+    "buttonDeploy": "Déployer maintenant"
+  },
+  "About": {
+    "default": "À propos de nous"
   }
 }

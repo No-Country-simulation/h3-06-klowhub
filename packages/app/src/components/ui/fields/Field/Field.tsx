@@ -1,10 +1,10 @@
 import { cva, VariantProps } from 'class-variance-authority';
 import Input, { TBaseInputProps } from '../Input/Input';
 import { forwardRef, Ref } from 'react';
-import { cn } from '@/_lib';
+import { cn } from '@/_lib'; // Suponiendo que tienes una función cn para combinar clases
 
-const TFieldProps = cva(
-  'flex flex-row justify-between items-center border bg-gray-50 font-inter text-base rounded-md disabled:bg-gray-100',
+const fieldProps = cva(
+  'flex flex-row justify-between items-center border bg-gray-50 font-inter text-base rounded-md disabled:bg-gray-100 text-black',
   {
     variants: {
       colorState: {
@@ -14,7 +14,7 @@ const TFieldProps = cva(
       },
       fluid: {
         true: 'w-full',
-        false: 'w-[250px]',
+        false: 'w-[250px] sm:w-[400px]',
       },
       reverse: {
         true: 'flex-row-reverse',
@@ -28,11 +28,10 @@ const TFieldProps = cva(
     },
   },
 );
-export type TFieldProps = VariantProps<typeof TFieldProps> &
+
+export type TFieldProps = VariantProps<typeof fieldProps> &
   TBaseInputProps & {
-    colorState: 'default' | 'error' | 'success';
-    fluid?: boolean;
-    reverse?: boolean;
+    children?: React.ReactNode;
   };
 
 const Field = forwardRef<HTMLInputElement, TFieldProps>(
@@ -42,7 +41,7 @@ const Field = forwardRef<HTMLInputElement, TFieldProps>(
   ) => {
     return (
       <div
-        className={cn(TFieldProps({ colorState, fluid, reverse }), className)}
+        className={cn(fieldProps({ colorState, fluid, reverse }), className)}
       >
         <Input
           {...rest}
@@ -50,7 +49,7 @@ const Field = forwardRef<HTMLInputElement, TFieldProps>(
           fluid={true}
           padding={reverse ? false : true}
         />
-        {children}
+        {children && children}
       </div>
     );
   },

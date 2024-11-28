@@ -48,13 +48,15 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className="h-screen w-screen">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-body text-white`}
       >
         <NextIntlClientProvider messages={messages}>
-          <AppBar />
-          {children}
+          <div className="flex flex-col w-100vh">
+            <AppBar />
+            <div>{children}</div>
+          </div>
         </NextIntlClientProvider>
       </body>
     </html>

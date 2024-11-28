@@ -1,45 +1,68 @@
 {
+  "Metadata": {
+    "title": "Home",
+    "description": "Klowhub is a social network for no-code developers"
+  },
   "Appbar": {
     "courses": "Courses",
     "applications": "Applications",
     "projects": "Projects",
-    "mentoriships": "Mentorships",
-    "login": "Iniciar Sesión",
-    "register": "Registrarse",
-    "logout": "Cerrar Sesión"
+    "mentorships": "Mentorships",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout"
   },
-  "Metadata": {
-    "title": "Home",
-    "description": "Klowhub is a social network for No Code developers"
+  "Auth": {
+    "heroText": "Explore, learn, teach, and connect. Create your account on Klowhub and access a world of possibilities.",
+    "form": {
+      "email": "Email",
+      "password": "Password",
+      "helpPassword": "It must contain at least 1 number, 1 uppercase letter, and have a minimum of 6 characters.",
+      "confirmPassword": "Confirm password",
+      "successPassword": "Passwords match",
+      "fullname": "Full name",
+      "helpFullName": "This will identify you on the platform",
+      "username": "Username",
+      "haveAccount": "Already have an account?",
+      "notHaveAccount": "Don't have an account?",
+      "Signin": "Sign up",
+      "Login": "Login",
+      "continueWith": "Or continue with",
+      "placeholder": {
+        "login": {
+          "identifier": "Username or email"
+        },
+        "conditions": {
+          "accept": "By registering you accept our ",
+          "terms": "Terms of service",
+          "and": " and ",
+          "privacy": "Privacy policy"
+        }
+      },
+      "MailSubscription": "I want to receive updates and tips from the platform"
+    },
+    "ValidationMessages": {
+      "user": {
+        "fullname": {
+          "minLength": "Full name must be at least 3 characters"
+        },
+        "username": {
+          "minLength": "Username must be at least 3 characters"
+        },
+        "email": {
+          "invalid": "Invalid email address"
+        },
+        "password": {
+          "invalid": "Password must be at least 8 characters, no more than 50 characters, include at least one uppercase letter, one lowercase letter, one number, and one special character",
+          "required": "Password is required"
+        }
+      }
+    }
   },
   "Home": {
     "buttonDeploy": "Deploy now"
   },
   "About": {
     "default": "About us"
-  },
-  "UserServerResponses": {
-    "userCreated": "User created successfully",
-    "userAlreadyExists": "User already exists",
-    "userLoggedIn": "User logged in successfully",
-    "invalidCredentials": "Invalid credentials",
-    "sessionVerifyError": "Failed to verify session"
-  },
-  "ValidationMessages": {
-    "user": {
-      "fullname": {
-        "minLength": "Full name must be at least 3 characters long"
-      },
-      "username": {
-        "minLength": "User name must be at least 3 characters"
-      },
-      "email": {
-        "invalid": "Invalid email address"
-      },
-      "password": {
-        "invalid": "Password must contain at least 8 character, no more than 50 characters, at least one uppercase letter, at least one lowercase letter, at least one number and at least one special character",
-        "required": "Password is required"
-      }
-    }
   }
 }

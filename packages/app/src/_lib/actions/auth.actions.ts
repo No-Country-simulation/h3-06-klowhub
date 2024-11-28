@@ -5,6 +5,8 @@ import { TFormState } from '@shared/types/formState';
 import { SignInSchema, SignUpSchema } from '@shared/validation';
 import { redirect } from '@/i18n/routing';
 import { createSession } from './session';
+import axios from 'axios';
+import { BACKEND_URL } from '../config';
 
 export async function signUp(
   state: TFormState,
@@ -15,6 +17,7 @@ export async function signUp(
     userName: formData.get('userName') as string,
     email: formData.get('email') as string,
     password: formData.get('password') as string,
+    confirmPassword: formData.get('confirmPassword') as string,
     acceptTerms: formData.get('acceptTerms') as string,
   });
 
@@ -23,27 +26,16 @@ export async function signUp(
       error: validationFields.error?.flatten().fieldErrors,
     };
   }
-  // const response = await fetch(`${BACKEND_URL}/auth/signup`, {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify({
-  //     fullname: formData.get('fullname') as string,
-  //     username: formData.get('username') as string,
-  //     email: formData.get('email') as string,
-  //     password: formData.get('password') as string,
-  //   }),
-  // });
+  const response = await axios.post(`${BACKEND_URL}/auth/signup`, {
+    fullname: formData.get('fullname') as string,
+    username: formData.get('username') as string,
+    email: formData.get('email') as string,
+    password: formData.get('password') as string,
+  });
   const t = await getTranslations('UserServerResponses');
   const locale = await getLocale();
-  const response = {
-    ok: true,
-    status: 200,
-    statusText: 'userCreated',
-  };
 
-  if (response.ok) {
+  if (response.status === 200) {
     redirect({ href: '/auth/signin', locale });
   } else {
     return {
@@ -68,36 +60,13 @@ export async function signIn(
     };
   }
 
-  // TODO: Call the api for singin
-  // const response = await fetch(`${BACKEND_URL}/auth/signin`, {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify({
-  //     email: formData.get('email') as string,
-  //     password: formData.get('password') as string,
-  //   }),
-  // });
-
+  const response = await axios.post(`${BACKEND_URL}/auth/signin`, {
+    email: formData.get('email') as string,
+    password: formData.get('password') as string,
+  });
   const t = await getTranslations('UserServerResponses');
 
-  const response = {
-    ok: true,
-    status: 200,
-    statusText: t('userLoggedIn'),
-    data: {
-      user: {
-        id: 'id',
-        userName: 'maria',
-        role: 'admin',
-      },
-      accessToken: 'accessToken',
-      refreshToken: 'refreshToken',
-    },
-  };
-
-  if (response.ok) {
+  if (response.status === 200) {
     const result = response.data;
 
     await createSession({
@@ -123,27 +92,20 @@ export async function signIn(
 }
 
 export const refreshToken = async (oldRefreshToken: string) => {
+  // const response = await fetch(`${BACKEND_URL}/auth/refresh`, {
+  // method: 'POST',
+  // headers: {
+  //   'Content-Type': 'application/json',
+  // },
+  // body: JSON.stringify({
+  //   refreshToken: oldRefreshToken,
+  // }),
   try {
-    // const response = await fetch(`${BACKEND_URL}/auth/refresh`, {
-    // method: 'POST',
-    // headers: {
-    //   'Content-Type': 'application/json',
-    // },
-    // body: JSON.stringify({
-    //   refreshToken: oldRefreshToken,
-    // }),
+    const response = await axios.post(`${BACKEND_URL}/auth/refresh`, {
+      refreshToken: oldRefreshToken,
+    });
 
-    const response = {
-      ok: true,
-      status: 200,
-      statusText: '',
-      data: JSON.stringify({
-        refreshToken: 'refreshToken',
-        accessToken: 'accessToken',
-      }),
-    };
-
-    if (!response.ok) {
+    if (response.status >= 400) {
       throw new Error('Failed to refresh token' + response.statusText);
     }
     const { refreshToken, accessToken } = JSON.parse(response.data);
@@ -156,8 +118,8 @@ export const refreshToken = async (oldRefreshToken: string) => {
         refreshToken,
       }),
     });
-    if (!updateRes.ok) throw new Error('Failed to update the tokens');
 
+    if (updateRes.status >= 400) throw new Error('Failed to update the tokens');
     return accessToken;
   } catch (error) {
     console.error('Refresh token failed:', error);
