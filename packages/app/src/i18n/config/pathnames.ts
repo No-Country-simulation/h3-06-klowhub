@@ -9,13 +9,13 @@ export const PATHNAMES: IPathnames = {
     es: '/sobre-nosotros',
     fr: '/a-propos',
   },
-  '/auth/signin': {
-    en: '/auth/signin',
+  '/auth/login': {
+    en: '/auth/login',
     es: '/auth/iniciar-sesion',
     fr: '/auth/connexion',
   },
-  '/auth/signup': {
-    en: '/auth/signup',
+  '/auth/register': {
+    en: '/auth/register',
     es: '/auth/registrarse',
     fr: '/auth/inscription',
   },

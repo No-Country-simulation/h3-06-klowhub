@@ -24,23 +24,24 @@
       "fullName": "Nombre completo",
       "helpFullName": "Así te identificarás en la plataforma",
       "userName": "Nombre de usuario",
+      "forgotPassword": "Olvidé mi contraseña",
       "notHaveAccount": "¿No tienes una cuenta?",
       "haveAccount": "¿Ya tienes una cuenta?",
       "register": "Registrarme",
       "login": "Iniciar Sesión",
+      "receiveSubscription": "Quiero recibir novedades y consejos de la plataforma",
       "continueWith": "O continuar con",
+      "conditions": {
+        "accept": "Al registrarte aceptas nuestras ",
+        "terms": "Condiciones de uso",
+        "and": " y ",
+        "privacy": "Politica de privacidad"
+      },
       "placeholder": {
         "login": {
           "identifier": "Nombre de usuario o mail"
-        },
-        "conditions": {
-          "accept": "Al registrarte aceptas nuestras ",
-          "terms": "Condiciones de uso",
-          "and": " y ",
-          "privacy": "Politica de privacidad"
         }
-      },
-      "MailSubscription": "Quiero recibir novedades y consejos de la plataforma"
+      }
     },
     "ValidationMessages": {
       "user": {

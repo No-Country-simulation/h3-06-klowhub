@@ -23,14 +23,15 @@ const SingUpForm = () => {
             name="fullName"
             id="fullName"
             placeholder={tAuth('fullName')}
-            colorState={state?.error?.email ? 'error' : 'default'}
-          />
+            colorState={state?.error?.fullName ? 'error' : 'default'}
+          />{' '}
+          {state?.error?.fullName && (
+            <MessageField variant="error">
+              {tValidation(`${state.error.fullName}`)}
+            </MessageField>
+          )}
         </div>
-        {state?.error?.fullName && (
-          <p className="text-red-500">
-            {tValidation(`${state.error.fullName}`)}
-          </p>
-        )}
+
         <div>
           <Field
             type="text"
@@ -39,12 +40,13 @@ const SingUpForm = () => {
             placeholder={tAuth('userName')}
             colorState={state?.error?.email ? 'error' : 'default'}
           />
+          {state?.error?.userName && (
+            <MessageField variant="error">
+              {tValidation(`${state.error.userName}`)}
+            </MessageField>
+          )}
         </div>
-        {state?.error?.userName && (
-          <p className="text-red-500">
-            {tValidation(`${state.error.userName}`)}
-          </p>
-        )}
+
         <div>
           <Field
             type="text"
@@ -53,50 +55,53 @@ const SingUpForm = () => {
             placeholder={tAuth('email')}
             colorState={state?.error?.email ? 'error' : 'default'}
           />
+          {state?.error?.email && (
+            <MessageField variant="error">
+              {tValidation(`${state.error.email}`)}
+            </MessageField>
+          )}
         </div>
-        {state?.error?.email && (
-          <p className="text-red-500">{tValidation(`${state.error.email}`)}</p>
-        )}
+
         <div>
           <PassField
             name="password"
             id="password"
             placeholder={tAuth('password')}
-          />
+          />{' '}
+          {state?.error?.password && (
+            <MessageField variant="error">
+              {tValidation(`${state.error.password}`)}
+            </MessageField>
+          )}
         </div>
-        {state?.error?.password && (
-          <p className="text-red-500">
-            {tValidation(`${state.error.password}`)}
-          </p>
-        )}
+
         <div>
           <PassField
             name="confirmPassword"
             id="confirmPassword"
             placeholder={tAuth('confirmPassword')}
           />
+          {state?.error?.confirmPassword && (
+            <MessageField variant="error">
+              {tValidation(`${state.error.confirmPassword}`)}
+            </MessageField>
+          )}
         </div>
-        {state?.error?.confirmPassword && (
-          <MessageField variant="error">
-            {' '}
-            {tValidation(`${state.error.confirmPassword}`)}
-          </MessageField>
-        )}
+
         <div className="flex flex-row gap-4 pt-5 pb-12 items-center">
           <CheckField name="acceptSubscription" id="acceptSubscription" />
-          <p>Quiero recibir novedades y consejos de la plataforma</p>
+          <p>{tAuth('receiveSubscription')}</p>
         </div>
         <SubmitButton>{tAuth('register')}</SubmitButton>
         <div className="text-sm w-[350px] text-center">
-          Al registrarse, aceptas nuestras{' '}
+          {tAuth('conditions.accept')}{' '}
           <TextLink variant="secondary" href="#">
-            Condiciones de uso
+            {tAuth('conditions.terms')}
           </TextLink>{' '}
-          y{' '}
+          {tAuth('conditions.and')}{' '}
           <TextLink variant="secondary" href="#">
-            Politicas de privacidad
+            {tAuth('conditions.privacy')}
           </TextLink>
-          .
         </div>
       </div>
     </form>

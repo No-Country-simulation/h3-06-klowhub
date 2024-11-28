@@ -53,9 +53,9 @@ export default async function LocaleLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-body text-white h-full w-full`}
       >
         <NextIntlClientProvider messages={messages}>
-          <div className="flex flex-col fixed w-full">
-            <AppBar />
-            <div className="h-full w-full">{children}</div>
+          <div className="flex flex-col w-full h-full">
+            <AppBar className="flex-shrink-0 flex-grow-0" />
+            {children}
           </div>
         </NextIntlClientProvider>
       </body>

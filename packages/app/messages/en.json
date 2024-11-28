@@ -17,52 +17,53 @@
     "form": {
       "email": "Email",
       "password": "Password",
-      "helpPassword": "It must contain at least 1 number, 1 uppercase letter, and have a minimum of 6 characters.",
+      "helpPassword": "Must contain at least 1 number, 1 uppercase letter, and be at least 6 characters long.",
       "confirmPassword": "Confirm password",
       "successPassword": "Passwords match",
-      "fullname": "Full name",
-      "helpFullName": "This will identify you on the platform",
-      "username": "Username",
-      "haveAccount": "Already have an account?",
+      "fullName": "Full Name",
+      "helpFullName": "This is how you will be identified on the platform",
+      "userName": "Username",
+      "forgotPassword": "Forgot my password",
       "notHaveAccount": "Don't have an account?",
-      "Signin": "Sign up",
-      "Login": "Login",
+      "haveAccount": "Already have an account?",
+      "register": "Register",
+      "login": "Login",
+      "receiveSubscription": "I want to receive news and tips from the platform",
       "continueWith": "Or continue with",
+      "conditions": {
+        "accept": "By registering you accept our ",
+        "terms": "Terms of Use",
+        "and": " and ",
+        "privacy": "Privacy Policy"
+      },
       "placeholder": {
         "login": {
           "identifier": "Username or email"
-        },
-        "conditions": {
-          "accept": "By registering you accept our ",
-          "terms": "Terms of service",
-          "and": " and ",
-          "privacy": "Privacy policy"
         }
-      },
-      "MailSubscription": "I want to receive updates and tips from the platform"
+      }
     },
     "ValidationMessages": {
       "user": {
         "fullname": {
-          "minLength": "Full name must be at least 3 characters"
+          "minLength": "Full name must be at least 3 characters long"
         },
         "username": {
-          "minLength": "Username must be at least 3 characters"
+          "minLength": "Username must be at least 3 characters long"
         },
         "email": {
           "invalid": "Invalid email address"
         },
         "password": {
-          "invalid": "Password must be at least 8 characters, no more than 50 characters, include at least one uppercase letter, one lowercase letter, one number, and one special character",
+          "invalid": "Password must be at least 8 characters long, no more than 50 characters, include at least one uppercase letter, one lowercase letter, one number, and one special character",
           "required": "Password is required"
         }
       }
     }
   },
   "Home": {
-    "buttonDeploy": "Deploy now"
+    "buttonDeploy": "Deploy Now"
   },
   "About": {
-    "default": "About us"
+    "default": "About Us"
   }
 }

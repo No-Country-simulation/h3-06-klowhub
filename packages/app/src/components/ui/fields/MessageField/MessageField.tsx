@@ -2,7 +2,7 @@ import React, { FC, HTMLAttributes } from 'react';
 import { cn } from '@/_lib';
 import { cva, VariantProps } from 'class-variance-authority';
 
-const messageFielProps = cva('text-sm', {
+const messageFielProps = cva('flex text-sm w-[400px]', {
   variants: {
     variant: {
       default: ' text-gray-400',

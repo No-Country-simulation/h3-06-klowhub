@@ -22,7 +22,7 @@ const SignInPage = async () => {
         <SignInForm />
         <SocialLogin />
         <HaveAccountLink
-          href="/auth/signup"
+          href="/auth/register"
           question={t('form.notHaveAccount') /* No tienes una cuenta?*/}
         >
           {t('form.register') /*Registrame*/}

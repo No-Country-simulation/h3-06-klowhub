@@ -27,6 +27,10 @@ const buttonLinkProps = cva(
         sm: 'h-[50px] px-6',
         xs: 'h-[34px] px-4',
       },
+      wrap: {
+        true: 'whitespace-wrap',
+        false: 'whitespace-nowrap',
+      },
       rounded: {
         full: 'rounded-[50px]',
         left: 'rounded-tl-[50px] rounded-bl-[50px]',
@@ -42,6 +46,7 @@ const buttonLinkProps = cva(
       size: 'lg',
       rounded: 'full',
       fullWidth: false,
+      wrap: false,
     },
   },
 );
@@ -53,6 +58,7 @@ export type TButtonLinkProps = VariantProps<typeof buttonLinkProps> & {
 const ButtonLink: React.FC<TButtonLinkProps> = ({
   variant,
   size,
+  wrap,
   rounded,
   fullWidth,
   children,
@@ -61,7 +67,9 @@ const ButtonLink: React.FC<TButtonLinkProps> = ({
 }) => {
   return (
     <Link
-      className={cn(buttonLinkProps({ variant, rounded, size, fullWidth }))}
+      className={cn(
+        buttonLinkProps({ variant, rounded, wrap, size, fullWidth }),
+      )}
       href={href}
       {...rest}
     >

@@ -27,6 +27,10 @@ const buttonProps = cva(
         sm: 'h-[50px] px-6',
         xs: 'h-[34px] px-4',
       },
+      wrap: {
+        true: 'whitespace-wrap',
+        false: 'whitespace-nowrap',
+      },
       rounded: {
         full: 'rounded-[50px]',
         left: 'rounded-tl-[50px] rounded-bl-[50px]',
@@ -42,6 +46,7 @@ const buttonProps = cva(
       size: 'lg',
       rounded: 'full',
       fullWidth: false,
+      wrap: false,
     },
   },
 );
@@ -53,11 +58,14 @@ const Button: React.FC<TButtonProps> = ({
   variant,
   size,
   rounded,
+  wrap,
   fullWidth,
   children,
 }) => {
   return (
-    <button className={cn(buttonProps({ variant, rounded, size, fullWidth }))}>
+    <button
+      className={cn(buttonProps({ variant, rounded, wrap, size, fullWidth }))}
+    >
       {children}
     </button>
   );

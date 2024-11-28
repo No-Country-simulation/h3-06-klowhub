@@ -7,39 +7,40 @@
     "courses": "Cours",
     "applications": "Applications",
     "projects": "Projets",
-    "mentorships": "Mentorat",
-    "login": "Se connecter",
+    "mentorships": "Mentorats",
+    "login": "Connexion",
     "register": "S'inscrire",
-    "logout": "Se déconnecter"
+    "logout": "Déconnexion"
   },
   "Auth": {
     "heroText": "Explorez, apprenez, enseignez et connectez-vous. Créez votre compte sur Klowhub et accédez à un monde de possibilités.",
     "form": {
       "email": "Email",
       "password": "Mot de passe",
-      "helpPassword": "Il doit contenir au moins 1 chiffre, 1 lettre majuscule et comporter au minimum 6 caractères.",
+      "helpPassword": "Doit contenir au moins 1 chiffre, 1 lettre majuscule et au moins 6 caractères.",
       "confirmPassword": "Confirmer le mot de passe",
       "successPassword": "Les mots de passe correspondent",
-      "fullname": "Nom complet",
+      "fullName": "Nom complet",
       "helpFullName": "C'est ainsi que vous serez identifié sur la plateforme",
-      "username": "Nom d'utilisateur",
+      "userName": "Nom d'utilisateur",
+      "forgotPassword": "J'ai oublé mon mot de passe",
       "notHaveAccount": "Vous n'avez pas de compte ?",
-      "haveAccount": "Vous avez un compte ?",
-      "Signin": "S'inscrire",
-      "Login": "Se connecter",
-      "continueWith": "O continuer avec",
+      "haveAccount": "Vous avez déjà un compte ?",
+      "register": "S'inscrire",
+      "login": "Connexion",
+      "receiveSubscription": "Je souhaite recevoir des actualités et des conseils de la plateforme",
+      "conditions": {
+        "accept": "En vous inscrivant, vous acceptez nos ",
+        "terms": "Conditions d'utilisation",
+        "and": " et notre ",
+        "privacy": "Politique de confidentialité"
+      },
+      "continueWith": "Ou continuer avec",
       "placeholder": {
         "login": {
           "identifier": "Nom d'utilisateur ou email"
-        },
-        "conditions": {
-          "accept": "En vous inscrivant, vous acceptez nos ",
-          "terms": "Conditions d'utilisation",
-          "and": " et ",
-          "privacy": "Politique de confidentialité"
         }
-      },
-      "MailSubscription": "Je souhaite recevoir des mises à jour et des conseils de la plateforme"
+      }
     },
     "ValidationMessages": {
       "user": {
@@ -53,7 +54,7 @@
           "invalid": "Adresse email invalide"
         },
         "password": {
-          "invalid": "Le mot de passe doit comporter au moins 8 caractères, ne pas dépasser 50 caractères, inclure au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial",
+          "invalid": "Le mot de passe doit comporter au moins 8 caractères, pas plus de 50 caractères, inclure au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial",
           "required": "Le mot de passe est requis"
         }
       }

@@ -3,11 +3,17 @@ import HeaderLink from '@/components/ui/links/headerLink/HeaderLink';
 import Logo from '@/components/ui/Logo/Logo';
 import SwitcherButtonWrapper from '../SwitcherButtonWrapper/SwitcherButtonWrapper';
 import { getTranslations } from 'next-intl/server';
+import { cn } from '@/_lib';
 
-const AppBar = async () => {
+const AppBar = async ({ className }: { className?: string }) => {
   const t = await getTranslations('Appbar');
   return (
-    <div className="h-20 flex justify-between items-centergap-º3 bg-gradient-bar text-white px-[60px]">
+    <div
+      className={cn(
+        'h-20 flex justify-between items-center gap-3 bg-gradient-bar text-white px-[60px]',
+        className,
+      )}
+    >
       <Logo />
 
       <SwitcherButtonWrapper

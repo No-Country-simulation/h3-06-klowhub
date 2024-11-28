@@ -7,6 +7,7 @@ import { useFormState } from 'react-dom';
 import { Field } from '../ui';
 import TextLink from '../ui/links/textLink/TextLink';
 import PassField from '../molecules/PassField/PassField';
+import MessageField from '../ui/fields/MessageField/MessageField';
 
 const SingInForm = () => {
   const [state, action] = useFormState(signIn, undefined);
@@ -24,29 +25,34 @@ const SingInForm = () => {
             placeholder={tAuth('placeholder.login.identifier')}
             colorState={state?.error?.email ? 'error' : 'default'}
           />
+
+          {state?.error?.email && (
+            <MessageField variant="error">
+              {tValidation(`${state.error.email}`)}
+            </MessageField>
+          )}
         </div>
-        {state?.error?.email && (
-          <p className="text-red-500">{tValidation(`${state.error.email}`)}</p>
-        )}
+
         <div>
           <PassField
             name="password"
             id="password"
             placeholder={tAuth('password')}
           />
+          {state?.error?.password && (
+            <MessageField variant="error">
+              {tValidation(`${state.error.password}`)}
+            </MessageField>
+          )}
         </div>
-        {state?.error?.password && (
-          <p className="text-red-500">
-            {tValidation(`${state.error.password}`)}
-          </p>
-        )}
+
         <TextLink
           variant="primary"
           size="sm"
           href="/auth/signup"
           className="text-center pb-[50px] "
         >
-          Olvidé mi contraseña
+          {tAuth('forgotPassword')}
         </TextLink>
 
         <SubmitButton>{tAuth('login')}</SubmitButton>
