@@ -1,8 +1,10 @@
-// src/infrastructure/repositories/course.repository.ts
 import { Injectable } from '@nestjs/common';
-import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { ICourse, IModule, ILesson } from '../../domain/models/course.model';
+import { Model } from 'mongoose';
+import { ICourse } from '@shared/types/ICourse';
+import { CourseEntity } from '../../domain/entities/course.entity';
+import { ModuleEntity } from '../../domain/entities/module.entity';
+import { LessonEntity } from '../../domain/entities/lesson.entity';
 
 @Injectable()
 export class CourseRepository {
@@ -10,119 +12,116 @@ export class CourseRepository {
     @InjectModel('Course') private readonly courseModel: Model<ICourse>,
   ) {}
 
-  // Crear un nuevo curso
-  async create(course: Partial<ICourse>): Promise<ICourse> {
-    return new this.courseModel(course).save();
+  // Crear curso a partir de una entidad
+  async create(courseEntity: CourseEntity): Promise<CourseEntity> {
+    const createdCourse = new this.courseModel({
+      title: courseEntity.title,
+      description: courseEntity.description,
+      creatorId: courseEntity.creatorId,
+      modules: courseEntity.modules.map((module) => ({
+        title: module.title,
+        description: module.description,
+        lessons: module.lessons.map((lesson) => ({
+          title: lesson.title,
+          content: lesson.content,
+        })),
+      })),
+    });
+    const savedCourse = await createdCourse.save();
+    return this.toEntity(savedCourse);
   }
-
-  // Actualizar información de un curso
-  async update(
-    id: string,
-    updateData: Partial<ICourse>,
-  ): Promise<ICourse | null> {
-    return this.courseModel
-      .findByIdAndUpdate(id, updateData, { new: true })
-      .exec();
-  }
-
-  // Eliminar un curso
-  async delete(id: string): Promise<{ acknowledged: boolean } | null> {
+  //Borrar por ID
+  async delete(id: string): Promise<{ acknowledged: boolean }> {
     return this.courseModel.deleteOne({ _id: id }).exec();
+  }
+  // Buscar curso por ID y devolver como entidad
+  async findById(courseId: string): Promise<CourseEntity | null> {
+    const course = await this.courseModel.findById(courseId).exec();
+    return course ? this.toEntity(course) : null;
+  }
+
+  // Actualizar curso
+  async update(courseEntity: CourseEntity): Promise<CourseEntity> {
+    const updatedCourse = await this.courseModel
+      .findByIdAndUpdate(courseEntity._id, courseEntity, { new: true })
+      .exec();
+    if (!updatedCourse) {
+      throw new Error('No se pudo actualizar el curso.');
+    }
+    return this.toEntity(updatedCourse);
   }
 
   // Agregar un módulo a un curso
   async addModule(
     courseId: string,
-    moduleData: Partial<IModule>,
-  ): Promise<ICourse | null> {
-    return this.courseModel
+    moduleEntity: ModuleEntity,
+  ): Promise<CourseEntity | null> {
+    const updatedCourse = await this.courseModel
       .findByIdAndUpdate(
         courseId,
-        { $push: { modules: moduleData } },
+        { $push: { modules: moduleEntity } },
         { new: true },
       )
       .exec();
+    return updatedCourse ? this.toEntity(updatedCourse) : null;
   }
 
-  // Agregar una lección a un módulo de un curso
+  // Agregar una lección a un módulo
   async addLesson(
     courseId: string,
     moduleId: string,
-    lessonData: Partial<ILesson>,
-  ): Promise<ICourse | null> {
-    return this.courseModel
+    lessonEntity: LessonEntity,
+  ): Promise<CourseEntity | null> {
+    const updatedCourse = await this.courseModel
       .findOneAndUpdate(
         { _id: courseId, 'modules._id': moduleId },
-        { $push: { 'modules.$.lessons': lessonData } },
+        { $push: { 'modules.$.lessons': lessonEntity } },
         { new: true },
       )
       .exec();
+    return updatedCourse ? this.toEntity(updatedCourse) : null;
   }
-
-  // Actualizar un módulo en un curso
-  async updateModule(
-    courseId: string,
-    moduleId: string,
-    updateData: Partial<IModule>,
-  ): Promise<ICourse | null> {
-    return this.courseModel
-      .findOneAndUpdate(
-        { _id: courseId, 'modules._id': moduleId },
-        { $set: { 'modules.$': updateData } },
-        { new: true },
-      )
-      .exec();
-  }
-
-  // Actualizar una lección en un módulo de un curso
-  async updateLesson(
-    courseId: string,
-    moduleId: string,
-    lessonId: string,
-    updateData: Partial<ILesson>,
-  ): Promise<ICourse | null> {
-    return this.courseModel
-      .findOneAndUpdate(
-        {
-          _id: courseId,
-          'modules._id': moduleId,
-          'modules.lessons._id': lessonId,
-        },
-        { $set: { 'modules.$.lessons.$[lesson]': updateData } },
-        {
-          new: true,
-          arrayFilters: [{ 'lesson._id': lessonId }],
-        },
-      )
-      .exec();
-  }
-
-  // Eliminar un módulo de un curso
-  async deleteModule(
-    courseId: string,
-    moduleId: string,
-  ): Promise<ICourse | null> {
-    return this.courseModel
-      .findByIdAndUpdate(
-        courseId,
-        { $pull: { modules: { _id: moduleId } } },
-        { new: true },
-      )
-      .exec();
-  }
-
-  // Eliminar una lección de un módulo de un curso
   async deleteLesson(
     courseId: string,
     moduleId: string,
     lessonId: string,
-  ): Promise<ICourse | null> {
-    return this.courseModel
+  ): Promise<CourseEntity | null> {
+    const updatedCourse = await this.courseModel
       .findOneAndUpdate(
         { _id: courseId, 'modules._id': moduleId },
         { $pull: { 'modules.$.lessons': { _id: lessonId } } },
         { new: true },
       )
       .exec();
+
+    return updatedCourse ? this.toEntity(updatedCourse) : null;
+  }
+
+  // Conversión de modelo a entidad
+  private toEntity(course: ICourse): CourseEntity {
+    const modules = course.modules.map(
+      (module) =>
+        new ModuleEntity(
+          module.title,
+          module.description,
+          module.lessons.map(
+            (lesson) =>
+              new LessonEntity(
+                lesson.title,
+                lesson.content,
+                lesson._id?.toString(),
+              ),
+          ),
+          module._id?.toString(),
+        ),
+    );
+
+    return new CourseEntity(
+      course.title,
+      course.description,
+      course.creatorId,
+      modules,
+      course._id?.toString(),
+    );
   }
 }

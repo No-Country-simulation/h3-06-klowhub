@@ -1,4 +1,22 @@
-import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsOptional,
+  ValidateNested,
+  ArrayMinSize,
+  IsArray,
+} from 'class-validator';
+import { Type } from 'class-transformer';
+
+class CreateLessonDto {
+  @IsString()
+  @IsNotEmpty({ message: 'El título de la lección es obligatorio' })
+  title: string;
+
+  @IsString()
+  @IsOptional()
+  content?: string;
+}
 
 export class CreateModuleDto {
   @IsString()
@@ -8,4 +26,10 @@ export class CreateModuleDto {
   @IsString()
   @IsOptional()
   description?: string;
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateLessonDto)
+  @ArrayMinSize(1, { message: 'El módulo debe contener al menos una lección' })
+  lessons: CreateLessonDto[];
 }

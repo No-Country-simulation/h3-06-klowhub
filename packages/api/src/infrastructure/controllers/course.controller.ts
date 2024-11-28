@@ -11,10 +11,10 @@ import {
 import { CreateCourseUseCase } from '../../application/use-case/course/create-course.use-case';
 import { UpdateCourseUseCase } from '../../application/use-case/course/update-course-use.case';
 import { DeleteCourseUseCase } from '../../application/use-case/course/delete-course-use.case';
-import { AddModuleToCourseUseCase } from '../../application/use-case/course/add-module.use-case';
-import { AddLessonToModuleUseCase } from '../../application/use-case/course/add-lesson.use-case';
-import { DeleteModuleUseCase } from '../../application/use-case/course/delete-module.use-case';
-import { DeleteLessonUseCase } from '../../application/use-case/course/delete-lesson.use-case';
+import { AddModuleToCourseUseCase } from '../../application/use-case/modules/add-module.use-case';
+import { AddLessonToModuleUseCase } from '../../application/use-case/lesson/add-lesson.use-case';
+import { DeleteLessonFromModuleUseCase } from '../../application/use-case/modules/delete-module.use-case';
+import { DeleteLessonUseCase } from '../../application/use-case/lesson/delete-lesson.use-case';
 import { CreateCourseDto } from '../../application/dtos/create.course.dto';
 import { UpdateCourseDto } from '../../application/dtos/update-course.dto';
 import { CreateModuleDto } from '../../application/dtos/create-module.dto';
@@ -26,15 +26,17 @@ export class CourseController {
     private readonly createCourseUseCase: CreateCourseUseCase,
     private readonly updateCourseUseCase: UpdateCourseUseCase,
     private readonly deleteCourseUseCase: DeleteCourseUseCase,
-    private readonly AddModuleToCourseUseCase: AddModuleToCourseUseCase,
-    private readonly AddLessonToModuleUseCase: AddLessonToModuleUseCase,
-    private readonly deleteModuleUseCase: DeleteModuleUseCase,
+    private readonly addModuleToCourseUseCase: AddModuleToCourseUseCase,
+    private readonly addLessonToModuleUseCase: AddLessonToModuleUseCase,
+    private readonly deleteModuleUseCase: DeleteLessonFromModuleUseCase,
     private readonly deleteLessonUseCase: DeleteLessonUseCase,
   ) {}
 
   @Post()
+  @HttpCode(201)
   async createCourse(@Body() createCourseDto: CreateCourseDto) {
-    return this.createCourseUseCase.execute(createCourseDto);
+    const course = await this.createCourseUseCase.execute(createCourseDto);
+    return { message: 'Curso creado con éxito', course };
   }
 
   @Put(':id')
@@ -49,42 +51,38 @@ export class CourseController {
     if (!updatedCourse) {
       throw new NotFoundException('Curso no encontrado');
     }
-    return updatedCourse;
+    return { message: 'Curso actualizado con éxito', updatedCourse };
   }
 
   @Delete(':id')
+  @HttpCode(204)
   async deleteCourse(@Param('id') id: string) {
-    const deleted = await this.deleteCourseUseCase.execute(id);
-    if (!deleted) {
-      throw new NotFoundException('Curso no encontrado');
-    }
-    return { message: 'Curso eliminado con éxito' };
+    await this.deleteCourseUseCase.execute(id);
+    return; // Opcional porque el código 204 no requiere respuesta
   }
 
-  // Agregar un módulo al curso
   @Post(':id/modules')
   async addModule(
     @Param('id') courseId: string,
     @Body() createModuleDto: CreateModuleDto,
   ) {
-    const updatedCourse = await this.AddModuleToCourseUseCase.execute(
+    const updatedCourse = await this.addModuleToCourseUseCase.execute(
       courseId,
       createModuleDto,
     );
     if (!updatedCourse) {
       throw new NotFoundException('Curso no encontrado');
     }
-    return updatedCourse;
+    return { message: 'Módulo añadido con éxito', updatedCourse };
   }
 
-  // Agregar una lección a un módulo
   @Post(':courseId/modules/:moduleId/lessons')
   async addLesson(
     @Param('courseId') courseId: string,
     @Param('moduleId') moduleId: string,
     @Body() createLessonDto: CreateLessonDto,
   ) {
-    const updatedCourse = await this.AddLessonToModuleUseCase.execute(
+    const updatedCourse = await this.addLessonToModuleUseCase.execute(
       courseId,
       moduleId,
       createLessonDto,
@@ -92,26 +90,9 @@ export class CourseController {
     if (!updatedCourse) {
       throw new NotFoundException('Curso o módulo no encontrado');
     }
-    return updatedCourse;
+    return { message: 'Lección añadida con éxito', updatedCourse };
   }
 
-  // Eliminar un módulo de un curso
-  @Delete(':courseId/modules/:moduleId')
-  async deleteModule(
-    @Param('courseId') courseId: string,
-    @Param('moduleId') moduleId: string,
-  ) {
-    const updatedCourse = await this.deleteModuleUseCase.execute(
-      courseId,
-      moduleId,
-    );
-    if (!updatedCourse) {
-      throw new NotFoundException('Curso o módulo no encontrado');
-    }
-    return updatedCourse;
-  }
-
-  // Eliminar una lección de un módulo
   @Delete(':courseId/modules/:moduleId/lessons/:lessonId')
   @HttpCode(204)
   async deleteLesson(

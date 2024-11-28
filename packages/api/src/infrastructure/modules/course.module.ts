@@ -11,10 +11,10 @@ import { lessonSchema } from '../../domain/models/lesson.model';
 import { CreateCourseUseCase } from '../../application/use-case/course/create-course.use-case';
 import { UpdateCourseUseCase } from '../../application/use-case/course/update-course-use.case';
 import { DeleteCourseUseCase } from '../../application/use-case/course/delete-course-use.case';
-import { AddModuleToCourseUseCase } from '../../application/use-case/course/add-module.use-case';
-import { AddLessonToModuleUseCase } from '../../application/use-case/course/add-lesson.use-case';
-import { DeleteModuleUseCase } from '../../application/use-case/course/delete-module.use-case';
-import { DeleteLessonUseCase } from '../../application/use-case/course/delete-lesson.use-case';
+import { AddModuleToCourseUseCase } from '../../application/use-case/modules/add-module.use-case';
+import { AddLessonToModuleUseCase } from '../../application/use-case/lesson/add-lesson.use-case';
+import { DeleteLessonFromModuleUseCase } from '../../application/use-case/modules/delete-module.use-case';
+import { DeleteLessonUseCase } from '../../application/use-case/lesson/delete-lesson.use-case';
 
 @Module({
   imports: [
@@ -34,7 +34,7 @@ import { DeleteLessonUseCase } from '../../application/use-case/course/delete-le
     DeleteCourseUseCase,
     AddModuleToCourseUseCase,
     AddLessonToModuleUseCase,
-    DeleteModuleUseCase,
+    DeleteLessonFromModuleUseCase,
     DeleteLessonUseCase,
   ],
 })
