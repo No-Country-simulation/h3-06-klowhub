@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { useFormState } from 'react-dom';
 import { Field } from '../ui';
 import TextLink from '../ui/links/textLink/TextLink';
+import PassField from '../molecules/PassField/PassField';
 
 const SingInForm = () => {
   const [state, action] = useFormState(signIn, undefined);
@@ -16,7 +17,6 @@ const SingInForm = () => {
       <div className="flex flex-col gap-3  pb-10">
         {state?.message && <p className="text-red-500">{state.message}</p>}
         <div>
-          {/* <label htmlFor="email">Email</label> */}
           <Field
             type="text"
             name="email"
@@ -29,9 +29,7 @@ const SingInForm = () => {
           <p className="text-red-500">{tValidation(`${state.error.email}`)}</p>
         )}
         <div>
-          {/* <label htmlFor="password">Contraseña</label> */}
-          <Field
-            type="password"
+          <PassField
             name="password"
             id="password"
             placeholder={tAuth('password')}

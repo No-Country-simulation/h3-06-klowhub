@@ -3,9 +3,11 @@ import { signUp } from '@/_lib/actions/auth.actions';
 import SubmitButton from '@/components/ui/submitButton/SubmitButton';
 import { useFormState } from 'react-dom';
 import { useTranslations } from 'next-intl';
-import { Field } from '../ui';
-import TextLink from '../ui/links/textLink/TextLink';
-import MessageField from '../ui/fields/MessageField/MessageField';
+import { Field } from '../../ui';
+import TextLink from '../../ui/links/textLink/TextLink';
+import MessageField from '../../ui/fields/MessageField/MessageField';
+import PassField from '@/components/molecules/PassField/PassField';
+import CheckField from '@/components/ui/fields/CheckField/CheckField';
 
 const SingUpForm = () => {
   const [state, action] = useFormState(signUp, undefined);
@@ -56,8 +58,7 @@ const SingUpForm = () => {
           <p className="text-red-500">{tValidation(`${state.error.email}`)}</p>
         )}
         <div>
-          <Field
-            type="password"
+          <PassField
             name="password"
             id="password"
             placeholder={tAuth('password')}
@@ -69,8 +70,7 @@ const SingUpForm = () => {
           </p>
         )}
         <div>
-          <Field
-            type="password"
+          <PassField
             name="confirmPassword"
             id="confirmPassword"
             placeholder={tAuth('confirmPassword')}
@@ -83,11 +83,7 @@ const SingUpForm = () => {
           </MessageField>
         )}
         <div className="flex flex-row gap-4 pt-5 pb-12 items-center">
-          <input
-            type="checkbox"
-            name="acceptSubscription"
-            id="acceptSubscription"
-          />
+          <CheckField name="acceptSubscription" id="acceptSubscription" />
           <p>Quiero recibir novedades y consejos de la plataforma</p>
         </div>
         <SubmitButton>{tAuth('register')}</SubmitButton>

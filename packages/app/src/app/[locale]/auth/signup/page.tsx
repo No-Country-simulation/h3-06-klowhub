@@ -2,7 +2,7 @@
 import HaveAccountLink from '@/components/molecules/HaveAccountLink/HaveAccountLink';
 import SocialLogin from '@/components/molecules/SocialLogin/SocialLogin';
 import HeroAuth from '@/components/organisms/HeroAuth';
-import SingUpForm from '@/components/organisms/SingUpForm';
+import SingUpForm from '@/components/organisms/SignUpForm.tsx/SingUpForm';
 import H2 from '@/components/ui/Titles/H2';
 import { getTranslations } from 'next-intl/server';
 
