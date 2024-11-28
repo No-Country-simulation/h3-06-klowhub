@@ -5,6 +5,7 @@ import { useFormState } from 'react-dom';
 import { useTranslations } from 'next-intl';
 import { Field } from '../ui';
 import TextLink from '../ui/links/textLink/TextLink';
+import MessageField from '../ui/fields/MessageField/MessageField';
 
 const SingUpForm = () => {
   const [state, action] = useFormState(signUp, undefined);
@@ -76,9 +77,10 @@ const SingUpForm = () => {
           />
         </div>
         {state?.error?.confirmPassword && (
-          <p className="text-red-500">
+          <MessageField variant="error">
+            {' '}
             {tValidation(`${state.error.confirmPassword}`)}
-          </p>
+          </MessageField>
         )}
         <div className="flex flex-row gap-4 pt-5 pb-12 items-center">
           <input

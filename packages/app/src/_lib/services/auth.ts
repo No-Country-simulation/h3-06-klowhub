@@ -6,6 +6,8 @@ import { SignInSchema, SignUpSchema } from '@shared/validation';
 import { redirect } from '@/i18n/routing';
 import { createSession, deleteSession } from '../actions/session';
 import { TSignInUser, TSignUpUser } from '@shared/types/users';
+import axios from 'axios';
+import { BACKEND_URL } from '../config';
 
 export async function signUp(
   state: TFormState,
@@ -24,27 +26,18 @@ export async function signUp(
     };
   }
 
-  // const response = await fetch(`${BACKEND_URL}/auth/signup`, {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify({
-  //     fullname: formData.get('fullname') as string,
-  //     username: formData.get('username') as string,
-  //     email: formData.get('email') as string,
-  //     password: formData.get('password') as string,
-  //   }),
-  // });
+  const response = await axios.post(`${BACKEND_URL}/auth/signup`, {
+    fullname: formData.get('fullname'),
+    username: formData.get('username'),
+    email: formData.get('email'),
+    password: formData.get('password'),
+    termsAccepted: true,
+  });
+
   const t = await getTranslations('UserServerResponses');
   const locale = await getLocale();
-  const response = {
-    ok: true,
-    status: 200,
-    statusText: 'userCreated',
-  };
 
-  if (response.ok) {
+  if (response.status === 200) {
     redirect({ href: '/auth/signin', locale });
   } else {
     return {

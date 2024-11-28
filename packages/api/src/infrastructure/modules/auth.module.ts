@@ -5,7 +5,8 @@ import { UserRepository } from '../../infrastructure/repositories/user.repositor
 import { RegisterUserUseCase } from '../../application/use-case/register-user.use-case';
 import { PasswordUtil } from '../../infrastructure/utils/password.util';
 import { AuthController } from '../controllers/auth.controller';
-import { ThrottleMiddleware } from '../middlewares/throttle.middleware';
+//TODO: Descomentar para produccion
+// import { ThrottleMiddleware } from '../middlewares/throttle.middleware';
 import { EmailService } from '../../infrastructure/utils/email.service';
 
 @Module({
@@ -16,6 +17,7 @@ import { EmailService } from '../../infrastructure/utils/email.service';
 })
 export class AuthModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(ThrottleMiddleware).forRoutes('auth/register');
+    //TODO: Descomentar para produccion
+    // consumer.apply(ThrottleMiddleware).forRoutes('auth/register');
   }
 }

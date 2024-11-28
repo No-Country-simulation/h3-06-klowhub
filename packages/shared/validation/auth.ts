@@ -25,6 +25,13 @@ export const SignUpSchema = z.object({
     ) //"Password must contain at least 8 character, no more than 50 characters, at least one uppercase letter, at least one lowercase letter, at least one number and at least one special character"
     .trim(),
 
+  confirmPassword: z
+    .string()
+    .trim()
+    .refine((data) => data.password === data.confirmPassword, {
+      message: 'confirmPassword.noMatch',
+    }),
+
   termAccepted: z.boolean({ required_error: 'acceptTerms.required' }),
 });
 

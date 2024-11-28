@@ -1,16 +1,20 @@
 import { cva, VariantProps } from 'class-variance-authority';
 import Input, { TBaseInputProps } from '../Input/Input';
 import { forwardRef, Ref } from 'react';
-import { cn } from '@/_lib'; // Suponiendo que tienes una función cn para combinar clases
+import { cn } from '@/_lib';
+import { LuAlertCircle, LuCheckCircle } from 'react-icons/lu';
 
 const fieldProps = cva(
-  'flex flex-row justify-between items-center border bg-gray-50 font-inter text-base rounded-md disabled:bg-gray-100 text-black',
+  'flex flex-row justify-between items-center border bg-gray-50 font-inter text-base rounded-md disabled:bg-gray-100 text-black  focus-within:border-secondary-400',
   {
     variants: {
       colorState: {
-        default: 'border-gray-300 disabled:border-gray-100 ',
-        error: 'border-invalid disabled:border-gray-100',
-        success: 'border-success disabled:border-gray-100',
+        default:
+          'border-gray-300 disabled:border-gray-100 hover:border-secondary-600 focus-within:border-2',
+        error:
+          'border-invalid disabled:border-gray-100 hover:border-invalid focus-within:border-2 focus-within:border-invalid',
+        success:
+          'border-success disabled:border-gray-100 hover:border-success focus-within:border-2 focus-within:border-success',
       },
       fluid: {
         true: 'w-full',
@@ -32,11 +36,20 @@ const fieldProps = cva(
 export type TFieldProps = VariantProps<typeof fieldProps> &
   TBaseInputProps & {
     children?: React.ReactNode;
+    withIconState?: boolean;
   };
 
 const Field = forwardRef<HTMLInputElement, TFieldProps>(
   (
-    { colorState, children, fluid, reverse, className, ...rest }: TFieldProps,
+    {
+      colorState,
+      children,
+      fluid,
+      reverse,
+      withIconState = true,
+      className,
+      ...rest
+    }: TFieldProps,
     ref: Ref<HTMLInputElement>,
   ) => {
     return (
@@ -49,6 +62,12 @@ const Field = forwardRef<HTMLInputElement, TFieldProps>(
           fluid={true}
           padding={reverse ? false : true}
         />
+        {withIconState &&
+          (colorState === 'error' ? (
+            <LuAlertCircle className="text-invalid-dark h-4 w-4 mx-3" />
+          ) : colorState === 'success' ? (
+            <LuCheckCircle className="text-success-dark  h-4 w-4 mx-3" />
+          ) : null)}
         {children && children}
       </div>
     );

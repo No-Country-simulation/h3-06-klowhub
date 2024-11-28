@@ -1,4 +1,4 @@
-import SignInButton from '@/components/ui/buttons/signInButton/SignInButton';
+import SignInButton from '@/components/ui/buttons/SignInButton/SignInButton';
 import HeaderLink from '@/components/ui/links/headerLink/HeaderLink';
 import Logo from '@/components/ui/Logo/Logo';
 import SwitcherButtonWrapper from '../SwitcherButtonWrapper/SwitcherButtonWrapper';

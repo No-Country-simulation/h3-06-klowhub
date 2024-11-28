@@ -1,12 +1,11 @@
 'use server';
 import { getTranslations, getLocale } from 'next-intl/server';
-//import { BACKEND_URL } from '@/_lib/constants';
 import { TFormState } from '@shared/types/formState';
 import { SignInSchema, SignUpSchema } from '@shared/validation';
 import { redirect } from '@/i18n/routing';
 import { createSession } from './session';
 import axios from 'axios';
-import { BACKEND_URL } from '../config';
+import { BACKEND_URL } from '@/_lib/config';
 
 export async function signUp(
   state: TFormState,
@@ -31,6 +30,7 @@ export async function signUp(
     username: formData.get('username') as string,
     email: formData.get('email') as string,
     password: formData.get('password') as string,
+    confirmTerms: formData.get('confirmTerms') as string,
   });
   const t = await getTranslations('UserServerResponses');
   const locale = await getLocale();
@@ -92,14 +92,6 @@ export async function signIn(
 }
 
 export const refreshToken = async (oldRefreshToken: string) => {
-  // const response = await fetch(`${BACKEND_URL}/auth/refresh`, {
-  // method: 'POST',
-  // headers: {
-  //   'Content-Type': 'application/json',
-  // },
-  // body: JSON.stringify({
-  //   refreshToken: oldRefreshToken,
-  // }),
   try {
     const response = await axios.post(`${BACKEND_URL}/auth/refresh`, {
       refreshToken: oldRefreshToken,

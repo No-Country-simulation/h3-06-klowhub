@@ -1,10 +1,9 @@
 // Import Link from i18n/routing to use the routing configuration with language prefixes and custom names
-import SocialLogin from '@/components/molecules/loggin/SocialLogin/SocialLogin';
+import HaveAccountLink from '@/components/molecules/HaveAccountLink/HaveAccountLink';
+import SocialLogin from '@/components/molecules/SocialLogin/SocialLogin';
 import HeroAuth from '@/components/organisms/HeroAuth';
 import SingUpForm from '@/components/organisms/SingUpForm';
-import TextLink from '@/components/ui/links/textLink/TextLink';
 import H2 from '@/components/ui/Titles/H2';
-import { Link } from '@/i18n/routing';
 import { getTranslations } from 'next-intl/server';
 
 const SignUpPage = async () => {
@@ -21,14 +20,12 @@ const SignUpPage = async () => {
         <H2>{t('form.register') /* Iniciar Sesión */}</H2>
         <SingUpForm />
         <SocialLogin />
-        <div className="flex justify-content-center gap-[6px]">
-          <span className="text-white">
-            {t('form.haveAccount') /* No tienes una cuenta?*/}
-          </span>
-          <TextLink href="/auth/signin" variant="primary">
-            {t('form.login') /*Registrame*/}
-          </TextLink>
-        </div>
+        <HaveAccountLink
+          href="/auth/signin"
+          question={t('form.haveAccount') /* Ya tienes una cuenta?*/}
+        >
+          {t('form.login') /*Iniciar Sesion*/}
+        </HaveAccountLink>
       </div>
     </div>
   );
