@@ -8,6 +8,8 @@ import {
 } from '@nestjs/common';
 import { RegisterUserUseCase } from '../../application/use-case/register-user.use-case';
 import { RegisterUserDto } from '../../application/dtos/register-user.dto';
+import { LoginDto } from '@/application/dtos/login-user.dto';
+import { LoginUseCase } from '@/application/use-case/login-user.use-case';
 import { UserRepository } from '../../infrastructure/repositories/user.repository';
 import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
 
@@ -17,8 +19,13 @@ export class AuthController {
   constructor(
     private readonly registerUserUseCase: RegisterUserUseCase,
     private readonly userRepository: UserRepository,
+    private readonly loginUseCase: LoginUseCase,
   ) {}
 
+  @Post('login')
+  async login(@Body() loginDto: LoginDto) {
+    return this.loginUseCase.execute(loginDto);
+  }
   @Post('register')
   @ApiOperation({ summary: 'Registrar un nuevo usuario' })
   @ApiResponse({ status: 201, description: 'Usuario registrado exitosamente.' })

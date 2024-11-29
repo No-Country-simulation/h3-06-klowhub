@@ -8,11 +8,25 @@ import { AuthController } from '../controllers/auth.controller';
 import { ThrottleMiddleware } from '../middlewares/throttle.middleware';
 import { MongoSanitizeMiddleware } from '../middlewares/mongo-sanitize.middleware';
 import { EmailService } from '../../infrastructure/utils/email.service';
+import { LoginUseCase } from '../../application/use-case/login-user.use-case';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: 'User', schema: userSchema }])],
+  imports: [
+    MongooseModule.forFeature([{ name: 'User', schema: userSchema }]),
+    JwtModule.register({
+      secret: process.env.JWT_SECRET || 'your-secret-key',
+      signOptions: { expiresIn: '1h' },
+    }),
+  ],
   controllers: [AuthController],
-  providers: [UserRepository, RegisterUserUseCase, PasswordUtil, EmailService],
+  providers: [
+    LoginUseCase,
+    UserRepository,
+    RegisterUserUseCase,
+    PasswordUtil,
+    EmailService,
+  ],
   exports: [UserRepository],
 })
 export class AuthModule implements NestModule {
