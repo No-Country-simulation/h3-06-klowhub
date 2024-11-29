@@ -9,7 +9,9 @@ import {
 import { RegisterUserUseCase } from '../../application/use-case/register-user.use-case';
 import { RegisterUserDto } from '../../application/dtos/register-user.dto';
 import { UserRepository } from '../../infrastructure/repositories/user.repository';
+import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
 
+@ApiTags('Auth') // Agrupa los endpoints bajo "Auth" en la documentación
 @Controller('auth')
 export class AuthController {
   constructor(
@@ -18,11 +20,25 @@ export class AuthController {
   ) {}
 
   @Post('register')
+  @ApiOperation({ summary: 'Registrar un nuevo usuario' })
+  @ApiResponse({ status: 201, description: 'Usuario registrado exitosamente.' })
+  @ApiResponse({ status: 400, description: 'Datos de entrada inválidos.' })
   async register(@Body() registerUserDto: RegisterUserDto) {
     return await this.registerUserUseCase.execute(registerUserDto);
   }
 
   @Get('confirm')
+  @ApiOperation({ summary: 'Confirmar una cuenta de usuario' })
+  @ApiQuery({
+    name: 'email',
+    required: true,
+    description: 'Correo electrónico del usuario a confirmar.',
+  })
+  @ApiResponse({ status: 200, description: 'Cuenta confirmada exitosamente.' })
+  @ApiResponse({
+    status: 400,
+    description: 'Email no proporcionado o inválido.',
+  })
   async confirmAccount(@Query('email') email: string) {
     if (!email) {
       throw new BadRequestException('El parámetro "email" es requerido.');
