@@ -7,6 +7,7 @@ export interface IUser extends Document {
   password: string;
   isActive: boolean;
   confirmationToken?: string;
+  validatePassword(password: string): Promise<boolean>;
   createdAt?: Date;
   updatedAt?: Date;
 }
