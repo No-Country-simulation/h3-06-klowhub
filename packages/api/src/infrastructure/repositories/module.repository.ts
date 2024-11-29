@@ -23,10 +23,13 @@ export class ModuleRepository {
   }
 
   async addLesson(moduleId: string, lessonId: string): Promise<IModule | null> {
-    return this.moduleModel.findByIdAndUpdate(
-      moduleId,
-      { $push: { lessons: lessonId } },
-      { new: true },
-    );
+    return this.moduleModel
+      .findByIdAndUpdate(
+        moduleId,
+        { $push: { lessons: lessonId } },
+        { new: true },
+      )
+      .populate('lessons')
+      .exec();
   }
 }

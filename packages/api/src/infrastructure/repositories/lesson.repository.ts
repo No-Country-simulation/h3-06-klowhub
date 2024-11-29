@@ -11,6 +11,7 @@ export class LessonRepository {
   ) {}
 
   async create(lesson: Partial<ILesson>): Promise<ILesson> {
+    console.log('Creating lesson with data:', lesson);
     return new this.lessonModel(lesson).save();
   }
 

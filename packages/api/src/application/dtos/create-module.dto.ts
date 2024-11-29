@@ -16,6 +16,10 @@ class CreateLessonDto {
   @IsString()
   @IsOptional()
   content?: string;
+
+  @IsString()
+  @IsOptional()
+  videoUrl?: string;
 }
 
 export class CreateModuleDto {

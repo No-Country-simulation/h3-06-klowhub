@@ -1,10 +1,5 @@
+import { ILesson } from '@shared/types/ILesson';
 import { Schema, model, Types } from 'mongoose';
-
-export interface ILesson {
-  _id: Types.ObjectId;
-  title: string;
-  content: string;
-}
 
 export interface IModule {
   _id: Types.ObjectId;

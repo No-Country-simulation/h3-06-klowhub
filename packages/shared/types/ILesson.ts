@@ -3,6 +3,7 @@ export interface ILesson {
     title: string;
     content: string;
     moduleId: string;
+    videoUrl:string;
     createdAt?: Date;
     updatedAt?: Date;
   }

@@ -34,7 +34,7 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('api/docs', app, document); // Ruta de la documentación
+  SwaggerModule.setup('api/docs', app, document);
 
   await app.listen(port);
   console.log(`Application is running on: http://localhost:${port}`);

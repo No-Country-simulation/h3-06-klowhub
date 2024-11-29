@@ -12,19 +12,21 @@ export class AddLessonToModuleUseCase {
     moduleId: string,
     lessonData: Partial<ILesson>,
   ) {
-    // Validar que los datos necesarios estén presentes
     if (!lessonData.title) {
       throw new Error('Lesson title is required');
     }
 
-    // Transformar lessonData en una instancia de LessonEntity
+    if (lessonData.videoUrl && !this.isValidUrl(lessonData.videoUrl)) {
+      throw new Error('Invalid video URL');
+    }
+
     const lessonEntity = new LessonEntity(
       lessonData.title,
-      lessonData.content ?? '', // Usar valor por defecto si es opcional
-      lessonData._id, // Si hay un ID, pásalo; si no, queda undefined
+      lessonData.content ?? '',
+      lessonData._id,
+      lessonData.videoUrl,
     );
 
-    // Llamar al repositorio para agregar la lección
     const updatedCourse = await this.courseRepository.addLesson(
       courseId,
       moduleId,
@@ -38,5 +40,14 @@ export class AddLessonToModuleUseCase {
     }
 
     return updatedCourse;
+  }
+
+  private isValidUrl(url: string): boolean {
+    try {
+      new URL(url);
+      return true;
+    } catch {
+      return false;
+    }
   }
 }

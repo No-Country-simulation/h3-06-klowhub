@@ -11,7 +11,7 @@ import { RegisterUserDto } from '../../application/dtos/register-user.dto';
 import { UserRepository } from '../../infrastructure/repositories/user.repository';
 import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
 
-@ApiTags('Auth') // Agrupa los endpoints bajo "Auth" en la documentación
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(

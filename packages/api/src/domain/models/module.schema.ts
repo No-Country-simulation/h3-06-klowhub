@@ -10,7 +10,7 @@ export const moduleSchema = new Schema<IModule>(
   {
     name: { type: String, required: true },
     courseId: { type: Schema.Types.ObjectId, ref: 'Course', required: true },
-    lessons: [{ type: Schema.Types.ObjectId, ref: 'Lesson' }], // Relación con lecciones
+    lessons: [{ type: Schema.Types.ObjectId, ref: 'Lesson' }],
   },
   { timestamps: true },
 );
