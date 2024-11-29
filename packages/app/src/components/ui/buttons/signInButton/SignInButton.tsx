@@ -1,6 +1,6 @@
 import { getSession } from '@/_lib/actions/session';
-import ButtonLink from '../../links/buttonLink/ButtonLink';
 import { getTranslations } from 'next-intl/server';
+import ButtonLink from '../../links/buttonLink/ButtonLink';
 
 const SignInButton = async () => {
   const session = await getSession();
@@ -10,7 +10,7 @@ const SignInButton = async () => {
     <div className="flex items-center gap-2 ml-auto">
       {!session || !session.user ? (
         <>
-          <ButtonLink size="xs" variant="primary" href="/auth/login">
+          <ButtonLink size="xs" variant="quaternary" href="/auth/login">
             {t('login')}
           </ButtonLink>
           <ButtonLink size="xs" variant="secondary" href="/auth/register">

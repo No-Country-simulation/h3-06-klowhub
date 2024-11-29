@@ -66,5 +66,9 @@
   },
   "About": {
     "default": "Acerca de nosotros"
+  },
+  "UserServerResponses": {
+    "userNotFound": "El usuario no fue encontrado",
+    "userAlreadyExists": "El usuario ya existe"
   }
 }

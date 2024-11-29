@@ -6,7 +6,7 @@ export type TFormState =
         userName?: string[];
         email?: string[];
         password?: string[];
-        acceptTerms?: boolean;
+        acceptSubscription?: boolean;
         confirmPassword?: string[];
       };
       message?: string;

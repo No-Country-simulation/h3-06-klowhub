@@ -3,7 +3,13 @@ import { ReactNode } from 'react';
 import { useFormStatus } from 'react-dom';
 import Button from '../buttons/BaseButton/BaseButton';
 
-const SubmitButton = ({ children }: { children: ReactNode }) => {
+const SubmitButton = ({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: 'string';
+}) => {
   const { pending } = useFormStatus();
 
   return (
@@ -11,8 +17,8 @@ const SubmitButton = ({ children }: { children: ReactNode }) => {
       type="submit"
       aria-disabled={pending}
       variant="primary"
-      size="lg"
-      className="w-full mt-2 bg-primary-lavander-600 p-3 rounded-lg text-white weight-bolder hover:bg-primary-lavander-400 transition-colors duration-300 ease-in-out"
+      size="xl"
+      className={className}
     >
       {pending ? 'Submitting...' : children}
     </Button>

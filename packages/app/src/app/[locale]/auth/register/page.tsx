@@ -2,14 +2,14 @@
 import HaveAccountLink from '@/components/molecules/HaveAccountLink/HaveAccountLink';
 import SocialLogin from '@/components/molecules/SocialLogin/SocialLogin';
 import HeroAuth from '@/components/organisms/HeroAuth';
-import SingUpForm from '@/components/organisms/SignUpForm.tsx/SingUpForm';
+import SingUpForm from '@/components/organisms/SingUpForm';
 import H2 from '@/components/ui/Titles/H2';
 import { getTranslations } from 'next-intl/server';
 
 const SignUpPage = async () => {
   const t = await getTranslations('Auth');
   return (
-    <div className="bg-transparent flex flex-row bg-cover bg-no-repeat w-full h-full bg-[url('/backgroundRegister.svg')]">
+    <div className="bg-transparent flex flex-row justify-center items-center bg-image bg-cover bg-no-repeat h-full w-full bg-[url('/backgroundRegister.svg')]">
       <HeroAuth title="KlowHub">
         {
           t('heroText') /* Explora, aprende, enseña y conecta. Crea tu cuenta

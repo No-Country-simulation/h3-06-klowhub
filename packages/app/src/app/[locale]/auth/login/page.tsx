@@ -9,7 +9,7 @@ import { getTranslations } from 'next-intl/server';
 const SignInPage = async () => {
   const t = await getTranslations('Auth');
   return (
-    <div className="bg-transparent flex flex-row justify-center items-center bg-image bg-cover bg-no-repeat h-full w-full  bg-[url('/backgroundLogin.svg')] ">
+    <div className="bg-transparent flex flex-row justify-center items-center bg-image bg-cover bg-no-repeat h-full w-full bg-[url('/backgroundLogin.svg')] ">
       <HeroAuth title="KlowHub">
         {
           t(
@@ -17,7 +17,7 @@ const SignInPage = async () => {
           ) /* Explora, aprende, enseña y conecta. Crea tu cuenta en Klowhub y accede a un mundo de posibilidades. */
         }
       </HeroAuth>
-      <div className="bg-background-form opacity-80  w-2/4 flex flex-col items-center justify-center h-full py-[30px] px-[60px]">
+      <div className="bg-background-form opacity-80  w-2/4 flex flex-col items-center justify-center h-full py-[30px] px-[60px] self-center">
         <H2>{t('form.login') /* Iniciar Sesión */}</H2>
         <SignInForm />
         <SocialLogin />

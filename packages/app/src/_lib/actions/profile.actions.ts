@@ -1,11 +1,10 @@
 'use server';
 
 //import { BACKEND_URL } from '../config/constants';
-import { getSession } from './session';
 // import { authFetch } from '../utils/authFetch';
 
 export const getProfile = async () => {
-  const session = await getSession();
+  // const session = await getSession();
   // use AuthFetch for all routes requiring authorization
   // const response = await authFetch(`${BACKEND_URL}/auth/profile`, {
   //   headers: {

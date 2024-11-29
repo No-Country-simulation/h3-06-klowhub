@@ -1,7 +1,7 @@
 import TextLink, {
   TTextLinkProps,
 } from '@/components/ui/links/textLink/TextLink';
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 export type THaveAccount = TTextLinkProps & {
   question: string;

@@ -17,7 +17,7 @@ export type TSignUpUser = {
   userName: string;
   email: string;
   password: string;
-  acceptTerms: boolean;
+  acceptSubcription?: boolean;
 };
 
 // User Login request Type

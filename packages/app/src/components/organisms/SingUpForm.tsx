@@ -1,13 +1,13 @@
 'use client';
 import { signUp } from '@/_lib/actions/auth.actions';
-import SubmitButton from '@/components/ui/submitButton/SubmitButton';
-import { useFormState } from 'react-dom';
-import { useTranslations } from 'next-intl';
-import { Field } from '../../ui';
-import TextLink from '../../ui/links/textLink/TextLink';
-import MessageField from '../../ui/fields/MessageField/MessageField';
 import PassField from '@/components/molecules/PassField/PassField';
 import CheckField from '@/components/ui/fields/CheckField/CheckField';
+import SubmitButton from '@/components/ui/submitButton/SubmitButton';
+import { useTranslations } from 'next-intl';
+import { useFormState } from 'react-dom';
+import { Field } from '../ui';
+import MessageField from '../ui/fields/MessageField/MessageField';
+import TextLink from '../ui/links/textLink/TextLink';
 
 const SingUpForm = () => {
   const [state, action] = useFormState(signUp, undefined);
@@ -15,9 +15,9 @@ const SingUpForm = () => {
   const tAuth = useTranslations('Auth.form');
   return (
     <form action={action}>
-      <div className="flex flex-col gap-3  pb-10">
+      <div className="flex flex-col gap-3 pb-10 py-7 w-[420px]">
         {state?.message && <p className="text-red-500">{state.message}</p>}
-        <div>
+        <div className="flex flex-col">
           <Field
             type="text"
             name="fullName"
@@ -32,7 +32,7 @@ const SingUpForm = () => {
           )}
         </div>
 
-        <div>
+        <div className="flex flex-col">
           <Field
             type="text"
             name="userName"
@@ -47,7 +47,7 @@ const SingUpForm = () => {
           )}
         </div>
 
-        <div>
+        <div className="flex flex-col">
           <Field
             type="text"
             name="email"
@@ -62,7 +62,7 @@ const SingUpForm = () => {
           )}
         </div>
 
-        <div>
+        <div className="flex flex-col">
           <PassField
             name="password"
             id="password"
@@ -75,7 +75,7 @@ const SingUpForm = () => {
           )}
         </div>
 
-        <div>
+        <div className="flex flex-col">
           <PassField
             name="confirmPassword"
             id="confirmPassword"
@@ -92,8 +92,10 @@ const SingUpForm = () => {
           <CheckField name="acceptSubscription" id="acceptSubscription" />
           <p>{tAuth('receiveSubscription')}</p>
         </div>
-        <SubmitButton>{tAuth('register')}</SubmitButton>
-        <div className="text-sm w-[350px] text-center">
+        <div className="flex justify-center items-center">
+          <SubmitButton>{tAuth('register')}</SubmitButton>
+        </div>
+        <div className="text-sm w-full text-center">
           {tAuth('conditions.accept')}{' '}
           <TextLink variant="secondary" href="#">
             {tAuth('conditions.terms')}

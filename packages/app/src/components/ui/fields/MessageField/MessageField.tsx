@@ -1,8 +1,8 @@
-import React, { FC, HTMLAttributes } from 'react';
 import { cn } from '@/_lib';
 import { cva, VariantProps } from 'class-variance-authority';
+import { FC, HTMLAttributes } from 'react';
 
-const messageFielProps = cva('flex text-sm w-[400px]', {
+const messageFielProps = cva('flex w-fulltext-sm flex-wrap', {
   variants: {
     variant: {
       default: ' text-gray-400',

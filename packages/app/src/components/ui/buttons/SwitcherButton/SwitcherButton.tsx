@@ -1,6 +1,6 @@
 import { cn } from '@/_lib';
 import { cva, VariantProps } from 'class-variance-authority';
-import { ButtonHTMLAttributes, FC, useState } from 'react';
+import { ButtonHTMLAttributes, FC } from 'react';
 
 const switcherButtonProps = cva(
   'flex px-[6px] py-[2px] rounded-[50px] transition duration-500',
@@ -19,7 +19,7 @@ const switcherButtonProps = cva(
       {
         variant: 'primary',
         isActive: true,
-        className: 'bg-secondary-300 text-white',
+        className: 'bg-secondary-300 text-gray-950',
       },
       {
         variant: 'primary',

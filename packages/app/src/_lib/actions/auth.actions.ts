@@ -1,11 +1,12 @@
 'use server';
-import { getTranslations, getLocale } from 'next-intl/server';
+import { BACKEND_URL } from '@/_lib/config';
+import { redirect } from '@/i18n/routing';
 import { TFormState } from '@shared/types/formState';
 import { SignInSchema, SignUpSchema } from '@shared/validation';
-import { redirect } from '@/i18n/routing';
-import { createSession } from './session';
 import axios from 'axios';
-import { BACKEND_URL } from '@/_lib/config';
+import { getLocale, getTranslations } from 'next-intl/server';
+import { revalidatePath } from 'next/cache';
+import { createSession } from './session';
 
 export async function signUp(
   state: TFormState,
@@ -17,7 +18,6 @@ export async function signUp(
     email: formData.get('email') as string,
     password: formData.get('password') as string,
     confirmPassword: formData.get('confirmPassword') as string,
-    acceptTerms: formData.get('acceptTerms') as string,
   });
 
   if (!validationFields.success) {
@@ -25,23 +25,22 @@ export async function signUp(
       error: validationFields.error?.flatten().fieldErrors,
     };
   }
-  const response = await axios.post(`${BACKEND_URL}/auth/signup`, {
-    fullname: formData.get('fullname') as string,
-    username: formData.get('username') as string,
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
-    confirmTerms: formData.get('confirmTerms') as string,
-  });
-  const t = await getTranslations('UserServerResponses');
-  const locale = await getLocale();
-
-  if (response.status === 200) {
-    redirect({ href: '/auth/signin', locale });
-  } else {
-    return {
-      message:
-        response.status === 409 ? t('userAlreadyExists') : response.statusText,
-    };
+  try {
+    const response = await axios.post(`${BACKEND_URL}/auth/register`, {
+      fullName: formData.get('fullName') as string,
+      userName: formData.get('userName') as string,
+      email: formData.get('email') as string,
+      password: formData.get('password') as string,
+      // acceptSubscription: formData.get('acceptSubscription'),
+      termsAccepted: true,
+    });
+  } catch (error) {
+    console.log('error ---------------->', error);
+  } finally {
+    const t = await getTranslations('UserServerResponses');
+    const locale = await getLocale();
+    revalidatePath('/auth/login');
+    redirect({ href: '/auth/login', locale });
   }
 }
 
