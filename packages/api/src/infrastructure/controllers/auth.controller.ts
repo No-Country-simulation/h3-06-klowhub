@@ -23,6 +23,9 @@ export class AuthController {
   ) {}
 
   @Post('login')
+  @ApiOperation({ summary: 'Logear un usuario' })
+  @ApiResponse({ status: 200, description: 'Usuario logueado correctamente' })
+  @ApiResponse({ status: 400, description: 'Error al loguear usuario' })
   async login(@Body() loginDto: LoginDto) {
     return this.loginUseCase.execute(loginDto);
   }
