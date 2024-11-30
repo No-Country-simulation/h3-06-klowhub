@@ -10,11 +10,13 @@
     "mentorships": "Mentorships",
     "login": "Login",
     "register": "Register",
+
     "logout": "Logout"
   },
   "Auth": {
     "heroText": "Explore, learn, teach, and connect. Create your account on Klowhub and access a world of possibilities.",
     "form": {
+      "continue": "Continue",
       "email": "Email",
       "password": "Password",
       "helpPassword": "Must contain at least 1 number, 1 uppercase letter, and be at least 6 characters long.",
@@ -27,6 +29,10 @@
       "notHaveAccount": "Don't have an account?",
       "haveAccount": "Already have an account?",
       "register": "Register",
+      "registerSuccess": {
+        "title": "Last step:",
+        "description": "Please check your email to confirm your account. If you don't receive an email, check your spam folder."
+      },
       "login": "Login",
       "receiveSubscription": "I want to receive news and tips from the platform",
       "continueWith": "Or continue with",

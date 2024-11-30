@@ -1,6 +1,6 @@
 import { NextIntlClientProvider } from 'next-intl';
-import defaultMessages from '../../messages/es.json';
 import React from 'react';
+import defaultMessages from '../../messages/es.json';
 
 const withIntl = (Story) => (
   <NextIntlClientProvider

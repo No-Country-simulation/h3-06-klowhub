@@ -19,6 +19,11 @@ export const PATHNAMES: IPathnames = {
     es: '/auth/registrarse',
     fr: '/auth/inscription',
   },
+  '/auth/register/success': {
+    en: '/auth/register/success',
+    es: '/auth/registrarse/success',
+    fr: '/auth/inscription/success',
+  },
   '/auth/signout': {
     en: '/auth/signout',
     es: '/auth/cerrar-sesion',

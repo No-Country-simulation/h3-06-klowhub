@@ -1,9 +1,9 @@
+import { cn } from '@/_lib';
 import SignInButton from '@/components/ui/buttons/SignInButton/SignInButton';
 import HeaderLink from '@/components/ui/links/headerLink/HeaderLink';
 import Logo from '@/components/ui/Logo/Logo';
-import SwitcherButtonWrapper from '../SwitcherButtonWrapper/SwitcherButtonWrapper';
 import { getTranslations } from 'next-intl/server';
-import { cn } from '@/_lib';
+import SwitcherButtonWrapper from '../SwitcherButtonWrapper/SwitcherButtonWrapper';
 
 const AppBar = async ({ className }: { className?: string }) => {
   const t = await getTranslations('Appbar');

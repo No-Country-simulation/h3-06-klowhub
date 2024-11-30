@@ -19,6 +19,9 @@ const config: StorybookConfig = {
     name: '@storybook/nextjs',
     options: {},
   },
+  features: {
+    experimentalRSC: true,
+  },
   docs: {
     autodocs: 'tag',
     defaultName: 'Documentation',

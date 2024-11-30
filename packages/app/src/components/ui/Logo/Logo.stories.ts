@@ -1,5 +1,5 @@
-import Logo from './Logo';
 import type { Meta, StoryObj } from '@storybook/react';
+import Logo from './Logo';
 
 const meta = {
   title: 'Miscelaneous/Logo',

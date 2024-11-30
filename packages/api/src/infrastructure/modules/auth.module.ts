@@ -9,7 +9,8 @@ import { EmailService } from '../../infrastructure/utils/email.service';
 import { PasswordUtil } from '../../infrastructure/utils/password.util';
 import { AuthController } from '../controllers/auth.controller';
 import { MongoSanitizeMiddleware } from '../middlewares/mongo-sanitize.middleware';
-import { ThrottleMiddleware } from '../middlewares/throttle.middleware';
+//TODO: Descomentar para produccion
+//import { ThrottleMiddleware } from '../middlewares/throttle.middleware';
 
 @Module({
   imports: [
@@ -32,7 +33,8 @@ import { ThrottleMiddleware } from '../middlewares/throttle.middleware';
 export class AuthModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(ThrottleMiddleware, MongoSanitizeMiddleware)
+      // .apply(ThrottleMiddleware, MongoSanitizeMiddleware)
+      .apply(MongoSanitizeMiddleware)
       .forRoutes(AuthController);
   }
 }

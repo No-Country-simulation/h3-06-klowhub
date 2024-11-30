@@ -1,5 +1,5 @@
-import HeaderLink from './HeaderLink';
 import type { Meta, StoryObj } from '@storybook/react';
+import HeaderLink from './HeaderLink';
 
 const meta = {
   title: 'Nav/HeaderLink',
@@ -14,3 +14,10 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
+  args: {
+    children: 'Link',
+    href: '#',
+  },
+};

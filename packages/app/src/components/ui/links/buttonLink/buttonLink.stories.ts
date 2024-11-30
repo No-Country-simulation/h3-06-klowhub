@@ -1,13 +1,12 @@
-import ButtonLink from './ButtonLink';
 import type { Meta, StoryObj } from '@storybook/react';
+import ButtonLink from './ButtonLink';
 
 const meta = {
   title: 'Nav/ButtonLink',
   tags: ['autodocs'],
   component: ButtonLink,
   parameters: {
-    layout: 'padded',
-    title: 'BaseButton Buttons',
+    title: 'Navigation ButtonLikn',
     componentSubtitle:
       'The `BaseButton` component is a versatile React button component that can be customized with various variants and sizes.',
   },

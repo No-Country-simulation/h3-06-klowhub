@@ -3,9 +3,8 @@ import { BACKEND_URL } from '@/_lib/config';
 import { redirect } from '@/i18n/routing';
 import { TFormState } from '@shared/types/formState';
 import { SignInSchema, SignUpSchema } from '@shared/validation';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { getLocale, getTranslations } from 'next-intl/server';
-import { revalidatePath } from 'next/cache';
 import { createSession } from './session';
 
 export async function signUp(
@@ -25,6 +24,8 @@ export async function signUp(
       error: validationFields.error?.flatten().fieldErrors,
     };
   }
+  const t = await getTranslations('UserServerResponses');
+  let result: AxiosResponse;
   try {
     const response = await axios.post(`${BACKEND_URL}/auth/register`, {
       fullName: formData.get('fullName') as string,
@@ -34,13 +35,17 @@ export async function signUp(
       // acceptSubscription: formData.get('acceptSubscription'),
       termsAccepted: true,
     });
-  } catch (error) {
-    console.log('error ---------------->', error);
-  } finally {
-    const t = await getTranslations('UserServerResponses');
+    result = response;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error) && error.response?.status === 400) {
+      return { message: t('userAlreadyExists') };
+    }
+    return { message: `something went wrong: ${error}` };
+  }
+  console.log('SUCCESS STATUS', result?.status);
+  if (result && result?.status === 201) {
     const locale = await getLocale();
-    revalidatePath('/auth/login');
-    redirect({ href: '/auth/login', locale });
+    redirect({ href: '/auth/register/success', locale });
   }
 }
 
@@ -58,35 +63,40 @@ export async function signIn(
       error: validationFields.error?.flatten().fieldErrors,
     };
   }
-
-  const response = await axios.post(`${BACKEND_URL}/auth/signin`, {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
-  });
   const t = await getTranslations('UserServerResponses');
-
-  if (response.status === 200) {
-    const result = response.data;
-
+  let result: AxiosResponse;
+  console.log(formData);
+  try {
+    const response = await axios.post(`${BACKEND_URL}/auth/login`, {
+      email: formData.get('email') as string,
+      password: formData.get('password') as string,
+    });
+    result = response;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error) && error.response?.status === 400) {
+      console.log('ERROR', error);
+      return { message: t('invalidCredentials') };
+    }
+    console.log(error);
+    return { message: `something went wrong: ${error}` };
+  }
+  console.log('SUCCESS STATUS', result?.data);
+  if (result && result?.status === 200) {
+    const data = result.data;
     await createSession({
       user: {
-        _id: result.user.id,
-        userName: result.user.userName,
-        role: result.user.role,
+        _id: data.user.id,
+        userName: data.user.userName,
+        role: data.user.role,
       },
-      refreshToken: result.refreshToken,
-      accessToken: result.accessToken,
+      refreshToken: data.refreshToken,
+      accessToken: data.accessToken,
     });
 
     //TODO: redirect to the last page visited and not only home
 
     const locale = await getLocale();
     redirect({ href: '/', locale });
-  } else {
-    return {
-      message:
-        response.status === 401 ? t('invalidCredentials') : response.statusText,
-    };
   }
 }
 

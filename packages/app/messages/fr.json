@@ -15,6 +15,7 @@
   "Auth": {
     "heroText": "Explorez, apprenez, enseignez et connectez-vous. Créez votre compte sur Klowhub et accédez à un monde de possibilités.",
     "form": {
+      "continue": "Siguiente",
       "email": "Email",
       "password": "Mot de passe",
       "helpPassword": "Doit contenir au moins 1 chiffre, 1 lettre majuscule et au moins 6 caractères.",
@@ -27,6 +28,10 @@
       "notHaveAccount": "Vous n'avez pas de compte ?",
       "haveAccount": "Vous avez déjà un compte ?",
       "register": "S'inscrire",
+      "registerSuccess": {
+        "title": "Dernière etape:",
+        "description": "Veuillez verifier votre email pour activer votre compte. Si vous ne recevez pas un email, veillez verifier votre dossier de spam."
+      },
       "login": "Connexion",
       "receiveSubscription": "Je souhaite recevoir des actualités et des conseils de la plateforme",
       "conditions": {
