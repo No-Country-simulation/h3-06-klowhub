@@ -9,6 +9,6 @@
     "moduleResolution": "node",
     "declaration": true        
   },
-  "include": ["*.ts", "utils/*.ts", "types/*.ts"],   
+  "include": ["*.ts", "utils/*.ts", "types/*.ts", "models/IUserShared.ts"],   
   "exclude": ["node_modules"]         
 }

@@ -1,15 +1,16 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
 import { MongooseModule } from '@nestjs/mongoose';
+import { LoginUseCase } from '../../application/use-case/login-user.use-case';
+import { RegisterUserUseCase } from '../../application/use-case/register-user.use-case';
 import { userSchema } from '../../domain/models/user.model';
 import { UserRepository } from '../../infrastructure/repositories/user.repository';
-import { RegisterUserUseCase } from '../../application/use-case/register-user.use-case';
+import { EmailService } from '../../infrastructure/utils/email.service';
 import { PasswordUtil } from '../../infrastructure/utils/password.util';
 import { AuthController } from '../controllers/auth.controller';
-import { ThrottleMiddleware } from '../middlewares/throttle.middleware';
 import { MongoSanitizeMiddleware } from '../middlewares/mongo-sanitize.middleware';
-import { EmailService } from '../../infrastructure/utils/email.service';
-import { LoginUseCase } from '../../application/use-case/login-user.use-case';
-import { JwtModule } from '@nestjs/jwt';
+//TODO: Descomentar para produccion
+//import { ThrottleMiddleware } from '../middlewares/throttle.middleware';
 
 @Module({
   imports: [
@@ -32,7 +33,8 @@ import { JwtModule } from '@nestjs/jwt';
 export class AuthModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(ThrottleMiddleware, MongoSanitizeMiddleware)
+      // .apply(ThrottleMiddleware, MongoSanitizeMiddleware)
+      .apply(MongoSanitizeMiddleware)
       .forRoutes(AuthController);
   }
 }

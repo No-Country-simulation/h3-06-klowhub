@@ -1,6 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-lavander-100: 223, 209, 243;
+  --color-lavander-200: 191, 163, 231;
+  --color-lavander-300: 159, 116, 220;
+  --color-lavander-400: 159, 116, 220;
+  --color-lavander-500: 73, 33, 129;
+  --color-lavander-600: 83, 38, 146;
+  --color-lavander-700: 66, 30, 117;
+  --color-lavander-800: 50, 23, 88;
+  --color-lavander-900: 33, 15, 58;
+
+  --color-violet-100: 232, 201, 241;
+  --color-violet-200: 209, 148, 226;
+  --color-violet-300: 185, 94, 212;
+  --color-violet-400: 157, 50, 188;
+  --color-violet-500: 112, 36, 134;
+  --color-violet-600: 90, 26, 107;
+  --color-violet-700: 67, 22, 80;
+  --color-violet-800: 45, 14, 54;
+  --color-violet-900: 22, 7, 27;
+
+  --color-secondary-100: 192, 214, 251;
+  --color-secondary-200: 161, 194, 250;
+  --color-secondary-300: 129, 174, 248;
+  --color-secondary-400: 98, 153, 246;
+  --color-secondary-500: 66, 133, 244;
+  --color-secondary-600: 14, 97, 234;
+  --color-secondary-700: 10, 73, 176;
+  --color-secondary-800: 7, 48, 117;
+  --color-secondary-900: 3, 24, 59;
+
+  --color-error-light: 255, 171, 175;
+  --color-error-dark: 215, 0, 14;
+
+  --color-success-light: 133, 255, 204;
+  --color-success-dark: 0, 104, 60;
+
+  --color-background-bar-start: 4, 31, 77;
+  --color-background-bar-end: 67, 22, 80;
+
+  --color-background-dark: 27, 27, 31;
+  --color-background-semi-dark: 24, 25, 65;
+  --color-background-light: 52, 57, 92;
+
+  --color-background-form: 3, 24, 59;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -10,33 +56,31 @@
   }
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+  .bg-gradient-body {
+    background: linear-gradient(
+      45deg,
+      rgba(var(--color-background-light), 1) 0%,
+      rgba(var(--color-background-semi-dark), 1) 50%,
+      rgba(var(--color-background-dark), 1) 100%
+    );
+  }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+  .bg-gradient-bar {
+    background: linear-gradient(
+      45deg,
+      rgba(var(--color-background-bar-start), 1) 0%,
+      rgba(var(--color-background-bar-end), 1) 100%
+    );
   }
 }
