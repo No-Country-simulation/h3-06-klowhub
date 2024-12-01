@@ -58,10 +58,10 @@ export const userSchema = new Schema<IUser>(
 
 // Middleware pre-guardar para hash de contraseñas
 userSchema.pre<IUser>('save', async function (next) {
-  if (!this.isModified('password')) {
-    return next();
-  }
-  await this.hashPassword(); // Usar el método de la instancia
+  // if (!this.isModified('password')) {
+  //   return next();
+  // }
+  // await this.hashPassword(); // Usar el método de la instancia
   next();
 });
 
