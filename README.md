@@ -50,6 +50,7 @@ Desde la raíz del proyecto, puedes instalar todas las dependencias del monorepo
 
 - Instalar dependencias en el frontend: `pnpm --filter app add [dependencias]`
 - Instalar dependencias en el backend: ` pnpm --filter api add [dependencias]`
+- Instalar dependencias compartidas en el root: ` pnpm add -w [dependencias]`
 
 ### 3 - Ejecutar los proyectos
 

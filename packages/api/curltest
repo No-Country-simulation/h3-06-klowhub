@@ -1,0 +1,11 @@
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "userName": "maria",
+  "fullName": "Maria Perez",
+  "email": "maria@klowhub.com",
+  "password": "Maria&123",
+  "termsAccepted": true
+
+}

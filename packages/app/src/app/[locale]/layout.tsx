@@ -1,22 +1,17 @@
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
-import { notFound } from 'next/navigation';
+import AppBar from '@/components/molecules/Appbar/Appbar';
 import { routing } from '@/i18n/routing';
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
-import { getTranslations } from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages, getTranslations } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 import '../globals.css';
 
-const geistSans = localFont({
-  src: '../fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-});
-const geistMono = localFont({
-  src: '../fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
-});
+// const inter = localFont({
+//   src: '../fonts/inter.woff',
+//   variable: '--font-inter-sans',
+//   weight: '100 900',
+// });
+// ;
 
 export async function generateMetadata({
   params: { locale },
@@ -29,6 +24,7 @@ export async function generateMetadata({
     description: t('description'),
   };
 }
+
 export default async function LocaleLayout({
   children,
   params: { locale },
@@ -38,6 +34,7 @@ export default async function LocaleLayout({
 }) {
   // Ensure that the incoming `locale` is valid
   if (!routing.locales.includes(locale as never)) {
+    console.log('not locale');
     notFound();
   }
 
@@ -46,12 +43,15 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className="h-full min-h-screen w-screen">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`font-sans antialiased bg-gradient-body text-white h-full w-full`}
       >
         <NextIntlClientProvider messages={messages}>
-          {children}
+          <div className="flex flex-col h-full">
+            <AppBar className="flex-none" />
+            <div className="flex flex-grow">{children}</div>
+          </div>
         </NextIntlClientProvider>
       </body>
     </html>

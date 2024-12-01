@@ -1,10 +1,13 @@
 'use server';
 import { getTranslations, getLocale } from 'next-intl/server';
 //import { BACKEND_URL } from '@/_lib/constants';
-import { TFormState, TSignInUser, TSignUpUser } from '@shared/types/formState';
+import { TFormState } from '@shared/types/formState';
 import { SignInSchema, SignUpSchema } from '@shared/validation';
 import { redirect } from '@/i18n/routing';
-import { createSession } from '../modules/session';
+import { createSession, deleteSession } from '../actions/session';
+import { TSignInUser, TSignUpUser } from '@shared/types/users';
+import axios from 'axios';
+import { BACKEND_URL } from '../config';
 
 export async function signUp(
   state: TFormState,
@@ -19,31 +22,22 @@ export async function signUp(
 
   if (!validationFields.success) {
     return {
-      error: validationFields.error?.flatten().fieldErrors as TSignUpUser,
+      error: validationFields.error?.flatten().fieldErrors,
     };
   }
 
-  // const response = await fetch(`${BACKEND_URL}/auth/signup`, {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify({
-  //     fullname: formData.get('fullname') as string,
-  //     username: formData.get('username') as string,
-  //     email: formData.get('email') as string,
-  //     password: formData.get('password') as string,
-  //   }),
-  // });
+  const response = await axios.post(`${BACKEND_URL}/auth/signup`, {
+    fullname: formData.get('fullname'),
+    username: formData.get('username'),
+    email: formData.get('email'),
+    password: formData.get('password'),
+    termsAccepted: true,
+  });
+
   const t = await getTranslations('UserServerResponses');
   const locale = await getLocale();
-  const response = {
-    ok: true,
-    status: 200,
-    statusText: 'userCreated',
-  };
 
-  if (response.ok) {
+  if (response.status === 200) {
     redirect({ href: '/auth/signin', locale });
   } else {
     return {
@@ -64,7 +58,7 @@ export async function signIn(
 
   if (!validationFields.success) {
     return {
-      error: validationFields.error?.flatten().fieldErrors as TSignInUser,
+      error: validationFields.error?.flatten().fieldErrors,
     };
   }
 
@@ -86,10 +80,9 @@ export async function signIn(
     statusText: t('userLoggedIn'),
     data: {
       user: {
-        id: 'id',
-        username: 'maria123',
-        fullname: 'Maria Martinez',
-        email: 'mariamartinez@klowhub.com',
+        _id: 'id',
+        userName: 'maria123',
+        role: 'ADMIN',
       },
       accessToken: 'accessToken',
       refreshToken: 'refreshToken',
@@ -101,10 +94,9 @@ export async function signIn(
     //TODO: create a session for authenticated user
     await createSession({
       user: {
-        id: result.user.id,
-        username: result.user.username,
-        fullname: result.user.fullname,
-        email: result.user.email,
+        _id: result.user._id,
+        userName: result.user.userName,
+        role: result.user.role,
       },
       refreshToken: result.refreshToken,
       accessToken: result.accessToken,
@@ -117,6 +109,7 @@ export async function signIn(
   }
 }
 
-export async funtion signout() {
-  
+export async function signout() {
+  // TODO: Call the api for signout
+  await deleteSession();
 }

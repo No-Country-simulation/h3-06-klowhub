@@ -1,44 +1,17 @@
 import { defineRouting } from 'next-intl/routing';
 import { createNavigation } from 'next-intl/navigation';
+import { PATHNAMES } from './config/pathnames';
+import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from './config/supportedLang';
 
 export const routing = defineRouting({
   // A list of all locales that are supported
-  locales: ['en', 'es', 'fr'],
-
+  locales: SUPPORTED_LOCALES,
   // Used when no locale matches
-  defaultLocale: 'es',
-
+  defaultLocale: DEFAULT_LOCALE,
   // Used when a locale is detected
   localeDetection: true,
-
-  pathnames: {
-    '/': '/',
-    '/about': {
-      en: '/about',
-      es: '/sobre-nosotros',
-      fr: '/a-propos',
-    },
-    '/auth/signin': {
-      en: '/auth/signin',
-      es: '/auth/iniciar-sesion',
-      fr: '/auth/connexion',
-    },
-    '/auth/signup': {
-      en: '/auth/signup',
-      es: '/auth/registrarse',
-      fr: '/auth/inscription',
-    },
-    '/auth/signout': {
-      en: '/auth/signout',
-      es: '/auth/cerrar-sesion',
-      fr: '/auth/deconnexion',
-    },
-    '/dashboard': {
-      en: '/dashboard',
-      es: '/dashboard',
-      fr: '/dashboard',
-    },
-  },
+  // A list of routes and traductions
+  pathnames: PATHNAMES,
 });
 
 // Lightweight wrappers around Next.js' navigation APIs

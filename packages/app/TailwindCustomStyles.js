@@ -1,5 +1,24 @@
 export const configTailwindExtention = {
   extend: {
+    transitionProperty: {
+      'max-w': 'max-width',
+    },
+    animation: {
+      'slide-in': 'slide-in 0.3s ease-in-out',
+      'slide-out': 'slide-out 0.3s ease-in-out',
+    },
+    keyframes: {
+      'slide-in': {
+        '0%': { transform: 'translateX(0)' },
+        '50%': { transform: 'translateX(-100%)' },
+        '100%': { transform: 'translateX(0)' },
+      },
+      'slide-out': {
+        '0%': { transform: 'translateX(0)' },
+        '50%': { transform: 'translateX(100%)' },
+        '100%': { transform: 'translateX(0)' },
+      },
+    },
     screens: {
       mobile: '361px',
       // => @media (min-width: 360px) { ... }
@@ -41,13 +60,29 @@ export const configTailwindExtention = {
         DEFAULT: 'rgba(var(--color-secondary-500), <alpha-value> )',
         100: 'rgba(var(--color-secondary-100), <alpha-value> )',
         200: 'rgba(var(--color-secondary-200), <alpha-value> )',
-        300: 'rga(var(--color-secondary-300), <alpha-value> )',
+        300: 'rgba(var(--color-secondary-300), <alpha-value> )',
         400: 'rgba(var(--color-secondary-400), <alpha-value> )',
         500: 'rgba(var(--color-secondary-500), <alpha-value> )',
         600: 'rgba(var(--color-secondary-600), <alpha-value> )',
         700: 'rgba(var(--color-secondary-700), <alpha-value> )',
         800: 'rgba(var(--color-secondary-800), <alpha-value> )',
         900: 'rgba(var(--color-secondary-900), <alpha-value> )',
+      },
+      invalid: {
+        DEFAULT: 'rgba(var(--color-error-light), <alpha-value> )',
+        light: 'rgba(var(--color-error-light), <alpha-value> )',
+        dark: 'rgba(var(--color-error-dark), <alpha-value> )',
+      },
+      success: {
+        DEFAULT: 'rgba(var(--color-success-light), <alpha-value> )',
+        light: 'rgba(var(--color-success-light), <alpha-value> )',
+        dark: 'rgba(var(--color-success-dark), <alpha-value> )',
+      },
+      background: {
+        dark: 'rgba(var(--color-background-dark), 0.8)',
+        semiDark: 'rgba(var(--color-background-semi-dark), <alpha-value> )',
+        light: 'rgba(var(--color-background-light), <alpha-value> )',
+        form: 'rgba(var(--color-background-form), <alpha-value> )',
       },
     },
   },
