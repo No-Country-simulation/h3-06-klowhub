@@ -1,25 +1,30 @@
 'use client';
 
-import { FC, HTMLAttributes, MouseEvent, ReactNode, useState } from 'react';
 import { SwitcherButton } from '@/components/ui';
+import { TSwitcherButtonProps } from '@/components/ui/buttons/SwitcherButton/SwitcherButton';
+import { FC, HTMLAttributes, MouseEvent, useState } from 'react';
 
-export type TSwitcherWrapperProps = HTMLAttributes<HTMLDivElement> & {
-  leftComponent: ReactNode;
-  rightComponent: ReactNode;
-  onClick?: (e: MouseEvent<HTMLButtonElement, MouseEvent> | MouseEvent) => void;
-};
+export type TSwitcherWrapperProps = HTMLAttributes<HTMLDivElement> &
+  TSwitcherButtonProps & {
+    onClick?: (
+      e: MouseEvent<HTMLButtonElement, MouseEvent> | MouseEvent,
+    ) => void;
+  };
 const SwitcherButtonWrapper: FC<TSwitcherWrapperProps> = ({
   className,
   leftComponent,
   rightComponent,
+  variant = 'primary',
+  isActive = false,
   onClick,
+  ...rest
 }) => {
-  const [isActive, setIsActive] = useState(false);
+  const [isButtonActive, setIsButtonActive] = useState(isActive);
 
   const handleSwitcherClick = (
     e: MouseEvent<HTMLButtonElement, MouseEvent> | MouseEvent,
   ) => {
-    setIsActive((prev) => !prev);
+    setIsButtonActive((prev) => !prev);
     onClick && onClick(e);
   };
 
@@ -28,9 +33,11 @@ const SwitcherButtonWrapper: FC<TSwitcherWrapperProps> = ({
       <SwitcherButton
         leftComponent={leftComponent}
         rightComponent={rightComponent}
-        isActive={isActive}
+        isActive={isButtonActive}
+        variant={variant}
         onClick={(e) => handleSwitcherClick(e)}
         className="mx-7"
+        {...rest}
       />
     </div>
   );

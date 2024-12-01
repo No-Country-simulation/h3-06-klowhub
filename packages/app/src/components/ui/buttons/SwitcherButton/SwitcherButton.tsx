@@ -59,12 +59,12 @@ const SwitcherButton: FC<TSwitcherButtonProps> = ({
 }) => {
   return (
     <button
+      {...rest}
       className={cn(
         ' inline-block p-1 rounded-[50px] align-center overflow-hidden',
         variant === 'primary' && 'bg-secondary-900',
         variant === 'secondary' && 'bg-primary-violet-800',
       )}
-      {...rest}
     >
       <div className="flex gap-1 items-center justify-center">
         <span

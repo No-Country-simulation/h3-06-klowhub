@@ -82,16 +82,17 @@ export async function signIn(
   console.log('SUCCESS STATUS', result?.status);
 
   if (result && result?.status === 201) {
+    console.log(result.data);
     const data = result.data;
-    await createSession({
-      user: {
-        _id: data.user.id,
-        userName: data.user.userName,
-        role: data.user.role,
-      },
-      refreshToken: data.refreshToken,
-      accessToken: data.accessToken,
-    });
+    // await createSession({
+    //   user: {
+    //     _id: data.user._id || '1',
+    //     userName: data.user.userName || 'maria',
+    //     role: data.user.role || 'USER_ESTANDAR',
+    //   },
+    //   refreshToken: data.refreshToken || 'refreshToken',
+    //   accessToken: data.accessToken,
+    // });
 
     // await createSession({
     //   user: {
@@ -110,7 +111,7 @@ export async function signIn(
         role: 'VENDEDOR',
       },
       refreshToken: 'refreshToken',
-      accessToken: 'accessToken',
+      accessToken: data.accessToken,
     });
     //TODO: redirect to the last page visited and not only home
 

@@ -20,6 +20,7 @@ const AppBar = async ({ className }: { className?: string }) => {
         className="mx-7 justify-center items-center hidden lg:flex"
         leftComponent="Home"
         rightComponent="Platform"
+        variant="primary"
       />
       <div className="md:grow">
         <MenuNavbarCollapse>

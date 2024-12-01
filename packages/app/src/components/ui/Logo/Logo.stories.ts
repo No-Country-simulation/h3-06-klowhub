@@ -17,8 +17,5 @@ type Story = StoryObj<typeof meta>;
 
 // DEFAULT CATEGORY
 export const Default: Story = {
-  args: {
-    size: 'text-4xl',
-    color: 'text-white',
-  },
+  args: {},
 };
