@@ -30,7 +30,7 @@ const MenuNavbarCollapse: FC<TMenuNavbarCollapseProps> = ({
   };
 
   return (
-    <nav className={cn('h-screen', className)}>
+    <nav className={cn('h-screen md:h-auto', className)}>
       <ToggleButton
         className="border-none bg-transparent h-full md:hidden"
         onClick={onToggleMenuView}
@@ -43,13 +43,17 @@ const MenuNavbarCollapse: FC<TMenuNavbarCollapseProps> = ({
       <div
         onClick={closeIfOptionChosen}
         className={cn(
-          'fixed top-0 right-0 bottom-0 justify-start rounded-bl-2xl rounded-tl-2xl bg-white  text-right max-w-0 overflow-x-hidden transition-max-w duration-200 ease-in-out z-50 md:flex md:w-full md:static ',
+          'fixed top-0 right-0 bottom-0 justify-start rounded-bl-2xl rounded-tl-2xl bg-white  text-right max-w-0 overflow-x-hidden transition-max-w duration-200 ease-in-out z-50',
+          'md:flex md:static md:w-full md:rounded-none md:bg-transparent md:max-w-none md:h-full md:text-center md:items-center md:grow',
           isMenuOpen &&
-            'flex flex-col max-w-[80vw] w-full justify-start items-start py-2',
+            'flex flex-col max-w-[80vw] w-full justify-start items-start py-2 md:py-0 md:flex-row md:max-w-none md:grow md:justify-between md:items-center',
         )}
       >
-        <div className={'relative top-3 left-3 '} onClick={closeMenuView}>
-          <GrClose className="text-black w-5 h-5 mb-" />
+        <div
+          className={'relative top-3 left-3 md:static md:flex md:h-full '}
+          onClick={closeMenuView}
+        >
+          <GrClose className="text-black w-5 h-5 md:hidden" />
         </div>
         {children}
       </div>

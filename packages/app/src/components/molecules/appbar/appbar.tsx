@@ -10,32 +10,22 @@ const AppBar = async ({ className }: { className?: string }) => {
   return (
     <div
       className={cn(
-        'h-20 flex max-w-full justify-between items-center gap-3 bg-gradient-bar text-white px-8 md:px-[60px]',
+        'h-20 flex max-w-full justify-between items-center gap-3 bg-gradient-bar text-white px-8 md:px-6 lg:px-[60px]',
         className,
       )}
     >
       <Logo className="w-14 " />
 
       <SwitcherButtonWrapper
-        className="mx-7 justify-center items-center hidden md:flex"
+        className="mx-7 justify-center items-center hidden lg:flex"
         leftComponent="Home"
         rightComponent="Platform"
       />
-
-      {/* <Button className=" md:hidden">Menu</Button>
-        <div className="hidden md:flex w-full justify-between">
-          <div className="flex gap-3 justify-center items-center h-full">
-            <HeaderLink href="/courses">{t('courses')}</HeaderLink>
-            <HeaderLink href="/applications">{t('applications')}</HeaderLink>
-            <HeaderLink href="/projects">{t('projects')}</HeaderLink>
-            <HeaderLink href="/mentorships">{t('mentorships')}</HeaderLink>
-          </div>
-
-          <SignInButton />
-        </div> */}
-      <MenuNavbarCollapse>
-        <MenuBar />
-      </MenuNavbarCollapse>
+      <div className="md:grow">
+        <MenuNavbarCollapse>
+          <MenuBar />
+        </MenuNavbarCollapse>
+      </div>
     </div>
   );
 };
