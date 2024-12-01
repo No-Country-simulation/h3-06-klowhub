@@ -10,7 +10,7 @@ const HaveAccountLink: FC<THaveAccount> = ({ question, href, children }) => {
   return (
     <div className="flex justify-content-center gap-[6px]">
       <span className="text-white">{question}</span>
-      <TextLink href="/auth/signup" variant="primary">
+      <TextLink href={href} variant="primary">
         {children}
       </TextLink>
     </div>

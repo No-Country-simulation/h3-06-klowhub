@@ -1,11 +1,19 @@
-import { getTranslations } from 'next-intl/server';
+import { cn } from '@/_lib';
 import React, { FC } from 'react';
 
-export type THeroAuth = { title: string; children: React.ReactNode };
-const HeroAuth: FC<THeroAuth> = async ({ title, children }) => {
-  const t = await getTranslations('Auth');
+export type THeroAuth = {
+  title: string;
+  children: React.ReactNode;
+  className?: string;
+};
+const HeroAuth: FC<THeroAuth> = async ({ title, children, className }) => {
   return (
-    <div className="flex-col w-2/4 items-center justify-center h-full py-[30px] ">
+    <div
+      className={cn(
+        'w-2/4 items-center justify-center h-full py-[30px]',
+        className,
+      )}
+    >
       <div className="flex flex-col items-left justify-center gap-10 p-[60px] w-[420px] font-semibold text-white">
         <p className="font-semibold text-[54px] leading-3">{title}</p>
         <p className="text-left font-semibold text-base">{children}</p>

@@ -1,11 +1,11 @@
+import { getSession } from '@/_lib/actions/session';
+import { NextURL } from 'next/dist/server/web/next-url';
 import { NextRequest, NextResponse } from 'next/server';
 import {
   detectLocale,
   getIsProtectedPaths,
   getLoginPahtInternationalized,
 } from './intlRoutes.utils';
-import { NextURL } from 'next/dist/server/web/next-url';
-import { getSession } from '@/_lib/actions/session';
 
 export const authMiddleware = async (req: NextRequest) => {
   const url = new URL(req.url);

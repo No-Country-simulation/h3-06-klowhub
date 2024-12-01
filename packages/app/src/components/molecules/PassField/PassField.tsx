@@ -13,7 +13,7 @@ const PassField: FC<TPassFieldProps> = ({ ...rest }) => {
   };
 
   return (
-    <Field {...rest} type={isEyeOpen ? 'text' : 'password'}>
+    <Field {...rest} type={isEyeOpen ? 'text' : 'password'} withIconState>
       <ToggleButton
         isActive={isEyeOpen}
         onClick={(e) => onClick(e)}

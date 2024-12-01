@@ -1,5 +1,8 @@
 export const configTailwindExtention = {
   extend: {
+    transitionProperty: {
+      'max-w': 'max-width',
+    },
     animation: {
       'slide-in': 'slide-in 0.3s ease-in-out',
       'slide-out': 'slide-out 0.3s ease-in-out',

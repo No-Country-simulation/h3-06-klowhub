@@ -65,7 +65,6 @@ export async function signIn(
   }
   const t = await getTranslations('UserServerResponses');
   let result: AxiosResponse;
-  console.log(formData);
   try {
     const response = await axios.post(`${BACKEND_URL}/auth/login`, {
       email: formData.get('email') as string,
@@ -80,8 +79,9 @@ export async function signIn(
     console.log(error);
     return { message: `something went wrong: ${error}` };
   }
-  console.log('SUCCESS STATUS', result?.data);
-  if (result && result?.status === 200) {
+  console.log('SUCCESS STATUS', result?.status);
+
+  if (result && result?.status === 201) {
     const data = result.data;
     await createSession({
       user: {
@@ -93,6 +93,25 @@ export async function signIn(
       accessToken: data.accessToken,
     });
 
+    // await createSession({
+    //   user: {
+    //     _id: data.user.id,
+    //     userName: data.user.userName,
+    //     role: data.user.role,
+    //   },
+    //   refreshToken: data.refreshToken,
+    //   accessToken: data.accessToken,
+    // });
+
+    await createSession({
+      user: {
+        _id: 'uno',
+        userName: 'maria',
+        role: 'VENDEDOR',
+      },
+      refreshToken: 'refreshToken',
+      accessToken: 'accessToken',
+    });
     //TODO: redirect to the last page visited and not only home
 
     const locale = await getLocale();

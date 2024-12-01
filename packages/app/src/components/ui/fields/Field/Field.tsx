@@ -1,11 +1,11 @@
-import { cva, VariantProps } from 'class-variance-authority';
-import Input, { TBaseInputProps } from '../Input/Input';
-import { forwardRef, Ref } from 'react';
 import { cn } from '@/_lib';
+import { cva, VariantProps } from 'class-variance-authority';
+import { forwardRef, Ref } from 'react';
 import { LuAlertCircle, LuCheckCircle } from 'react-icons/lu';
+import Input, { TBaseInputProps } from '../Input/Input';
 
 const fieldProps = cva(
-  'flex flex-row justify-between items-center border bg-gray-50 font-inter text-base rounded-md disabled:bg-gray-100 text-black  focus-within:border-secondary-400',
+  'flex flex-row justify-between items-center border bg-gray-50 font-inter text-base rounded-md disabled:bg-gray-100 text-black focus-within:border-secondary-400',
   {
     variants: {
       colorState: {
@@ -18,7 +18,7 @@ const fieldProps = cva(
       },
       fluid: {
         true: 'w-full',
-        false: 'w-[250px] sm:w-[400px]',
+        false: 'w-[320px] md:w-[400px]',
       },
       reverse: {
         true: 'flex-row-reverse',

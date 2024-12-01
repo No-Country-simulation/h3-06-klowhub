@@ -15,7 +15,7 @@ const SingUpForm = () => {
   const tAuth = useTranslations('Auth.form');
   return (
     <form action={action}>
-      <div className="flex flex-col gap-3 pb-10 py-7 w-[420px]">
+      <div className="flex flex-col gap-3 pb-10 py-7 min-w-[320px] max-w-[420px] md:w-[420px] justify-center items-center">
         {state?.message && <p className="text-red-500">{state.message}</p>}
         <div className="flex flex-col">
           <Field
@@ -24,7 +24,7 @@ const SingUpForm = () => {
             id="fullName"
             placeholder={tAuth('fullName')}
             colorState={state?.error?.fullName ? 'error' : 'default'}
-          />{' '}
+          />
           {state?.error?.fullName && (
             <MessageField variant="error">
               {tValidation(`${state.error.fullName}`)}
@@ -88,7 +88,7 @@ const SingUpForm = () => {
           )}
         </div>
 
-        <div className="flex flex-row gap-4 pt-5 pb-12 items-center">
+        <div className="flex flex-row gap-4 px-9 w-full pb-8 md_pb-12 justify-center items-center">
           <CheckField name="acceptSubscription" id="acceptSubscription" />
           <p>{tAuth('receiveSubscription')}</p>
         </div>

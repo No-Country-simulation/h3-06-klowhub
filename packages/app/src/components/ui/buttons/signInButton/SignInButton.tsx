@@ -7,7 +7,7 @@ const SignInButton = async () => {
   const t = await getTranslations('Appbar');
 
   return (
-    <div className="flex items-center gap-2 ml-auto">
+    <div className="flex items-center gap-2 m-auto ">
       {!session || !session.user ? (
         <>
           <ButtonLink size="xs" variant="quaternary" href="/auth/login">

@@ -21,7 +21,7 @@ const buttonProps = cva(
           'text-gray-50  border-gray-50 bg-transparent hover:text-primary-lavander-100  hover:border-primary-lavander-100 active:text-primary-lavander-200 active:border-primary-lavander-200 disabled:bg-transparent disabled:border-gray-400 disabled:text-gray-400',
       },
       size: {
-        xl: 'h-[50px] min-w-[350px] px-7 ',
+        xl: 'h-[50px] min-w-[300px] md:min-w-[350px] px-7 ',
         lg: 'h-[50px] min-w-[280px] px-7',
         md: 'h-[50px] min-w-[200px] px-7',
         sm: 'h-[50px] px-6',

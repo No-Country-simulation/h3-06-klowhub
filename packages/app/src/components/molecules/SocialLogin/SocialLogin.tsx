@@ -1,10 +1,9 @@
 import { BACKEND_URL } from '@/_lib';
 import { useTranslations } from 'next-intl';
-import React from 'react';
 import {
-  RiGoogleFill,
   RiFacebookCircleFill,
   RiGithubFill,
+  RiGoogleFill,
 } from 'react-icons/ri';
 import SocialLoginIcon from './SocialLoginIcon';
 
@@ -12,7 +11,7 @@ const SocialLogin = () => {
   const t = useTranslations('Auth.form');
 
   return (
-    <div className="flex justify-center flex-col items-center gap-6 text-sm w-full pb-10 ">
+    <div className="flex justify-center flex-col items-center gap-3 md:gap-6 text-sm w-full pb-10 ">
       <p>{t('continueWith') /*Or continue with?*/}</p>
       <div className="flex justify-center items-center flex-row gap-6">
         <SocialLoginIcon href={`${BACKEND_URL}/auth/google/login`}>

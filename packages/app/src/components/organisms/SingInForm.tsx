@@ -15,7 +15,7 @@ const SingInForm = () => {
   const tAuth = useTranslations('Auth.form');
   return (
     <form action={action}>
-      <div className="flex flex-col gap-3 pb-10 py-7 w-[420px]">
+      <div className="flex flex-col gap-3 pb-10 py-7 min-w-[320px] max-w-[420px] md:w-[420px] justify-center items-center">
         {state?.message && <p className="text-red-500">{state.message}</p>}
         <div className="flex flex-col">
           <Field
@@ -48,8 +48,8 @@ const SingInForm = () => {
         <TextLink
           variant="primary"
           size="sm"
-          href="/auth/signup"
-          className="text-center pb-[50px] "
+          href="/auth/register"
+          className="text-center pb-8 md:pb-[50px] "
         >
           {tAuth('forgotPassword')}
         </TextLink>
