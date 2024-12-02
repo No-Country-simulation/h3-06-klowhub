@@ -1,0 +1,74 @@
+{
+  "Metadata": {
+    "title": "Accueil",
+    "description": "Klowhub est un réseau social pour les développeurs no-code"
+  },
+  "Appbar": {
+    "courses": "Cours",
+    "applications": "Applications",
+    "projects": "Projets",
+    "mentorships": "Mentorats",
+    "login": "Connexion",
+    "register": "S'inscrire",
+    "logout": "Déconnexion"
+  },
+  "Auth": {
+    "heroText": "Explorez, apprenez, enseignez et connectez-vous. Créez votre compte sur Klowhub et accédez à un monde de possibilités.",
+    "form": {
+      "continue": "Siguiente",
+      "email": "Email",
+      "password": "Mot de passe",
+      "helpPassword": "Doit contenir au moins 1 chiffre, 1 lettre majuscule et au moins 6 caractères.",
+      "confirmPassword": "Confirmer le mot de passe",
+      "successPassword": "Les mots de passe correspondent",
+      "fullName": "Nom complet",
+      "helpFullName": "C'est ainsi que vous serez identifié sur la plateforme",
+      "userName": "Nom d'utilisateur",
+      "forgotPassword": "J'ai oublé mon mot de passe",
+      "notHaveAccount": "Vous n'avez pas de compte ?",
+      "haveAccount": "Vous avez déjà un compte ?",
+      "register": "S'inscrire",
+      "registerSuccess": {
+        "title": "Dernière etape:",
+        "description": "Veuillez verifier votre email pour activer votre compte. Si vous ne recevez pas un email, veillez verifier votre dossier de spam."
+      },
+      "login": "Connexion",
+      "receiveSubscription": "Je souhaite recevoir des actualités et des conseils de la plateforme",
+      "conditions": {
+        "accept": "En vous inscrivant, vous acceptez nos ",
+        "terms": "Conditions d'utilisation",
+        "and": " et notre ",
+        "privacy": "Politique de confidentialité"
+      },
+      "continueWith": "Ou continuer avec",
+      "placeholder": {
+        "login": {
+          "identifier": "Nom d'utilisateur ou email"
+        }
+      }
+    },
+    "ValidationMessages": {
+      "user": {
+        "fullname": {
+          "minLength": "Le nom complet doit comporter au moins 3 caractères"
+        },
+        "username": {
+          "minLength": "Le nom d'utilisateur doit comporter au moins 3 caractères"
+        },
+        "email": {
+          "invalid": "Adresse email invalide"
+        },
+        "password": {
+          "invalid": "Le mot de passe doit comporter au moins 8 caractères, pas plus de 50 caractères, inclure au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial",
+          "required": "Le mot de passe est requis"
+        }
+      }
+    }
+  },
+  "Home": {
+    "buttonDeploy": "Déployer maintenant"
+  },
+  "About": {
+    "default": "À propos de nous"
+  }
+}

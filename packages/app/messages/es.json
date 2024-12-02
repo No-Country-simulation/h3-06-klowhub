@@ -1,0 +1,79 @@
+{
+  "Metadata": {
+    "title": "Inicio",
+    "description": "Klowhub es una red social para desarrolladores de no-code"
+  },
+  "Appbar": {
+    "courses": "Cursos",
+    "applications": "Aplicaciones",
+    "projects": "Proyectos",
+    "mentorships": "Mentorías",
+    "login": "Iniciar Sesión",
+    "register": "Registrarse",
+    "logout": "Cerrar Sesión"
+  },
+  "Auth": {
+    "heroText": "Explora, aprende, enseña y conecta. Crea tu cuenta en Klowhub y accede a un mundo de posibilidades.",
+
+    "form": {
+      "continue": "Siguiente",
+      "email": "Email",
+      "password": "Contraseña",
+      "helpPassword": "Debe contener al menos 1 número, 1 mayúscula y tener un mínimo de 6 caracteres.",
+      "confirmPassword": "Confirmar contraseña",
+      "successPassword": "Las contraseñas coinciden",
+      "fullName": "Nombre completo",
+      "helpFullName": "Así te identificarás en la plataforma",
+      "userName": "Nombre de usuario",
+      "forgotPassword": "Olvidé mi contraseña",
+      "notHaveAccount": "¿No tienes una cuenta?",
+      "haveAccount": "¿Ya tienes una cuenta?",
+      "register": "Registrarme",
+      "registerSuccess": {
+        "title": "Último paso:",
+        "description": "Verifica tu correo electrónico para activar tu cuenta. Si no recibes un correo, revisa tu bandeja de spam."
+      },
+      "login": "Iniciar Sesión",
+      "receiveSubscription": "Quiero recibir novedades y consejos de la plataforma",
+      "continueWith": "O continuar con",
+      "conditions": {
+        "accept": "Al registrarte aceptas nuestras ",
+        "terms": "Condiciones de uso",
+        "and": " y ",
+        "privacy": "Politica de privacidad"
+      },
+      "placeholder": {
+        "login": {
+          "identifier": "Nombre de usuario o mail"
+        }
+      }
+    },
+    "ValidationMessages": {
+      "user": {
+        "fullname": {
+          "minLength": "El nombre completo debe tener al menos 3 caracteres"
+        },
+        "username": {
+          "minLength": "El nombre de usuario debe tener al menos 3 caracteres"
+        },
+        "email": {
+          "invalid": "Dirección de correo electrónico no válida"
+        },
+        "password": {
+          "invalid": "La contraseña debe contener al menos 8 caracteres, no más de 50 caracteres, al menos una letra mayúscula, al menos una letra minúscula, al menos un número y al menos un carácter especial",
+          "required": "La contraseña es requerida"
+        }
+      }
+    }
+  },
+  "Home": {
+    "buttonDeploy": "Desplegar ahora"
+  },
+  "About": {
+    "default": "Acerca de nosotros"
+  },
+  "UserServerResponses": {
+    "userNotFound": "El usuario no fue encontrado",
+    "userAlreadyExists": "El usuario ya existe"
+  }
+}
