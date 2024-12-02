@@ -3,7 +3,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseService } from './infrastructure/config/database.service';
 import { AuthModule } from './infrastructure/modules/auth.module';
-import { CourseModule } from './infrastructure/modules/course.module'; // Importar el módulo de cursos
+import { CourseModule } from './infrastructure/modules/course.module';
+import { AppController } from './app.controller'; // Importar AppController
 
 @Module({
   imports: [
@@ -19,9 +20,9 @@ import { CourseModule } from './infrastructure/modules/course.module'; // Import
     AuthModule,
 
     // Módulo de cursos
-    CourseModule, // Registrar el módulo de cursos aquí
+    CourseModule,
   ],
-  controllers: [],
-  providers: [DatabaseService],
+  controllers: [AppController], // Registrar AppController
+  providers: [DatabaseService], // Registrar AppService
 })
 export class AppModule {}
