@@ -47,6 +47,12 @@
   --color-background-light: 52, 57, 92;
 
   --color-background-form: 3, 24, 59;
+
+
+  --chart-1: 191, 163, 231, 1;
+  --chart-2: 128, 174, 248, 1;
+  --chart-3: 217, 217, 217, 1;
+  --chart-4: 185, 94, 212, 1;
 }
 
 @media (prefers-color-scheme: dark) {
