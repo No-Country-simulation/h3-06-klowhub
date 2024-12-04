@@ -12,6 +12,7 @@ import { LoginDto } from '@/application/dtos/login-user.dto';
 import { LoginUseCase } from '@/application/use-case/login-user.use-case';
 import { UserRepository } from '../../infrastructure/repositories/user.repository';
 import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
+import { ConfirmUserUseCase } from '@/application/use-case/confirm-user.use-case';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -20,6 +21,7 @@ export class AuthController {
     private readonly registerUserUseCase: RegisterUserUseCase,
     private readonly userRepository: UserRepository,
     private readonly loginUseCase: LoginUseCase,
+    private readonly confirmUseCase: ConfirmUserUseCase,
   ) {}
 
   @Post('login')
@@ -40,36 +42,23 @@ export class AuthController {
   @Get('confirm')
   @ApiOperation({ summary: 'Confirmar una cuenta de usuario' })
   @ApiQuery({
-    name: 'email',
+    name: 'token',
     required: true,
-    description: 'Correo electrónico del usuario a confirmar.',
+    description: 'El token del usuario a confirmar.',
   })
   @ApiResponse({ status: 200, description: 'Cuenta confirmada exitosamente.' })
   @ApiResponse({
     status: 400,
-    description: 'Email no proporcionado o inválido.',
+    description: 'Token no proporcionado o inválido.',
   })
-  async confirmAccount(@Query('email') email: string) {
-    if (!email) {
-      throw new BadRequestException('El parámetro "email" es requerido.');
+  async confirmAccount(@Query('token') token: string) {
+    if (!token) {
+      throw new BadRequestException({
+        status: 'error',
+        message: 'El parámetro "token" es requerido.',
+    });
     }
 
-    const user = await this.userRepository.findByEmail(email);
-    if (!user) {
-      throw new BadRequestException('Usuario no encontrado.');
-    }
-
-    if (user.isActive) {
-      return { message: 'La cuenta ya está confirmada.' };
-    }
-
-    // Actualizar el estado del usuario a "activo"
-    user.isActive = true;
-    const updatedUser = await this.userRepository.update(user);
-
-    return {
-      message: 'Cuenta confirmada exitosamente.',
-      user: updatedUser,
-    };
+    return await this.confirmUseCase.execute(token);
   }
 }

@@ -4,6 +4,7 @@ import { RegisterUserDto } from '../dtos/register-user.dto';
 import { PasswordUtil } from '../../infrastructure/utils/password.util';
 import { EmailService } from '../../infrastructure/utils/email.service';
 import { UserEntity } from '../../domain/entities/user.entities';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class RegisterUserUseCase {
@@ -11,6 +12,7 @@ export class RegisterUserUseCase {
     private readonly userRepository: UserRepository,
     private readonly passwordUtil: PasswordUtil,
     private readonly emailService: EmailService,
+    private readonly jwtService: JwtService,
   ) {}
 
   async execute(registerUserDto: RegisterUserDto): Promise<UserEntity> {
@@ -27,12 +29,20 @@ export class RegisterUserUseCase {
       registerUserDto.password,
     );
 
+    // Generar el token de confirmación
+    const confirmationToken = this.jwtService.sign(
+      { email: registerUserDto.email }, // Información relevante
+      { expiresIn: '10m' }, // Expiración específica
+    );
+
     // Crear instancia de UserEntity
     const userEntity = new UserEntity(
       registerUserDto.userName,
       registerUserDto.fullName,
       registerUserDto.email,
       hashedPassword,
+      false,
+      confirmationToken
     );
 
     // Asignar el rol predeterminado
@@ -42,8 +52,8 @@ export class RegisterUserUseCase {
     const createdUser = await this.userRepository.create(userEntity);
 
     // Generar enlace de confirmación
-    const confirmationLink = `http://localhost:3000/auth/confirm?email=${createdUser.email}`;
-
+    const confirmationLink = `http://localhost:3000/auth/confirm?token=${confirmationToken}`;
+        
     // Enviar correo de confirmación
     await this.emailService.sendConfirmationEmail(
       createdUser.email,
