@@ -2,6 +2,8 @@ import {
   Body,
   Controller,
   Post,
+  Res,
+  HttpStatus,
   Get,
   Query,
   BadRequestException,
@@ -13,6 +15,7 @@ import { LoginUseCase } from '@/application/use-case/login-user.use-case';
 import { UserRepository } from '../../infrastructure/repositories/user.repository';
 import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
 import { ConfirmUserUseCase } from '@/application/use-case/confirm-user.use-case';
+import { Response } from 'express';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -28,9 +31,36 @@ export class AuthController {
   @ApiOperation({ summary: 'Logear un usuario' })
   @ApiResponse({ status: 200, description: 'Usuario logueado correctamente' })
   @ApiResponse({ status: 400, description: 'Error al loguear usuario' })
-  async login(@Body() loginDto: LoginDto) {
-    return this.loginUseCase.execute(loginDto);
+  async login(
+    @Body() loginDto: LoginDto,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const { accessToken, refreshToken, id, userName, roles } = await this.loginUseCase.execute(loginDto);
+
+     response.cookie('accessToken', accessToken, {
+      httpOnly: true, // Previene acceso desde JavaScript en el navegador
+      sameSite: 'strict', // Evita que la cookie se envíe en solicitudes de origen cruzado
+      maxAge: 1000 * 60 * 60, // Expira en 1 hora
+    });
+
+    response.cookie('refreshToken', refreshToken, {
+      httpOnly: true, // Previene acceso desde JavaScript en el navegador
+      sameSite: 'strict', // Evita que la cookie se envíe en solicitudes de origen cruzado
+      maxAge: 1000 * 60 * 60 * 24 * 7, // Expira en 7 días
+    });
+
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Login exitoso',
+      data: {
+        id: id,
+        userName: userName,
+        roles: roles, 
+      },
+    };
+    
   }
+
   @Post('register')
   @ApiOperation({ summary: 'Registrar un nuevo usuario' })
   @ApiResponse({ status: 201, description: 'Usuario registrado exitosamente.' })
@@ -62,3 +92,6 @@ export class AuthController {
     return await this.confirmUseCase.execute(token);
   }
 }
+
+
+

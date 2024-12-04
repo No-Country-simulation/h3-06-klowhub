@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { ValidationPipe, Logger } from '@nestjs/common';
 import helmet from 'helmet';
 import { setupSwagger } from './infrastructure/config/swagger.config';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
@@ -15,6 +16,7 @@ async function bootstrap() {
     const port = configService.get<number>('PORT') || 3000;
 
     // Configuración global
+    app.use(cookieParser());
     app.enableCors();
     app.use(helmet());
     app.useGlobalPipes(
