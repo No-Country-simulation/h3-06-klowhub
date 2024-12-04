@@ -1,6 +1,6 @@
 'use client';
 import { cn } from '@/_lib';
-import { ToggleButton } from '@/components/ui';
+import ToggleButton from '@/components/ui/buttons/ToggleButton/ToggleButton';
 import { FC, MouseEvent, ReactNode, useState } from 'react';
 import { GrClose, GrMenu } from 'react-icons/gr';
 

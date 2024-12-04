@@ -1,12 +1,12 @@
 import { cn } from '@/_lib';
 import Logo from '@/components/ui/Logo/Logo';
-import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 import SwitcherButtonWrapper from '../SwitcherButtonWrapper/SwitcherButtonWrapper';
 import MenuBar from './MenuBar';
 import MenuNavbarCollapse from './NavBarCollapse/NavBarCollapse';
 
-const AppBar = async ({ className }: { className?: string }) => {
-  const t = await getTranslations('Appbar');
+const AppBar = ({ className }: { className?: string }) => {
+  const t = useTranslations('Appbar');
   return (
     <div
       className={cn(

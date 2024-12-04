@@ -1,5 +1,6 @@
-import { getSession } from '../actions/session';
+import axios, { AxiosRequestConfig } from 'axios';
 import { refreshToken } from '../actions/auth.actions';
+import { getSession } from '../actions/session';
 
 export interface FetchOptions extends RequestInit {
   headers?: Record<string, string>;
@@ -15,8 +16,8 @@ export interface FetchOptions extends RequestInit {
  * @returns The response of the fetch request.
  */
 export const authFetch = async (
-  url: string | URL,
-  options: FetchOptions = {},
+  url: string,
+  options: AxiosRequestConfig = {},
 ) => {
   const session = await getSession();
 
@@ -26,7 +27,7 @@ export const authFetch = async (
   };
 
   // Try the fetch with the access token
-  let response = await fetch(url, options);
+  let response = await axios(url, options);
 
   // If the access token is not valid, try to refresh it
   if (response.status === 401) {
@@ -40,7 +41,7 @@ export const authFetch = async (
     // If the refresh token is valid, make the fetch again with the new access token
     if (newAccessToken) {
       options.headers.Authorization = `Bearer ${newAccessToken}`;
-      response = await fetch(url, options);
+      response = await axios(url, options);
     } else {
       throw new Error('Refresh Token not valid');
     }

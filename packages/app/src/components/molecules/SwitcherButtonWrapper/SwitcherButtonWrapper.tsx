@@ -1,7 +1,8 @@
 'use client';
 
-import { SwitcherButton } from '@/components/ui';
-import { TSwitcherButtonProps } from '@/components/ui/buttons/SwitcherButton/SwitcherButton';
+import SwitcherButton, {
+  TSwitcherButtonProps,
+} from '@/components/ui/buttons/SwitcherButton/SwitcherButton';
 import { FC, HTMLAttributes, MouseEvent, useState } from 'react';
 
 export type TSwitcherWrapperProps = HTMLAttributes<HTMLDivElement> &

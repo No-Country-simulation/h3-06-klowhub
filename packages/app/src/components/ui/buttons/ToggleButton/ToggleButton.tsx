@@ -1,6 +1,6 @@
 import { cn } from '@/_lib/utils/cn-utility-function';
 import { VariantProps, cva } from 'class-variance-authority';
-import { ReactElement, ButtonHTMLAttributes, FC } from 'react';
+import { ButtonHTMLAttributes, FC, ReactElement } from 'react';
 
 const toggleButtonVariance = cva(
   'flex justify-center items-center transition-colors duration-300 bg-primary-lavander text-white',
@@ -21,7 +21,6 @@ export interface IToggleButtonProps
     VariantProps<typeof toggleButtonVariance> {
   children: [ReactElement, ReactElement];
   isActive?: boolean;
-  className?: string;
 }
 
 const ToggleButton: FC<IToggleButtonProps> = ({
@@ -31,10 +30,11 @@ const ToggleButton: FC<IToggleButtonProps> = ({
   className,
   ...rest
 }) => {
-  const buttonClasses = cn(toggleButtonVariance({ variant }), className);
-
   return (
-    <button className={buttonClasses} {...rest}>
+    <button
+      className={cn(toggleButtonVariance({ variant }), className)}
+      {...rest}
+    >
       {isActive ? children[1] : children[0]}
     </button>
   );

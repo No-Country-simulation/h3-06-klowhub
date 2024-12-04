@@ -1,5 +1,9 @@
 export const configTailwindExtention = {
   extend: {
+    backgroundImage: {
+      'hero-pattern': 'url(./src/assets/HeroImage.png)',
+      'footer-texture': "url('/img/footer-texture.png')",
+    },
     transitionProperty: {
       'max-w': 'max-width',
     },

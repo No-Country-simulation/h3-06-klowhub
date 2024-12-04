@@ -27,6 +27,7 @@ export async function createSession(payload: TSession) {
 
 export async function getSession() {
   const cookie = cookies().get('session')?.value;
+  console.log('cookie', cookie);
   if (!cookie) {
     return null;
   }

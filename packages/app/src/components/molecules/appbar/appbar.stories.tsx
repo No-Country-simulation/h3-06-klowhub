@@ -6,7 +6,6 @@ const meta = {
   tags: ['autodocs'],
   component: AppBar,
   parameters: {
-    layout: 'padded',
     title: 'AppBar',
     componentSubtitle: 'The AppBar component',
   },
@@ -15,6 +14,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const NotAuthenticated: Story = {
-  args: {},
+export const Default: Story = {
+  render: () => (
+    <div className="w-screen">
+      <AppBar />
+    </div>
+  ),
 };

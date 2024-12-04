@@ -1,13 +1,15 @@
 'use client';
 import { signUp } from '@/_lib/actions/auth.actions';
-import PassField from '@/components/molecules/PassField/PassField';
-import CheckField from '@/components/ui/fields/CheckField/CheckField';
-import SubmitButton from '@/components/ui/submitButton/SubmitButton';
+import { PassField } from '@/components/molecules';
+import {
+  CheckField,
+  Field,
+  MessageField,
+  SubmitButton,
+  TextLink,
+} from '@/components/ui';
 import { useTranslations } from 'next-intl';
 import { useFormState } from 'react-dom';
-import { Field } from '../ui';
-import MessageField from '../ui/fields/MessageField/MessageField';
-import TextLink from '../ui/links/textLink/TextLink';
 
 const SingUpForm = () => {
   const [state, action] = useFormState(signUp, undefined);

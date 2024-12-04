@@ -1,16 +1,19 @@
 import type { Preview } from '@storybook/react';
-// import * as NextImage from 'next/image';
-// import React from 'react';
 import '../src/app/globals.css';
 import withIntl from './decorators/withIntl';
 
-// // Include Images in Storybook
-// const OriginalNextImage = NextImage.default;
-
-// Object.defineProperty(NextImage, 'default', {
-//   configurable: true,
-//   value: (props) => <OriginalNextImage {...props} unoptimized />,
-// });
+// if (typeof global.process === 'undefined') {
+//   const worker = setupWorker(
+//     http.get('http://localhost:3000/auth/login', () =>
+//       HttpResponse.json({
+//         user: { id: '1', userName: 'test', role: 'admin' },
+//         accessToken: 'accessToken',
+//         refreshToken: 'refreshToken',
+//       }),
+//     ),
+//   );
+//   worker.start();
+// }
 
 const preview: Preview = {
   decorators: [withIntl],

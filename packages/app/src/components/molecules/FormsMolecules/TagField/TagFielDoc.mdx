@@ -1,0 +1,66 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Fields/TagField/UseTagField" />
+
+# UseTagField Hook
+
+## Description
+
+<p>
+  The useTagField custom hook is designed for managing tags with
+  auto-suggestions, error handling, and other functionality. It provides
+  functions and state variables for adding and removing tags, handling input
+  value changes, and managing the suggestion list.
+</p>
+
+## Types
+
+It uses the TtagDataProps for the data tag:
+
+`export type TtagDataProps = { id: string; label: string;};`
+
+## Arguments
+
+· `data: TtagDataProps[]` -> The array of tag information.
+
+· `articleTags: TtagDataProps[]` -> The array of tag of an article.
+
+· `onChange: (value: TtagDataProps[]) => void;`
+
+· `onError: (error: string) => void;`
+
+## Properties of the hook
+
+### Object Ref
+
+· **_inputRef_** (Ref Object): A reference to the input element for managing focus and user interactions.
+
+### State Variables
+
+· **_tagsOfArticle_** (State Variable): An array of tags associated with the current article.
+
+· **_value_** (State Variable): The current value of the input field for adding tags.
+
+· **_suggestionList_** (State Variable): An array of tag suggestions based on the current input value.
+
+· **_isSuggestionBoxOpen_** (State Variable): Indicates whether the suggestion box is open or closed.
+
+· **_selectedItem_** (State Variable): Tracks the currently selected item in the suggestion list. -2 means no suggestions, -1 means suggestions open but not selected.
+
+### Functions
+
+· **_getSuggestionsFromValue_** (Function): Returns an array of tag suggestions that match the input value.
+
+· **_deleteTag_** (Function): Deletes a tag from the list of tags associated with the article.
+
+· **_isTagDuplicated_** (Function): Checks if a tag is duplicated in the list of article tags.
+
+· **_AddTag_** (Function): Adds a tag to the list of article tags, with validation and error handling.
+
+· **_applyValue_** (Function): Applies a selected tag from the suggestion list to the input field value
+
+### Events Hanlers
+
+· **_onLocalKeyDown_** (Event Handler): Handles keydown events in the input field, including adding tags and managing focus.
+
+· **_onLocalChange_** (Event Handler): Handles changes in the input field value, including updating the suggestion list and error handling

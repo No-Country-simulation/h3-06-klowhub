@@ -41,15 +41,7 @@ export type TFieldProps = VariantProps<typeof fieldProps> &
 
 const Field = forwardRef<HTMLInputElement, TFieldProps>(
   (
-    {
-      colorState,
-      children,
-      fluid,
-      reverse,
-      withIconState = true,
-      className,
-      ...rest
-    }: TFieldProps,
+    { colorState, children, fluid, reverse, className, ...rest }: TFieldProps,
     ref: Ref<HTMLInputElement>,
   ) => {
     return (
@@ -62,7 +54,7 @@ const Field = forwardRef<HTMLInputElement, TFieldProps>(
           fluid={true}
           padding={reverse ? false : true}
         />
-        {withIconState &&
+        {!children &&
           (colorState === 'error' ? (
             <LuAlertCircle className="text-invalid-dark h-4 w-4 mx-3" />
           ) : colorState === 'success' ? (

@@ -3,12 +3,12 @@ import SwitcherButtonWrapper from '@/components/molecules/SwitcherButtonWrapper/
 import { Link } from '@/i18n/routing';
 import { getTranslations } from 'next-intl/server';
 import { LuBell, LuMail, LuShoppingCart } from 'react-icons/lu';
-import ButtonLink from '../../links/buttonLink/ButtonLink';
+import ButtonLink from '../../ui/links/buttonLink/ButtonLink';
 
 const SignInButton = async () => {
-  const session = await getSession();
   const t = await getTranslations('Appbar');
-
+  const session = await getSession();
+  console.log('SESSION', session);
   return (
     <div className="flex items-center gap-2 m-auto ">
       {!session || !session.user ? (
@@ -53,7 +53,7 @@ const SignInButton = async () => {
           />
           <a
             className="mx-2 px-2 py-1 rounded-2xl text-inter text-base border font-medium cursor-pointer transition-colors duration-300 ease-in-out inline-flex items-center justify-center gap-[10px] 'text-gray-50  border-gray-50 bg-transparent hover:text-primary-lavander-100  hover:border-primary-lavander-100 active:text-primary-lavander-200 active:border-primary-lavander-200 disabled:bg-transparent disabled:border-gray-400 disabled:text-gray-400  "
-            href="/auth/logout"
+            href="/api/auth/logout"
           >
             Desconectar
           </a>
