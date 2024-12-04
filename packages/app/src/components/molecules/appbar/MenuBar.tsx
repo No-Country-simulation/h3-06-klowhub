@@ -1,4 +1,4 @@
-import SignInButton from '@/components/ui/buttons/SignInButton/SignInButton';
+import SignInButton from '@/components/ui/buttons/signInButton/SignInButton';
 import HeaderLink from '@/components/ui/links/headerLink/HeaderLink';
 import { useTranslations } from 'next-intl';
 
