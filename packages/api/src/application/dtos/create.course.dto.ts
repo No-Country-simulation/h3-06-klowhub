@@ -99,16 +99,15 @@ export class CreateCourseDto {
     description: 'Precio del curso (si no es gratuito)',
     example: 99.99,
   })
+  @IsNumber()
+  @IsOptional()
+  price?: number;
+
   @ApiProperty({ description: 'Módulos del curso', type: [ModuleDto] })
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => ModuleDto)
   modules: ModuleDto[];
-
-  @IsNumber()
-  @IsOptional()
-  price?: number;
-
   @ApiProperty({
     description: 'Duración del curso en horas',
     example: 20,

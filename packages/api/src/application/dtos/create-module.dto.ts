@@ -1,31 +1,29 @@
-import { IsNotEmpty, IsString, IsArray, ValidateNested } from 'class-validator';
-import { Type } from 'class-transformer';
+import { IsString, IsArray, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { LessonDto } from './create-lesson.dto';
 
 export class ModuleDto {
   @ApiProperty({
     description: 'Título del módulo',
-    example: 'Fundamentos de NestJS',
+    example: 'Introducción a NestJS',
   })
   @IsString()
-  @IsNotEmpty()
   title: string;
 
   @ApiProperty({
     description: 'Descripción del módulo',
-    example: 'Este módulo cubre los fundamentos de NestJS.',
+    example: 'Este módulo introduce los conceptos básicos de NestJS.',
   })
   @IsString()
-  @IsNotEmpty()
   description: string;
 
   @ApiProperty({
-    description: 'Lecciones del módulo',
-    type: [LessonDto],
+    description: 'Lista de lecciones del módulo',
+    example: [
+      { title: 'Introducción', content: 'Bienvenida', videoUrl: 'http://...' },
+    ],
   })
   @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => LessonDto)
-  lessons: LessonDto[];
+  @IsOptional()
+  lessons?: LessonDto[];
 }

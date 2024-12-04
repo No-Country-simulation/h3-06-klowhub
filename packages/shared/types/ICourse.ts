@@ -17,13 +17,20 @@ export interface ICourse extends Document {
   title: string;
   description: string;
   creatorId: string;
-  imageUrl: string; // Ajustado desde "courseImage" a "imageUrl"
-  tags: string[]; // Cambiado a obligatorio para consistencia con la entidad
-  price: number;
-  duration: number; // Agregado, ya que está en la entidad
-  level: string; // Agregado, ya que está en la entidad
-  isPublished: boolean;
   modules: IModule[];
-  createdAt?: Date; // Incluido para manejar timestamps
-  updatedAt?: Date; // Incluido para manejar timestamps
+  price: number;
+  duration: number;
+  level: string;
+  imageUrl: string;
+  tags: string[];
+  isPublished: boolean;
+  competencyLevel?: string;
+  platform?: string;
+  language?: string; 
+  sector?: string;
+  functionalities?: string[];
+  tools?: string[];
+  createdAt?: Date;
+  updatedAt?: Date;
 }
+
