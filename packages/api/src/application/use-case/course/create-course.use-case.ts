@@ -13,7 +13,15 @@ export class CreateCourseUseCase {
       createCourseDto.title,
       createCourseDto.description,
       createCourseDto.creatorId,
-      [], // Inicializamos con un array vacío de módulos
+      [], // Módulos iniciales vacíos
+      createCourseDto.price,
+      createCourseDto.duration, // Este campo debe estar en el constructor
+      createCourseDto.level,
+      createCourseDto.imageUrl,
+      createCourseDto.tags,
+      createCourseDto.isPublished,
+      new Date(), // createdAt
+      new Date(), // updatedAt
     );
 
     // Delegar la creación al repositorio

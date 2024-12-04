@@ -1,4 +1,12 @@
-import { IsNotEmpty, IsString, IsMongoId } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsString,
+  IsMongoId,
+  IsArray,
+  IsBoolean,
+  IsNumber,
+  IsOptional,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateCourseDto {
@@ -22,8 +30,115 @@ export class CreateCourseDto {
     description: 'El ID del creador del curso',
     example: '60d0fe4f5311236168a109ca',
   })
-  @IsString() // Si estás seguro de que será un ObjectId, utiliza @IsMongoId
+  @IsString()
   @IsMongoId({ message: 'Debe ser un ObjectId válido' })
   @IsNotEmpty()
   creatorId: string;
+
+  @ApiProperty({
+    description: 'Nivel de competencia del curso',
+    example: 'Intermedio',
+  })
+  @IsString()
+  @IsNotEmpty()
+  competencyLevel: string;
+
+  @ApiProperty({
+    description: 'Plataforma utilizada en el curso',
+    example: 'AppSheet',
+  })
+  @IsString()
+  @IsNotEmpty()
+  platform: string;
+
+  @ApiProperty({
+    description: 'Idioma en el que se imparte el curso',
+    example: 'Español',
+  })
+  @IsString()
+  @IsNotEmpty()
+  language: string;
+
+  @ApiProperty({
+    description: 'Sector objetivo del curso',
+    example: 'Tecnología',
+  })
+  @IsString()
+  @IsNotEmpty()
+  sector: string;
+
+  @ApiProperty({
+    description: 'Lista de funcionalidades que aborda el curso',
+    example: ['Automatización', 'Creación de apps'],
+  })
+  @IsArray()
+  @IsString({ each: true })
+  @IsNotEmpty()
+  functionalities: string[];
+
+  @ApiProperty({
+    description: 'Lista de herramientas y plataformas utilizadas en el curso',
+    example: ['Figma', 'Postman'],
+  })
+  @IsArray()
+  @IsString({ each: true })
+  @IsNotEmpty()
+  tools: string[];
+
+  @ApiProperty({
+    description: 'Indica si el curso es gratuito',
+    example: true,
+  })
+  @IsBoolean()
+  @IsNotEmpty()
+  isFree: boolean;
+
+  @ApiProperty({
+    description: 'Precio del curso (si no es gratuito)',
+    example: 99.99,
+  })
+  @IsNumber()
+  @IsOptional()
+  price?: number;
+
+  @ApiProperty({
+    description: 'Duración del curso en horas',
+    example: 20,
+  })
+  @IsNumber()
+  @IsNotEmpty()
+  duration: number;
+
+  @ApiProperty({
+    description: 'Nivel del curso',
+    example: 'Avanzado',
+  })
+  @IsString()
+  @IsOptional()
+  level?: string;
+
+  @ApiProperty({
+    description: 'URL de la imagen del curso',
+    example: 'https://example.com/image.jpg',
+  })
+  @IsString()
+  @IsOptional()
+  imageUrl?: string;
+
+  @ApiProperty({
+    description: 'Etiquetas asociadas al curso',
+    example: ['NestJS', 'Desarrollo Web', 'Backend'],
+  })
+  @IsArray()
+  @IsString({ each: true })
+  @IsOptional()
+  tags?: string[];
+
+  @ApiProperty({
+    description: 'Indica si el curso está publicado',
+    example: true,
+  })
+  @IsBoolean()
+  @IsOptional()
+  isPublished?: boolean;
 }
