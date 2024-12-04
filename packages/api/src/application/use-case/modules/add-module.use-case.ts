@@ -1,36 +1,32 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CourseRepository } from '../../../infrastructure/repositories/course.repository';
+import { ModuleRepository } from '../../../infrastructure/repositories/module.repository';
 import { ModuleEntity } from '../../../domain/entities/module.entity';
-import { CreateModuleDto } from '../../dtos/create-module.dto';
-import { LessonEntity } from '../../../domain/entities/lesson.entity';
+import { ModuleDto } from '../../dtos/create-module.dto';
 
 @Injectable()
-export class AddModuleToCourseUseCase {
-  constructor(private readonly courseRepository: CourseRepository) {}
+export class AddModuleUseCase {
+  constructor(private readonly moduleRepository: ModuleRepository) {}
 
-  async execute(courseId: string, moduleData: CreateModuleDto) {
-    // Convertir las lecciones del DTO en LessonEntity
-    const lessons = moduleData.lessons.map(
-      (lesson) => new LessonEntity(lesson.title, lesson.content),
-    );
-
-    // Crear una instancia de ModuleEntity
+  async execute(courseId: string, ModuleDto: ModuleDto): Promise<ModuleEntity> {
+    // Crear una instancia de ModuleEntity desde el DTO
     const moduleEntity = new ModuleEntity(
-      moduleData.title,
-      moduleData.description,
-      lessons,
+      ModuleDto.title,
+      ModuleDto.description,
+      ModuleDto.lessons,
     );
 
     // Llamar al repositorio para agregar el módulo
-    const updatedCourse = await this.courseRepository.addModule(
+    const module = await this.moduleRepository.createModule(
       courseId,
       moduleEntity,
     );
 
-    if (!updatedCourse) {
-      throw new NotFoundException(`Course with ID ${courseId} not found`);
+    if (!module) {
+      throw new NotFoundException(
+        `Failed to add module to course with ID ${courseId}`,
+      );
     }
 
-    return updatedCourse;
+    return module;
   }
 }
