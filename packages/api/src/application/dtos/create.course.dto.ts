@@ -8,7 +8,9 @@ import {
   IsOptional,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-
+import { ValidateNested } from 'class-validator';
+import { ModuleDto } from './create-module.dto';
+import { Type } from 'class-transformer';
 export class CreateCourseDto {
   @ApiProperty({
     description: 'El título del curso',
@@ -97,6 +99,12 @@ export class CreateCourseDto {
     description: 'Precio del curso (si no es gratuito)',
     example: 99.99,
   })
+  @ApiProperty({ description: 'Módulos del curso', type: [ModuleDto] })
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => ModuleDto)
+  modules: ModuleDto[];
+
   @IsNumber()
   @IsOptional()
   price?: number;

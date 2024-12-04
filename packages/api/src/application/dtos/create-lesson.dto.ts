@@ -1,26 +1,26 @@
-import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateLessonDto {
+export class LessonDto {
   @ApiProperty({
-    description: 'El título de la lección',
-    example: 'Introducción a TypeScript',
+    description: 'Título de la lección',
+    example: 'Introducción a NestJS',
   })
   @IsString()
-  @IsNotEmpty({ message: 'El título de la lección es obligatorio' })
+  @IsNotEmpty()
   title: string;
 
-  @ApiPropertyOptional({
-    description: 'El contenido de la lección (opcional)',
-    example: 'Este es el contenido de la lección...',
+  @ApiProperty({
+    description: 'Contenido de la lección',
+    example: 'En esta lección aprenderemos los fundamentos de NestJS.',
   })
   @IsString()
-  @IsOptional()
-  content?: string;
+  @IsNotEmpty()
+  content: string;
 
-  @ApiPropertyOptional({
-    description: 'La URL del video de la lección (opcional)',
-    example: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+  @ApiProperty({
+    description: 'URL del video de la lección',
+    example: 'https://example.com/video.mp4',
   })
   @IsString()
   @IsOptional()

@@ -8,10 +8,14 @@ export class CourseEntity {
   modules: ModuleEntity[];
   price: number;
   duration: number;
-  level: string;
   imageUrl: string;
   tags: string[];
   isPublished: boolean;
+  competencyLevel?: string;
+  platform?: string;
+  language?: string;
+  functionalities?: string[];
+  tools?: string[];
   createdAt?: Date;
   updatedAt?: Date;
 
@@ -22,10 +26,14 @@ export class CourseEntity {
     modules: ModuleEntity[] = [],
     price: number,
     duration: number,
-    level: string,
     imageUrl: string,
     tags: string[],
     isPublished: boolean,
+    competencyLevel?: string,
+    platform?: string,
+    language?: string,
+    functionalities?: string[],
+    tools?: string[],
     createdAt?: Date,
     updatedAt?: Date,
     _id?: string,
@@ -36,16 +44,16 @@ export class CourseEntity {
     this.modules = modules;
     this.price = price;
     this.duration = duration;
-    this.level = level;
     this.imageUrl = imageUrl;
     this.tags = tags;
     this.isPublished = isPublished;
+    this.competencyLevel = competencyLevel;
+    this.platform = platform;
+    this.language = language;
+    this.functionalities = functionalities;
+    this.tools = tools;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this._id = _id;
-  }
-
-  addModule(module: ModuleEntity): void {
-    this.modules.push(module);
   }
 }
