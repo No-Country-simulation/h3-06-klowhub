@@ -12,7 +12,7 @@ export interface IModule {
   _id?: string;
 }
 
-export interface ICourse extends Document {
+export interface ICourse {
   _id: string;
   title: string;
   description: string;
@@ -33,4 +33,5 @@ export interface ICourse extends Document {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
 

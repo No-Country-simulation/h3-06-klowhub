@@ -44,6 +44,47 @@ export class CourseRepository {
     return this.toEntity(savedCourse);
   }
 
+  async findById(courseId: string): Promise<CourseEntity | null> {
+    const course = await this.courseModel.findById(courseId).lean();
+    if (!course) {
+      return null;
+    }
+
+    const validatedCourse: ICourse = {
+      _id: course._id,
+      title: course.title,
+      description: course.description,
+      creatorId: course.creatorId,
+      modules: course.modules.map((module) => ({
+        title: module.title,
+        description: module.description,
+        lessons: module.lessons.map((lesson) => ({
+          title: lesson.title,
+          content: lesson.content,
+          videoUrl: lesson.videoUrl,
+          _id: lesson._id,
+        })),
+        _id: module._id,
+      })),
+      price: course.price,
+      duration: course.duration,
+      level: course.level,
+      imageUrl: course.imageUrl,
+      tags: course.tags,
+      isPublished: course.isPublished,
+      competencyLevel: course.competencyLevel,
+      platform: course.platform,
+      language: course.language,
+      sector: course.sector,
+      functionalities: course.functionalities,
+      tools: course.tools,
+      createdAt: course.createdAt,
+      updatedAt: course.updatedAt,
+    };
+
+    return this.toEntity(validatedCourse);
+  }
+
   private toEntity(course: ICourse): CourseEntity {
     const modules = course.modules.map(
       (module) =>

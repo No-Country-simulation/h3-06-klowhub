@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { ModuleEntity } from '../../domain/entities/module.entity';
-
+import { LessonEntity } from '../../domain/entities/lesson.entity';
 @Injectable()
 export class ModuleRepository {
   constructor(
@@ -43,5 +43,30 @@ export class ModuleRepository {
       savedModule.lessons,
       savedModule._id,
     );
+  }
+  async addLesson(
+    courseId: string,
+    moduleId: string,
+    lessonEntity: LessonEntity,
+  ): Promise<void> {
+    // Convertir LessonEntity a objeto plano
+    const lessonData = {
+      title: lessonEntity.title,
+      content: lessonEntity.content,
+      videoUrl: lessonEntity.videoUrl,
+    };
+
+    // Actualizar el módulo con la nueva lección
+    const result = await this.courseModel.updateOne(
+      { _id: courseId, 'modules._id': moduleId },
+      { $push: { 'modules.$.lessons': lessonData } },
+    );
+
+    // Verificar si algún documento fue modificado
+    if (result.modifiedCount === 0) {
+      throw new Error(
+        'No se encontró el curso o el módulo para agregar la lección.',
+      );
+    }
   }
 }
