@@ -1,53 +1,44 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { CourseRepository } from '../../../infrastructure/repositories/course.repository';
-import { ILesson } from '@shared/types/ILesson';
+import { Injectable } from '@nestjs/common';
 import { LessonEntity } from '../../../domain/entities/lesson.entity';
+import { CourseRepository } from '../../../infrastructure/repositories/course.repository';
+import { ModuleRepository } from '../../../infrastructure/repositories/module.repository';
 
 @Injectable()
-export class AddLessonToModuleUseCase {
-  constructor(private readonly courseRepository: CourseRepository) {}
+export class AddLessonUseCase {
+  constructor(
+    private readonly courseRepository: CourseRepository,
+    private readonly moduleRepository: ModuleRepository,
+  ) {}
 
   async execute(
     courseId: string,
     moduleId: string,
-    lessonData: Partial<ILesson>,
-  ) {
-    if (!lessonData.title) {
-      throw new Error('Lesson title is required');
+    lessonData: Partial<LessonEntity>,
+  ): Promise<LessonEntity> {
+    const course = await this.courseRepository.findById(courseId);
+    if (!course) {
+      throw new Error('Course not found');
     }
 
-    if (lessonData.videoUrl && !this.isValidUrl(lessonData.videoUrl)) {
-      throw new Error('Invalid video URL');
+    // Validar si el módulo existe dentro del curso
+    const module = course.modules.find((mod) => mod._id === moduleId);
+    if (!module) {
+      throw new Error('Module not found');
     }
 
-    const lessonEntity = new LessonEntity(
+    // Crear la nueva lección
+    const newLesson = new LessonEntity(
       lessonData.title,
-      lessonData.content ?? '',
-      lessonData._id,
+      lessonData.content,
       lessonData.videoUrl,
     );
 
-    const updatedCourse = await this.courseRepository.addLesson(
-      courseId,
-      moduleId,
-      lessonEntity,
-    );
+    // Agregar la lección al módulo
+    module.lessons.push(newLesson);
 
-    if (!updatedCourse) {
-      throw new NotFoundException(
-        `Course with ID ${courseId} or Module with ID ${moduleId} not found`,
-      );
-    }
+    // Actualizar el curso en el repositorio
+    await this.moduleRepository.addLesson(courseId, moduleId, newLesson);
 
-    return updatedCourse;
-  }
-
-  private isValidUrl(url: string): boolean {
-    try {
-      new URL(url);
-      return true;
-    } catch {
-      return false;
-    }
+    return newLesson;
   }
 }
