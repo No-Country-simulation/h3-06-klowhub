@@ -21,6 +21,7 @@ export const CourseSchema = new Schema(
     category: { type: String, required: false },
     tags: { type: [String], required: false },
     price: { type: Number, required: true },
+    duration: { type: Number, required: true },
     rating: { type: Number, default: 0 },
     isPublished: { type: Boolean, default: false },
     modules: [ModuleSchema],
