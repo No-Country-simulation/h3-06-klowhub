@@ -1,4 +1,5 @@
 import { getSession } from '@/_lib';
+import NotePicker from '@/components/molecules/FormsMolecules/Editor/NotePicker';
 import FileUploader from '@/components/molecules/FormsMolecules/FileUploader/FileUploader';
 import Hero from '@/components/ui/Hero/Hero';
 import HeroCard from '@/components/ui/Hero/HeroCard';
@@ -19,6 +20,8 @@ export const HomePage = async () => {
           </WrapperHome>
         )}
         <FileUploader photo="" />
+        <h1>editor</h1>
+        <NotePicker />
 
         <WrapperHome title="Cursos recomendados" href="/courses">
           Cursos

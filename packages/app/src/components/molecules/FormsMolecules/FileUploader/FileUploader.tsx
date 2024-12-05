@@ -106,14 +106,6 @@ const FileUploader: FC<TFileUploaderProps> = ({
                 value={isImageCharged}
               />
             </label>
-            <div>
-              {photo ? (
-                <div>
-                  <span onClick={() => isOpen(false)}>Annuler</span>
-                </div>
-              ) : null}
-              <button type="submit">Publier</button>
-            </div>
           </div>
         </div>
       </form>

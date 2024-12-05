@@ -8,7 +8,7 @@ const tailwindConfig = {
     './.storybook/**/*.{js,jsx,ts,tsx}',
   ],
   theme: configTailwindExtention,
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 };
 
 export default tailwindConfig;
