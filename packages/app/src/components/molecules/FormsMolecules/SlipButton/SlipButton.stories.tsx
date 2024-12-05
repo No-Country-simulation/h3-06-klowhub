@@ -21,7 +21,7 @@ const meta = {
     },
   },
   args: {
-    onToggle: () => console.log('Toggled!'),
+    toggle: () => console.log('Toggled!'),
   },
   argTypes: {
     onToggle: {

@@ -3,8 +3,7 @@ import {
   categoryList,
   TCategoryItem,
 } from './components/CategoryLabel/category.interface';
-import CategoryLabel from './components/CategoryLabel/CategoryLabel';
-import DropDownField from './DropDownField';
+import { CategoryLabel, DropDownField } from './index';
 
 const meta = {
   title: 'Fields/DropDownField',

@@ -16,7 +16,7 @@ import SlipButtonInput, { TSlipButtonInputProps } from './SlipButtonInput';
  */
 export type SlipButtonProps = InputHTMLAttributes<HTMLInputElement> &
   TSlipButtonInputProps & {
-    onToggle: (val: boolean) => void;
+    toggle: (val: boolean) => void;
     isOpened: boolean;
     children?: ReactNode;
     icon?: ReactNode;
@@ -26,7 +26,7 @@ const SlipButton = forwardRef<HTMLInputElement, SlipButtonProps>(
   (
     {
       children,
-      onToggle,
+      toggle,
       isOpened,
       className,
       alt,
@@ -36,24 +36,24 @@ const SlipButton = forwardRef<HTMLInputElement, SlipButtonProps>(
     ref: Ref<HTMLInputElement>,
   ) => {
     const toggleMenu: MouseEventHandler<HTMLButtonElement> = (event) => {
-      onToggle(!isOpened);
+      toggle(!isOpened);
     };
     return (
       <div className=" relative">
         <div
           className={cn(
-            ' flex items-center justify-between h-10  bg-surface-triarty-white rounded-rdlg pl-4 w-full ',
+            ' flex items-center justify-between h-10 text-black bg-white rounded-2xl pl-4 w-full ',
             className,
           )}
         >
           <SlipButtonInput alt={alt} icon={icon} ref={ref || null} {...rest} />
           <ToggleButton
-            className="h-4 w-4 mx-2"
+            className="h-6 w-6 mx-4 p-0 text-black bg-transparent"
             isActive={isOpened}
-            onClick={() => toggleMenu}
+            onClick={toggleMenu}
           >
-            <VscChevronUp />
             <VscChevronDown />
+            <VscChevronUp />
           </ToggleButton>
         </div>
 

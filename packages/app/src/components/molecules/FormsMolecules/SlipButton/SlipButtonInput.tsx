@@ -17,7 +17,7 @@ const SlipButtonInput = forwardRef<HTMLInputElement, TSlipButtonInputProps>(
         {icon && icon}
         <input
           className={cn(
-            'border-none rounded-l-rdxl w-full text-base outline-none bg-transparent',
+            'border-none rounded-l-2xl w-full text-base outline-none bg-transparent',
             inputStyles,
           )}
           {...rest}

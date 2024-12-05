@@ -4,7 +4,7 @@ import {
   SetStateAction,
   useEffect,
   useState,
-} from "react";
+} from 'react';
 
 export type useDropDownProps<T> = {
   value: T | string;
@@ -27,18 +27,18 @@ function useDropDownField<T>({
   // If the type is icon, and there are iconChamp (the champ where the icon is included) then return the icon. If not return the text of the indexchamp or a string.
 
   const getValueOf = (type: string, val: T | string) => {
-    if (type === "icon" && val) {
-      return iconChamp && typeof val != "string" && val[iconChamp as keyof T];
+    if (type === 'icon' && val) {
+      return iconChamp && typeof val != 'string' && val[iconChamp as keyof T];
     }
-    if (type === "text" && val) {
-      return indexChamp && typeof val != "string"
+    if (type === 'text' && val) {
+      return indexChamp && typeof val != 'string'
         ? val[indexChamp as keyof T]
         : val;
     }
-    return "";
+    return '';
   };
-  const [inputValue, setInputValue] = useState(getValueOf("text", value));
-  const [iconValue, setIconValue] = useState(() => getValueOf("icon", value));
+  const [inputValue, setInputValue] = useState(getValueOf('text', value));
+  const [iconValue, setIconValue] = useState(() => getValueOf('icon', value));
   const [selectedIndex, setSelectedIndex] = useState(-2);
   const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
 
@@ -50,9 +50,9 @@ function useDropDownField<T>({
   };
 
   const handleSuggestSelect = (el: SetStateAction<string | T>) => {
-    const value = getValueOf("text", el as T | string);
+    const value = getValueOf('text', el as T | string);
     setInputValue(value);
-    setIconValue(() => getValueOf("icon", el as T | string));
+    setIconValue(() => getValueOf('icon', el as T | string));
     focus();
     setSelectedIndex(-2);
     setIsSuggestionsOpen(false);
@@ -61,7 +61,7 @@ function useDropDownField<T>({
   const toggleMenu = (val: boolean) => setIsSuggestionsOpen(val);
 
   useEffect(() => {
-    console.log("onchange");
+    console.log('onchange');
     onChange && onChange(inputValue as string);
   }, [inputValue]);
 

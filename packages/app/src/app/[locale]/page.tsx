@@ -1,9 +1,11 @@
 import { getSession } from '@/_lib';
+import FileUploader from '@/components/molecules/FormsMolecules/FileUploader/FileUploader';
 import Hero from '@/components/ui/Hero/Hero';
 import HeroCard from '@/components/ui/Hero/HeroCard';
 import WrapperHome from '@/components/ui/layouts/Wrappers/WrapperHome/WrapperHome';
 export const HomePage = async () => {
   const session = await getSession();
+
   return (
     <div className="flex flex-col min-h-screen w-full">
       <Hero image="/HeroImage.png">
@@ -16,6 +18,8 @@ export const HomePage = async () => {
             Cursos
           </WrapperHome>
         )}
+        <FileUploader photo="" />
+
         <WrapperHome title="Cursos recomendados" href="/courses">
           Cursos
         </WrapperHome>

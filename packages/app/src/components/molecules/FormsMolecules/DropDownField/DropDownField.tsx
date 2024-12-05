@@ -1,8 +1,7 @@
 import { cn } from '@/_lib/utils/cn-utility-function';
-import SlipButton from '@/components/molecules/FormsMolecules/SlipButton/SlipButton';
+import { default as SlipButton } from '@/components/molecules/FormsMolecules/SlipButton/SlipButton';
 import { InputHTMLAttributes, ReactElement, ReactNode, useRef } from 'react';
-import { SuggestDropDown } from '.';
-import useDropDownField from './components/useDropDownField';
+import { SuggestDropDown, useDropDownField } from './index';
 
 export type dropdownFieldProps<T> = InputHTMLAttributes<HTMLInputElement> & {
   options: (T | string | number | readonly string[] | undefined)[];
@@ -43,24 +42,25 @@ function DropdownField<T>({
   });
 
   return (
-    <>
+    <div>
       <SlipButton
         className={cn(
-          'w-36 shadow-input rounded-rdlg mobile:w-80',
+          'w-36 shadow-md rounded-t-2xl mobile:w-80',
           isSuggestionsOpen &&
-            ' border-x border-t border-border-primary rounded-b-[0px] shadow-input-side',
+            ' border-x border-t border-secondary-500- rounded-b-[0px] shadow-md',
         )}
         ref={dropDownRef}
         {...rest}
         icon={iconValue as ReactNode}
         value={inputValue as string}
         isOpened={isSuggestionsOpen}
-        onToggle={() => toggleMenu}
+        toggle={toggleMenu}
         onChange={onLocalChange}
+        readOnly
       />
       {isSuggestionsOpen && (
         <SuggestDropDown
-          className=" overflow-hidden absolute bg-surface-triarty-white w-36 rounded-b-rdlg mobile:w-80 border-x border-b border-border-primary"
+          className=" overflow-hidden absolute bg-white w-36 rounded-b-2xl mobile:w-80 border-x border-b border-secondary-500"
           options={options}
           nameList={'categories'}
           selectedItem={selectedIndex}
@@ -68,7 +68,7 @@ function DropdownField<T>({
           onSelect={handleSuggestSelect}
         />
       )}
-    </>
+    </div>
   );
 }
 

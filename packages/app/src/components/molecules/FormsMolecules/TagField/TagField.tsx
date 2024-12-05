@@ -2,7 +2,6 @@ import { cn } from '@/_lib/utils/cn-utility-function';
 import { Input } from '@/components/ui';
 import MessageField from '@/components/ui/fields/MessageField/MessageField';
 import { FC, HTMLAttributes, useState } from 'react';
-import Suggest from './components/Suggest';
 import TagButtonList from './components/TagButtonList';
 import useTagField from './useTagField';
 
@@ -23,13 +22,13 @@ const TagField: FC<TTagField> = ({ className, placeholder, ...rest }) => {
   const {
     inputRef,
     tagsOfArticle,
-    suggestionList,
+    // suggestionList,
     onLocalChange,
     onLocalKeyDown,
-    isSuggestionBoxOpen,
-    applyValue,
+    // isSuggestionBoxOpen,
+    // applyValue,
     deleteTag,
-    selectedItem,
+    // selectedItem,
     value,
   } = useTagField({
     data: myData,
@@ -42,7 +41,7 @@ const TagField: FC<TTagField> = ({ className, placeholder, ...rest }) => {
     <>
       <div
         className={cn(
-          'min-h-[36px] w-80 flex flex-col max-w-screen-mobile rounded-lg overflow-hidden mobile:max-w-[855px] mobile:w-full p-0 border-gray-600 bg-white',
+          'min-h-12 w-80 flex flex-col max-w-screen-mobile rounded-lg overflow-hidden mobile:max-w-[855px] mobile:w-full p-0 border-gray-600 bg-white',
           isError
             ? 'border border-invalid-light'
             : value
@@ -64,7 +63,7 @@ const TagField: FC<TTagField> = ({ className, placeholder, ...rest }) => {
 
           <div
             className={cn(
-              ' px-4 py-0 flex-grow bg-transparent text-black',
+              ' px-4 py-0 flex-grow items-center justify-centerbg-transparent text-black',
               className,
             )}
           >
@@ -77,12 +76,12 @@ const TagField: FC<TTagField> = ({ className, placeholder, ...rest }) => {
               value={value}
               ref={inputRef}
               padding={false}
-              className="py-0"
+              className="py-3"
               {...rest}
             />
           </div>
         </div>
-
+        {/* 
         <ul className={isSuggestionBoxOpen ? 'flex flex-col px-0' : 'hidden'}>
           <Suggest
             selectedItem={selectedItem}
@@ -90,7 +89,7 @@ const TagField: FC<TTagField> = ({ className, placeholder, ...rest }) => {
             nameList="tags"
             onSelect={applyValue}
           />
-        </ul>
+        </ul> */}
       </div>
       <MessageField variant="error" className={isError ? 'flex' : 'hidden'}>
         {isError}
