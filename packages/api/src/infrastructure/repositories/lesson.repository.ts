@@ -1,38 +1,45 @@
-// src/infrastructure/repositories/lesson.repository.ts
-import { Injectable } from '@nestjs/common';
-import { Model } from 'mongoose';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { ILesson } from '../../domain/models/lesson.model';
+import { Model } from 'mongoose';
+import { LessonEntity } from '../../domain/entities/lesson.entity';
 
 @Injectable()
 export class LessonRepository {
   constructor(
-    @InjectModel('Lesson') private readonly lessonModel: Model<ILesson>,
+    @InjectModel('Course') private readonly courseModel: Model<any>,
   ) {}
 
-  async create(lesson: Partial<ILesson>): Promise<ILesson> {
-    console.log('Creating lesson with data:', lesson);
-    return new this.lessonModel(lesson).save();
-  }
+  async addLessonToModule(
+    courseId: string,
+    moduleId: string,
+    lesson: LessonEntity,
+  ): Promise<LessonEntity> {
+    const course = await this.courseModel.findById(courseId);
+    if (!course) {
+      throw new NotFoundException('Course not found');
+    }
 
-  async findById(id: string): Promise<ILesson | null> {
-    return this.lessonModel.findById(id).exec();
-  }
+    const module = course.modules.id(moduleId);
+    if (!module) {
+      throw new NotFoundException('Module not found');
+    }
 
-  async findAll(): Promise<ILesson[]> {
-    return this.lessonModel.find().exec();
-  }
+    const newLesson = {
+      title: lesson.title,
+      content: lesson.content,
+      videoUrl: lesson.videoUrl,
+    };
 
-  async update(
-    id: string,
-    updateData: Partial<ILesson>,
-  ): Promise<ILesson | null> {
-    return this.lessonModel
-      .findByIdAndUpdate(id, updateData, { new: true })
-      .exec();
-  }
+    module.lessons.push(newLesson);
+    await course.save();
 
-  async delete(id: string): Promise<{ acknowledged: boolean } | null> {
-    return this.lessonModel.deleteOne({ _id: id }).exec();
+    // Retorna la lección recién añadida
+    const addedLesson = module.lessons[module.lessons.length - 1];
+    return new LessonEntity(
+      addedLesson.title,
+      addedLesson.content,
+      addedLesson.videoUrl,
+      addedLesson._id,
+    );
   }
 }

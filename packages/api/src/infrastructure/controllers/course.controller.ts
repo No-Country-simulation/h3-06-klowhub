@@ -3,149 +3,249 @@ import {
   Post,
   Body,
   Param,
-  Put,
-  Delete,
-  NotFoundException,
   HttpCode,
-  ParseUUIDPipe,
+  HttpException,
+  HttpStatus,
+  NotFoundException,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBadRequestResponse,
+  ApiNotFoundResponse,
+} from '@nestjs/swagger';
 import { CreateCourseUseCase } from '../../application/use-case/course/create-course.use-case';
-import { UpdateCourseUseCase } from '../../application/use-case/course/update-course-use.case';
-import { DeleteCourseUseCase } from '../../application/use-case/course/delete-course-use.case';
-import { AddModuleToCourseUseCase } from '../../application/use-case/modules/add-module.use-case';
-import { AddLessonToModuleUseCase } from '../../application/use-case/lesson/add-lesson.use-case';
-import { DeleteLessonFromModuleUseCase } from '../../application/use-case/modules/delete-module.use-case';
-import { DeleteLessonUseCase } from '../../application/use-case/lesson/delete-lesson.use-case';
+import { AddModuleUseCase } from '../../application/use-case/modules/add-module.use-case';
+import { AddLessonUseCase } from '../../application/use-case/lesson/add-lesson.use-case';
 import { CreateCourseDto } from '../../application/dtos/create.course.dto';
-import { UpdateCourseDto } from '../../application/dtos/update-course.dto';
-import { CreateModuleDto } from '../../application/dtos/create-module.dto';
-import { CreateLessonDto } from '../../application/dtos/create-lesson.dto';
+import { ModuleDto } from '../../application/dtos/create-module.dto';
+import { ILesson } from '@shared/types/ICourse';
 
-@ApiTags('courses') // Categoría de Swagger
+@ApiTags('courses')
 @Controller('courses')
 export class CourseController {
   constructor(
     private readonly createCourseUseCase: CreateCourseUseCase,
-    private readonly updateCourseUseCase: UpdateCourseUseCase,
-    private readonly deleteCourseUseCase: DeleteCourseUseCase,
-    private readonly addModuleToCourseUseCase: AddModuleToCourseUseCase,
-    private readonly addLessonToModuleUseCase: AddLessonToModuleUseCase,
-    private readonly deleteModuleUseCase: DeleteLessonFromModuleUseCase,
-    private readonly deleteLessonUseCase: DeleteLessonUseCase,
+    private readonly addModuleUseCase: AddModuleUseCase,
+    private readonly addLessonUseCase: AddLessonUseCase,
   ) {}
 
   @Post()
   @HttpCode(201)
   @ApiOperation({ summary: 'Crear un nuevo curso' })
-  @ApiResponse({ status: 201, description: 'Curso creado con éxito.' })
+  @ApiResponse({
+    status: 201,
+    description: 'Curso creado con éxito.',
+    schema: {
+      example: {
+        status: 'success',
+        message: 'Curso creado con éxito',
+        data: {
+          id: '60d0fe4f5311236168a109ca',
+          title: 'Curso de Desarrollo Web con NestJS',
+          description:
+            'Este curso cubre los conceptos básicos y avanzados de NestJS.',
+        },
+      },
+    },
+  })
+  @ApiBadRequestResponse({
+    description: 'Error en la validación de datos.',
+    schema: {
+      example: {
+        status: 'error',
+        message: 'Datos inválidos',
+        errors: [
+          { field: 'title', message: 'El título es obligatorio' },
+          { field: 'price', message: 'El precio debe ser mayor a 0' },
+        ],
+      },
+    },
+  })
   async createCourse(@Body() createCourseDto: CreateCourseDto) {
-    const course = await this.createCourseUseCase.execute(createCourseDto);
-    return {
-      status: 'success',
-      message: 'Curso creado con éxito',
-      data: course,
-    };
-  }
+    try {
+      const course = await this.createCourseUseCase.execute(createCourseDto);
+      return {
+        status: 'success',
+        message: 'Curso creado con éxito',
+        data: course,
+      };
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new HttpException(
+          {
+            status: 'error',
+            message: 'No se pudo crear el curso',
+            details: error.message,
+          },
+          HttpStatus.BAD_REQUEST,
+        );
+      }
 
-  @Put(':id')
-  @ApiOperation({ summary: 'Actualizar un curso existente' })
-  @ApiParam({ name: 'id', description: 'ID del curso a actualizar' })
-  @ApiResponse({ status: 200, description: 'Curso actualizado con éxito.' })
-  @ApiResponse({ status: 404, description: 'Curso no encontrado.' })
-  async updateCourse(
-    @Param('id', ParseUUIDPipe) id: string,
-    @Body() updateCourseDto: UpdateCourseDto,
-  ) {
-    const updatedCourse = await this.updateCourseUseCase.execute(
-      id,
-      updateCourseDto,
-    );
-    if (!updatedCourse) {
-      throw new NotFoundException('Curso no encontrado');
+      throw new HttpException(
+        {
+          status: 'error',
+          message: 'No se pudo crear el curso',
+          details: 'Ocurrió un error desconocido',
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
-    return {
-      status: 'success',
-      message: 'Curso actualizado con éxito',
-      data: updatedCourse,
-    };
   }
 
-  @Delete(':id')
-  @HttpCode(204)
-  @ApiOperation({ summary: 'Eliminar un curso' })
-  @ApiParam({ name: 'id', description: 'ID del curso a eliminar' })
-  async deleteCourse(@Param('id', ParseUUIDPipe) id: string) {
-    await this.deleteCourseUseCase.execute(id);
-    return; // Código 204 no requiere respuesta
-  }
-
-  @Post(':id/modules')
-  @ApiOperation({ summary: 'Añadir un módulo a un curso' })
-  @ApiParam({ name: 'id', description: 'ID del curso' })
+  @Post(':courseId/modules')
+  @HttpCode(201)
+  @ApiOperation({ summary: 'Agregar un módulo a un curso existente' })
+  @ApiResponse({
+    status: 201,
+    description: 'Módulo agregado con éxito.',
+    schema: {
+      example: {
+        status: 'success',
+        message: 'Módulo agregado con éxito',
+        data: {
+          id: '60d0fe4f5311236168a109cb',
+          title: 'Módulo 1: Introducción',
+          description: 'Descripción del módulo',
+        },
+      },
+    },
+  })
+  @ApiNotFoundResponse({
+    description: 'Curso no encontrado.',
+    schema: {
+      example: {
+        status: 'error',
+        message: 'Curso no encontrado',
+      },
+    },
+  })
+  @ApiBadRequestResponse({
+    description: 'Error en la validación de datos del módulo.',
+    schema: {
+      example: {
+        status: 'error',
+        message: 'Datos inválidos',
+        errors: [
+          { field: 'title', message: 'El título del módulo es obligatorio' },
+        ],
+      },
+    },
+  })
   async addModule(
-    @Param('id', ParseUUIDPipe) courseId: string,
-    @Body() createModuleDto: CreateModuleDto,
+    @Param('courseId') courseId: string,
+    @Body() ModuleDto: ModuleDto,
   ) {
-    const updatedCourse = await this.addModuleToCourseUseCase.execute(
-      courseId,
-      createModuleDto,
-    );
-    if (!updatedCourse) {
-      throw new NotFoundException('Curso no encontrado');
+    try {
+      const module = await this.addModuleUseCase.execute(courseId, ModuleDto);
+      return {
+        status: 'success',
+        message: 'Módulo agregado con éxito',
+        data: module,
+      };
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new HttpException(
+          {
+            status: 'error',
+            message: 'No se pudo agregar el módulo',
+            details: error.message,
+          },
+          error instanceof NotFoundException
+            ? HttpStatus.NOT_FOUND
+            : HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      throw new HttpException(
+        {
+          status: 'error',
+          message: 'No se pudo agregar el módulo',
+          details: 'Ocurrió un error desconocido',
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
-
-    const newModule = updatedCourse.modules[updatedCourse.modules.length - 1];
-    return {
-      status: 'success',
-      message: 'Módulo añadido con éxito',
-      data: newModule,
-    };
   }
-
   @Post(':courseId/modules/:moduleId/lessons')
-  @ApiOperation({ summary: 'Añadir una lección a un módulo' })
-  @ApiParam({ name: 'courseId', description: 'ID del curso' })
-  @ApiParam({ name: 'moduleId', description: 'ID del módulo' })
+  @HttpCode(HttpStatus.CREATED)
+  @ApiOperation({ summary: 'Agregar una lección a un módulo existente' })
+  @ApiResponse({
+    status: 201,
+    description: 'Lección agregada con éxito.',
+    schema: {
+      example: {
+        status: 'success',
+        message: 'Lección agregada con éxito',
+        data: {
+          id: '60d0fe4f5311236168a109cc',
+          title: 'Introducción a NestJS',
+          content: 'Esta es la primera lección.',
+          videoUrl: 'http://example.com/video.mp4',
+        },
+      },
+    },
+  })
+  @ApiNotFoundResponse({
+    description: 'Curso o módulo no encontrado.',
+    schema: {
+      example: {
+        status: 'error',
+        message: 'Curso o módulo no encontrado',
+      },
+    },
+  })
+  @ApiBadRequestResponse({
+    description: 'Error en la validación de datos de la lección.',
+    schema: {
+      example: {
+        status: 'error',
+        message: 'Datos inválidos',
+        errors: [
+          { field: 'title', message: 'El título de la lección es obligatorio' },
+        ],
+      },
+    },
+  })
   async addLesson(
-    @Param('courseId', ParseUUIDPipe) courseId: string,
-    @Param('moduleId', ParseUUIDPipe) moduleId: string,
-    @Body() createLessonDto: CreateLessonDto,
+    @Param('courseId') courseId: string,
+    @Param('moduleId') moduleId: string,
+    @Body() lessonData: Omit<ILesson, '_id'>, // Datos de la nueva lección
   ) {
-    const updatedCourse = await this.addLessonToModuleUseCase.execute(
-      courseId,
-      moduleId,
-      createLessonDto,
-    );
-    if (!updatedCourse) {
-      throw new NotFoundException('Curso o módulo no encontrado');
-    }
-    return {
-      status: 'success',
-      message: 'Lección añadida con éxito',
-      data: updatedCourse,
-    };
-  }
+    try {
+      const lesson = await this.addLessonUseCase.execute(
+        courseId,
+        moduleId,
+        lessonData,
+      );
+      return {
+        status: 'success',
+        message: 'Lección agregada con éxito',
+        data: lesson,
+      };
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new HttpException(
+          {
+            status: 'error',
+            message: 'No se pudo agregar la lección',
+            details: error.message,
+          },
+          error instanceof NotFoundException
+            ? HttpStatus.NOT_FOUND
+            : HttpStatus.BAD_REQUEST,
+        );
+      }
 
-  @Delete(':courseId/modules/:moduleId/lessons/:lessonId')
-  @HttpCode(204)
-  @ApiOperation({ summary: 'Eliminar una lección de un módulo' })
-  @ApiParam({ name: 'courseId', description: 'ID del curso' })
-  @ApiParam({ name: 'moduleId', description: 'ID del módulo' })
-  @ApiParam({ name: 'lessonId', description: 'ID de la lección' })
-  async deleteLesson(
-    @Param('courseId', ParseUUIDPipe) courseId: string,
-    @Param('moduleId', ParseUUIDPipe) moduleId: string,
-    @Param('lessonId', ParseUUIDPipe) lessonId: string,
-  ) {
-    const updatedCourse = await this.deleteLessonUseCase.execute(
-      courseId,
-      moduleId,
-      lessonId,
-    );
-    if (!updatedCourse) {
-      throw new NotFoundException('Curso, módulo o lección no encontrado');
+      throw new HttpException(
+        {
+          status: 'error',
+          message: 'No se pudo agregar la lección',
+          details: 'Ocurrió un error desconocido',
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
-    return;
   }
 }

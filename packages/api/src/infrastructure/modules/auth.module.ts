@@ -9,6 +9,7 @@ import { EmailService } from '../../infrastructure/utils/email.service';
 import { PasswordUtil } from '../../infrastructure/utils/password.util';
 import { AuthController } from '../controllers/auth.controller';
 import { MongoSanitizeMiddleware } from '../middlewares/mongo-sanitize.middleware';
+import { ConfirmUserUseCase } from '@/application/use-case/confirm-user.use-case';
 //TODO: Descomentar para produccion
 //import { ThrottleMiddleware } from '../middlewares/throttle.middleware';
 
@@ -22,6 +23,7 @@ import { MongoSanitizeMiddleware } from '../middlewares/mongo-sanitize.middlewar
   ],
   controllers: [AuthController],
   providers: [
+    ConfirmUserUseCase,
     LoginUseCase,
     UserRepository,
     RegisterUserUseCase,
