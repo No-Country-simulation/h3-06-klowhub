@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Post,
+  Req,
   Res,
   HttpStatus,
   Get,
@@ -16,6 +17,10 @@ import { UserRepository } from '../../infrastructure/repositories/user.repositor
 import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
 import { ConfirmUserUseCase } from '@/application/use-case/confirm-user.use-case';
 import { Response } from 'express';
+interface RequestWithCookies extends Request {
+  cookies: { [key: string]: string };
+}
+
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -59,6 +64,41 @@ export class AuthController {
       },
     };
     
+  }  
+
+  @Post('refresh-token')
+  @ApiOperation({ summary: 'Refrescar el access token' })
+  @ApiResponse({ status: 200, description: 'Access token actualizado exitosamente' })
+  @ApiResponse({ status: 400, description: 'Refresh token inválido o no proporcionado' })
+  async refreshAccessToken(
+    @Req() req: RequestWithCookies,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    // Extraer el refresh token de las cookies
+    const refreshToken = req.cookies?.refreshToken;
+
+    if (!refreshToken) {
+      throw new BadRequestException('Refresh token no proporcionado.');
+    }
+
+    try {
+      // Verificar y generar un nuevo access token
+      const { newAccessToken } = await this.loginUseCase.refreshAccessToken(refreshToken);
+
+      // Configurar la cookie con el nuevo access token
+      res.cookie('accessToken', newAccessToken, {
+        httpOnly: true, // Seguridad: solo accesible desde el servidor
+        sameSite: 'strict', // Evitar solicitudes de origen cruzado
+        maxAge: 1000 * 60 * 60, // Expira en 1 hora
+      });
+
+      return {
+        statusCode: HttpStatus.OK,
+        message: 'Access token actualizado exitosamente'
+      };
+    } catch (error) {
+      throw new BadRequestException('Error al refrescar el token: ' + error);
+    }
   }
 
   @Post('register')

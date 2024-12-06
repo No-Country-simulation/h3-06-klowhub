@@ -29,5 +29,24 @@ export class LoginUseCase {
 
     return { accessToken, refreshToken, id: user._id, userName: user.userName, roles: user.roles};
   }
+  async refreshAccessToken(refreshToken: string): Promise<{ newAccessToken: string }> {
+    // Verificar el refresh token
+    const payload = this.jwtService.verify(refreshToken, { secret: process.env.REFRESH_TOKEN_SECRET });
+    
+    if (!payload) {
+      throw new Error('Refresh token inválido.');
+    }
+
+    // Generar un nuevo access token
+    const newAccessToken = this.jwtService.sign(
+      { id: payload.id, roles: payload.roles },
+      { secret: process.env.ACCESS_TOKEN_SECRET, expiresIn: '1h' },
+    );
+
+    return { newAccessToken };
+  }
+  
+  
+  
 }
 
