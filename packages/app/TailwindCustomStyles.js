@@ -34,6 +34,10 @@ export const configTailwindExtention = {
       // => @media (min-width: 1920px) { ... }
     },
     colors: {
+      chart_courses:"rgba(var(--chart-1))",
+      chart_projects:"rgba(var(--chart-3))",
+      chart_apps:"rgba(var(--chart-2))",
+      chart_mentorships:"rgba(var(--chart-4))",
       primary: {
         lavander: {
           DEFAULT: 'rgba(var(--color-lavander-500), <alpha-value> )',

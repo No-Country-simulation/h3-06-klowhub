@@ -1,6 +1,7 @@
 import { configTailwindExtention } from './TailwindCustomStyles';
 
 const tailwindConfig = {
+  darkMode: ['class'],
   content: [
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -9,6 +10,7 @@ const tailwindConfig = {
   ],
   theme: configTailwindExtention,
   plugins: [require('@tailwindcss/typography')],
+  plugins: [require('tailwindcss-animate')],
 };
 
 export default tailwindConfig;
