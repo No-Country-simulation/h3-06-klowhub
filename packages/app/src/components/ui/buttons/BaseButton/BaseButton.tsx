@@ -62,6 +62,7 @@ const Button: React.FC<TButtonProps> = ({
   fullWidth,
   children,
   className,
+  ...rest
 }) => {
   return (
     <button
@@ -69,6 +70,7 @@ const Button: React.FC<TButtonProps> = ({
         buttonProps({ variant, rounded, wrap, fullWidth, size }),
         className,
       )}
+      {...rest}
     >
       {children}
     </button>

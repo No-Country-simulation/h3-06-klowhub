@@ -4,12 +4,11 @@ import {
   TagField,
 } from '@/components/molecules/FormsMolecules';
 import Tiptap from '@/components/molecules/FormsMolecules/Editor/components/TipTap';
-import { Wrapper } from '@/components/ui';
 import sectorOptions from '@shared/data/sectorOptions.json';
 
 const PublishDetailCoursForm = () => {
   return (
-    <Wrapper className="flex sm:flex-row gap-[30px] flex-col max-w-[1500px]">
+    <div className="flex w-full  text-white bg-gray-950 rounded-lg p-6 shadow-mdflex sm:flex-row gap-[30px] flex-col max-w-[1500px]">
       <div className="flex flex-col gap-[30px] w-full sm:flex-grow-2">
         <div className="flex flex-col gap-3">
           <LabeledField
@@ -74,7 +73,7 @@ const PublishDetailCoursForm = () => {
           </LabeledField>
         </div>
       </div>
-    </Wrapper>
+    </div>
   );
 };
 

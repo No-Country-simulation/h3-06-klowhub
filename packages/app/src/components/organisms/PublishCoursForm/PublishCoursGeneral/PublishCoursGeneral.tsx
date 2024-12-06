@@ -1,4 +1,3 @@
-'use client';
 import AppSheetLogo from '@/assets/appSheetLogo.svg';
 import PowerAppLogo from '@/assets/powerAppLogo.svg';
 import {
@@ -6,15 +5,13 @@ import {
   OptionGroup,
   TextArea,
 } from '@/components/molecules/FormsMolecules';
-import { Field, Tag, Wrapper } from '@/components/ui';
+import { Field, Tag } from '@/components/ui';
+import FileField from '@/components/ui/fields/FileField/FileField';
 
 const PublishCoursGeneral = () => {
   return (
-    <form
-      action=""
-      className="flex flex-col gap-6 justify-around w-full max-w-[1500px]"
-    >
-      <Wrapper className="flex flex-col md:flex-row gap-4 justify-between">
+    <div className="w-full max-w-[1500px] my-0 mx-auto flex flex-col gap-8">
+      <div className="flex flex-col md:flex-row gap-4 justify-between w-full text-white bg-gray-950 rounded-lg p-6 shadow-md ">
         <div className="flex flex-col w-full gap-6">
           <LabeledField
             label="Titulo del curso:"
@@ -43,10 +40,10 @@ const PublishCoursGeneral = () => {
             Se recomienda que la imagen sea representativa del curso y atractiva
             para que capte la atención de posibles estudiantes.
           </p>
-          {/* <FileField photo="" onChange={() => {}} /> */}
+          <FileField photo="" onChange={() => {}} />
         </div>
-      </Wrapper>
-      <Wrapper className="flex-col flex md:flex-row flex-wrap gap-7 md:gap-4 justify-between">
+      </div>
+      <div className="flex flex-col md:flex-row n w-full text-white bg-gray-950 rounded-lg p-6 shadow-md  flex-wrap gap-7 md:gap-4 justify-between">
         <div className="flex flex-col gap-6">
           <OptionGroup
             title="Titulo del curso:"
@@ -121,8 +118,8 @@ const PublishCoursGeneral = () => {
             className="max-w-[266px]"
           ></Field>
         </LabeledField>
-      </Wrapper>
-    </form>
+      </div>
+    </div>
   );
 };
 

@@ -1,5 +1,4 @@
 'use client';
-
 import Button from '@/components/ui/buttons/BaseButton/BaseButton';
 import { PublishCoursSchema } from '@shared/validation/cours';
 import { useState } from 'react';
@@ -69,7 +68,7 @@ const PublishCoursForm = () => {
           ))}
         </ol>
       </nav>
-      <section className="w-full ">
+      <section>
         <Button
           type="button"
           onClick={handlePrev}
@@ -81,31 +80,32 @@ const PublishCoursForm = () => {
           <LuArrowLeft className="h-6 w-6" /> Volver
         </Button>
         {/* form */}
-        <div className="mx-auto mt-4">
-          {currentStep === 0 && (
-            <div>
-              <PublishCoursDetail />
-            </div>
-          )}
-          {currentStep === 1 && (
-            <div>
-              <PublishCoursGeneral />
-            </div>
-          )}
-          {currentStep === 2 && <div>ThirdForm</div>}
-          {currentStep === 3 && <div>FourthForm</div>}
-        </div>
+
+        {currentStep === 0 && (
+          <div>
+            <PublishCoursGeneral />
+          </div>
+        )}
+        {currentStep === 1 && (
+          <div>
+            <PublishCoursDetail />
+          </div>
+        )}
+        {currentStep === 2 && <div>ThirdForm</div>}
+        {currentStep === 3 && <div>FourthForm</div>}
         {/* navigation */}
-        <div className="mt-8 pt-5 w-full flex justify-end">
-          <Button
-            variant="quaternary"
-            size="sm"
-            type="button"
-            onClick={handleNext}
-            disabled={currentStep === steps.length - 1}
-          >
-            Continuar
-          </Button>
+        <div className="mt-8 pt-5">
+          <div className="mt-8 pt-5 w-full flex justify-end">
+            <Button
+              variant="quaternary"
+              size="sm"
+              type="button"
+              onClick={handleNext}
+              disabled={currentStep === steps.length - 1}
+            >
+              Continuar
+            </Button>
+          </div>
         </div>
       </section>
     </div>

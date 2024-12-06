@@ -49,10 +49,12 @@ const Button: React.FC<TButtonProps> = ({
   wrap,
   className,
   children,
+  ...rest
 }) => {
   return (
     <button
       className={cn(buttonProps({ variant, wrap, size, fullWidth }), className)}
+      {...rest}
     >
       {children}
     </button>
