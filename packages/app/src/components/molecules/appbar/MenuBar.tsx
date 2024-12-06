@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import SignInButton from '@/components/molecules/SignInButton/SignInButton';
-=======
-import SignInButton from '@/components/ui/buttons/signInButton/SignInButton';
->>>>>>> frontend
 import HeaderLink from '@/components/ui/links/headerLink/HeaderLink';
 import { useTranslations } from 'next-intl';
 
