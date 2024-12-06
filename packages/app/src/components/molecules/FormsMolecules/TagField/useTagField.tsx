@@ -1,3 +1,4 @@
+'use client';
 import { focusNextElement } from '@/_lib/utils/domUtilities';
 import { validateOnlyAlphaNumerics } from '@/_lib/utils/validations';
 import { KeyboardEventHandler, useRef, useState } from 'react';

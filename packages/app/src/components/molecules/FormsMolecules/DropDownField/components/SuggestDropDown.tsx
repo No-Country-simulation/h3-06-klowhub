@@ -1,3 +1,4 @@
+'use client';
 import { cn } from '@/_lib/utils/cn-utility-function';
 import { ReactElement, ReactNode } from 'react';
 

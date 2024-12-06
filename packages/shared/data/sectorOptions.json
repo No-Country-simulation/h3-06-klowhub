@@ -1,0 +1,16 @@
+[
+  { "id": "1", "value": "Atención al Cliente" },
+  { "id": "2", "value": "Bienes Raíces e Inmobiliarias" },
+  { "id": "3", "value": "Comercio Electrónico (eCommerce)" },
+  { "id": "4", "value": "Creatividad y Producción de Contenidos" },
+  { "id": "5", "value": "Desarrollo de Productos y Proyectos" },
+  { "id": "6", "value": "Educación y Formación" },
+  { "id": "7", "value": "Finanzas y Contabilidad" },
+  { "id": "8", "value": "Logística y Operaciones" },
+  { "id": "9", "value": "Marketing Digital" },
+  { "id": "10", "value": "ONG y Proyectos Sociales" },
+  { "id": "11", "value": "Recursos Humanos" },
+  { "id": "12", "value": "Salud y Bienestar" },
+  { "id": "13", "value": "Tecnología e Innovación" },
+  { "id": "14", "value": "Ventas y CRM" }
+]

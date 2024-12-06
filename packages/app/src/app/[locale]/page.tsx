@@ -1,7 +1,7 @@
 import { getSession } from '@/_lib';
+import { Wrapper } from '@/components/ui';
 import Hero from '@/components/ui/Hero/Hero';
 import HeroCard from '@/components/ui/Hero/HeroCard';
-import WrapperHome from '@/components/ui/layouts/Wrappers/WrapperHome/WrapperHome';
 export const HomePage = async () => {
   const session = await getSession();
 
@@ -13,17 +13,17 @@ export const HomePage = async () => {
 
       <main className="flex flex-grow flex-col justify-start items-center py-[30px] px-[30px] md:px-[60px]  bg-gray-700 gap-5">
         {session && (
-          <WrapperHome title="Continua tu aprendizaje" href="/courses">
+          <Wrapper title="Continua tu aprendizaje" href="/courses">
             Cursos con progreso card aqui
-          </WrapperHome>
+          </Wrapper>
         )}
 
-        <WrapperHome title="Cursos recomendados" href="/courses">
+        <Wrapper title="Cursos recomendados" href="/courses">
           Cursos
-        </WrapperHome>
-        <WrapperHome title="Aplicaciones recomendadas" href="/applications">
+        </Wrapper>
+        <Wrapper title="Aplicaciones recomendadas" href="/applications">
           Cursos
-        </WrapperHome>
+        </Wrapper>
       </main>
     </div>
   );

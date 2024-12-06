@@ -1,3 +1,4 @@
+import { cn } from '@/_lib';
 import React, { ReactNode } from 'react';
 
 interface IOptionGroupProps {
@@ -7,12 +8,23 @@ interface IOptionGroupProps {
     label: string | ReactNode;
   }[];
   name: string;
+  className?: string;
 }
-const OptionGroup: React.FC<IOptionGroupProps> = ({ title, options, name }) => {
+const OptionGroup: React.FC<IOptionGroupProps> = ({
+  title,
+  options,
+  name,
+  className,
+}) => {
   const [selected, setSelected] = React.useState(options[0].value);
 
   return (
-    <div className="flex flex-col text-gray-50 text-sm font-semibold gap-3">
+    <div
+      className={cn(
+        'flex flex-col text-gray-50 text-sm font-semibold gap-3',
+        className,
+      )}
+    >
       <h3>{title}</h3>
       <div className="flex flex-col gap-3 font-normal">
         {options.map((option) => (

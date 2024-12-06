@@ -1,3 +1,4 @@
+'use client';
 import { cn } from '@/_lib/utils/cn-utility-function';
 import { Input } from '@/components/ui';
 import MessageField from '@/components/ui/fields/MessageField/MessageField';

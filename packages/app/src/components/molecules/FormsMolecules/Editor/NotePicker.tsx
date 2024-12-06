@@ -29,9 +29,6 @@ const NotePicker = () => {
       onSubmit={handleSubmit}
       onBlur={() => handleBlur()}
     >
-      <div className="text-3xl text-center text-secondary-200 mb-10">
-        Notes Picker
-      </div>
       <Tiptap
         content={content}
         onChange={(newContent: string) => handleContentChange(newContent)}

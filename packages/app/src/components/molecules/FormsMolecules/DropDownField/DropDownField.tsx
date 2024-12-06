@@ -1,3 +1,4 @@
+'use client';
 import { cn } from '@/_lib/utils/cn-utility-function';
 import { default as SlipButton } from '@/components/molecules/FormsMolecules/SlipButton/SlipButton';
 import { InputHTMLAttributes, ReactElement, ReactNode, useRef } from 'react';
@@ -45,7 +46,7 @@ function DropdownField<T>({
     <div>
       <SlipButton
         className={cn(
-          'w-36 shadow-md rounded-t-2xl mobile:w-80',
+          'w-36 shadow-md rounded-t-lg mobile:w-80 ',
           isSuggestionsOpen &&
             ' border-x border-t border-secondary-500- rounded-b-[0px] shadow-md',
         )}
@@ -60,7 +61,7 @@ function DropdownField<T>({
       />
       {isSuggestionsOpen && (
         <SuggestDropDown
-          className=" overflow-hidden absolute bg-white w-36 rounded-b-2xl mobile:w-80 border-x border-b border-secondary-500"
+          className=" overflow-hidden absolute bg-white w-36 rounded-b-lg mobile:w-80 border-x border-b border-secondary-500 text-black"
           options={options}
           nameList={'categories'}
           selectedItem={selectedIndex}

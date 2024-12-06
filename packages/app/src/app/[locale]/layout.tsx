@@ -1,4 +1,4 @@
-import AppBar from '@/components/molecules/Appbar/Appbar';
+import Appbar from '@/components/molecules/Appbar/Appbar';
 import { routing } from '@/i18n/routing';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
@@ -49,7 +49,7 @@ export default async function LocaleLayout({
       >
         <NextIntlClientProvider messages={messages}>
           <div className="flex flex-col h-full">
-            <AppBar className="flex-none" />
+            <Appbar className="flex-none" />
             <div className="flex flex-grow">{children}</div>
           </div>
         </NextIntlClientProvider>

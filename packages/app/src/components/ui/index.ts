@@ -9,8 +9,8 @@ export { default as MessageField } from './fields/MessageField/MessageField';
 export { default as Hero } from './Hero/Hero';
 export { default as HeroCard } from './Hero/HeroCard';
 export { default as InputText } from './InputText/InputText';
-export { default as ProductCard } from './layouts/Cards/ProductCard/ProductCard';
-export { default as WrapperHome } from './layouts/Wrappers/WrapperHome/WrapperHome';
+
+export { default as Wrapper } from './layouts/Wrappers/Wrapper/Wrapper';
 export { default as ButtonLink } from './links/buttonLink/ButtonLink';
 export { default as HeaderLink } from './links/headerLink/HeaderLink';
 export { default as TextLink } from './links/textLink/TextLink';

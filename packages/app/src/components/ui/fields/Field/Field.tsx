@@ -49,10 +49,10 @@ const Field = forwardRef<HTMLInputElement, TFieldProps>(
         className={cn(fieldProps({ colorState, fluid, reverse }), className)}
       >
         <Input
-          {...rest}
           ref={ref}
           fluid={true}
           padding={reverse ? false : true}
+          {...rest}
         />
         {!children &&
           (colorState === 'error' ? (

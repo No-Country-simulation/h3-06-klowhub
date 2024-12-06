@@ -18,20 +18,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // DEFAULT CATEGORY
-export const Titulo: Story = {
+export const Default: Story = {
   args: {
     label: 'Titulo del curso:',
     optionalInfo: 'Máximo 70 caracteres',
-    type: 'text',
-    placeholder: 'Ej: Aprende a desarrollar aplicaciones con AppSheet',
-  },
-};
-
-export const Hours: Story = {
-  args: {
-    label: 'Duración del curso:',
-    type: 'number',
-    optionalInfo: 'Escribe la cantidad de horas.',
-    placeholder: 'Ej: 12',
+    children: 'Algun field',
   },
 };

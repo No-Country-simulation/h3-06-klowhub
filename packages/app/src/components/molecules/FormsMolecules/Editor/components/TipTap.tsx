@@ -2,6 +2,7 @@
 
 import CodeBlock from '@tiptap/extension-code-block';
 import { Link } from '@tiptap/extension-link';
+import Placeholder from '@tiptap/extension-placeholder';
 import Underline from '@tiptap/extension-underline';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -11,9 +12,10 @@ import Toolbar from './Toolbar';
 export type TTiptapProps = {
   content: string;
   onChange: (value: string) => void;
+  placeholder?: string;
 };
 
-const Tiptap: FC<TTiptapProps> = ({ content, onChange }) => {
+const Tiptap: FC<TTiptapProps> = ({ content, onChange, placeholder }) => {
   const handleChange = (newContent: string) => {
     onChange(newContent);
   };
@@ -23,6 +25,7 @@ const Tiptap: FC<TTiptapProps> = ({ content, onChange }) => {
       StarterKit,
       Underline,
       CodeBlock,
+      Placeholder.configure({ placeholder: placeholder }),
       Link.configure({
         openOnClick: false,
         autolink: true,

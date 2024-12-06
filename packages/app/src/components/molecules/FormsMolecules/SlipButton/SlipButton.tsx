@@ -42,7 +42,7 @@ const SlipButton = forwardRef<HTMLInputElement, SlipButtonProps>(
       <div className=" relative">
         <div
           className={cn(
-            ' flex items-center justify-between h-10 text-black bg-white rounded-2xl pl-4 w-full ',
+            ' flex items-center justify-between h-10 text-black bg-white rounded-lg pl-4 w-full ',
             className,
           )}
         >
