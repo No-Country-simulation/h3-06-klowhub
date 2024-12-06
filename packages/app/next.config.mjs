@@ -11,6 +11,17 @@ const nextConfig = {
   publicRuntimeConfig: {
     staticFolder: '/public',
   },
+  // @TODO: eliminar la key iamges en produccion
+  images: { 
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+  },
   webpack(config, { dev }) {
     if (!dev) {
       config.module.rules.push({
