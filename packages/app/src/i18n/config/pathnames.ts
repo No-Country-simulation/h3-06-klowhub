@@ -59,4 +59,9 @@ export const PATHNAMES: IPathnames = {
     es: '/cursos',
     fr: '/cours',
   },
+  '/courses/publish': {
+    en: '/courses/publish',
+    es: '/cursos/publicar',
+    fr: '/cours/publier',
+  },
 };

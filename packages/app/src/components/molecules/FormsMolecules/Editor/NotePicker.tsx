@@ -19,7 +19,7 @@ const NotePicker = () => {
     // check if there are an existing data string in localStorage (24:29)
   }
 
-  function handleBlur(event: FocusEvent): void {
+  function handleBlur(): void {
     handleSubmit({} as React.FormEvent<HTMLFormElement>);
   }
 
@@ -27,7 +27,7 @@ const NotePicker = () => {
     <form
       className="max-w-3xl w-full grid place-items-center mx-auto pt-10 mb-10"
       onSubmit={handleSubmit}
-      onBlur={handleBlur}
+      onBlur={() => handleBlur()}
     >
       <div className="text-3xl text-center text-secondary-200 mb-10">
         Notes Picker
