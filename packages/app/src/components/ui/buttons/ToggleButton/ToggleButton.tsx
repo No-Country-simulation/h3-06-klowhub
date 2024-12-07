@@ -3,7 +3,7 @@ import { VariantProps, cva } from 'class-variance-authority';
 import { ButtonHTMLAttributes, FC, ReactElement } from 'react';
 
 const toggleButtonVariance = cva(
-  'flex justify-center items-center transition-colors duration-300 bg-primary-lavander text-white',
+  'flex justify-center items-center transition-colors duration-300 text-white',
   {
     variants: {
       variant: {

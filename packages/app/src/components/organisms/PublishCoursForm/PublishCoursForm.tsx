@@ -4,6 +4,7 @@ import { PublishCoursSchema } from '@shared/validation/cours';
 import { useState } from 'react';
 import { LuArrowLeft } from 'react-icons/lu';
 import { z } from 'zod';
+import PublishCoursContent from './PublishCoursContent/PublishCoursContent';
 import PublishCoursDetail from './PublishCoursDetail/PublishCoursDetail';
 import PublishCoursGeneral from './PublishCoursGeneral/PublishCoursGeneral';
 
@@ -91,7 +92,11 @@ const PublishCoursForm = () => {
             <PublishCoursDetail />
           </div>
         )}
-        {currentStep === 2 && <div>ThirdForm</div>}
+        {currentStep === 2 && (
+          <div>
+            <PublishCoursContent />
+          </div>
+        )}
         {currentStep === 3 && <div>FourthForm</div>}
         {/* navigation */}
         <div className="mt-8 pt-5">
