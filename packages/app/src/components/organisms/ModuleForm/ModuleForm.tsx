@@ -5,7 +5,7 @@ import { Accordion } from '@/components/ui/Accordion';
 import Button from '@/components/ui/buttons/BaseButton/BaseButton';
 import { ILesson } from '@shared/types/ILesson';
 import { IModule } from '@shared/types/IModule';
-import { FC, useState } from 'react';
+import { FC, FormEvent, useState } from 'react';
 import { LuPlus, LuTrash } from 'react-icons/lu';
 import LessonForm from '../LessonForm/LessonForm';
 
@@ -18,7 +18,14 @@ const ModuleForm: FC<TModuleForm> = ({ data, isOpen = true }) => {
   const { _id: moduleId, title, description, lessons, courseId } = data ?? {};
   const [moduleLessons, setModuleLessons] = useState<ILesson[]>(lessons || []);
   const [newLesson, setNewLesson] = useState<ILesson[]>(lessons || []);
-  const handleAddLesson = (e: MouseEvent<HTMLButtonElement>) => {
+
+  {
+    /** Server action load lessons from module*/
+  }
+  const handleAddLesson = (e: FormEvent<HTMLFormElement>) => {
+    {
+      /** Server action submit a leson */
+    }
     e.preventDefault();
     setModuleLessons([...moduleLessons]);
   };
@@ -67,11 +74,12 @@ const ModuleForm: FC<TModuleForm> = ({ data, isOpen = true }) => {
                 ))}
             </div>
 
-            <LessonForm />
+            <LessonForm onSubmit={() => handleAddLesson} isOpen={true} />
 
             <div className="bg-neutral-700 p-6 rounded-lg">
               <Button
-                onClick={handleAddLesson}
+                type="submit"
+                onClick={() => handleAddLesson}
                 variant="outline"
                 size="xs"
                 className="border-primary-lavander-200 text-primary-lavander-200"

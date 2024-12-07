@@ -11,10 +11,19 @@ import { LuPlus, LuTrash } from 'react-icons/lu';
 export type TLessonFormProps = {
   isOpen?: boolean;
   data?: ILesson;
+  onSubmit?: () => void;
 };
 
-const LessonForm: FC<TLessonFormProps> = ({ data, isOpen = true }) => {
+const LessonForm: FC<TLessonFormProps> = ({
+  data,
+  onSubmit,
+  isOpen = true,
+}) => {
   const { _id, title, content, moduleId, videoUrl } = data || {};
+  const submitLesson = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <div>
       <Accordion
@@ -35,7 +44,7 @@ const LessonForm: FC<TLessonFormProps> = ({ data, isOpen = true }) => {
         }
       >
         <Accordion.Content className="bg-neutral-700 p-6">
-          <form>
+          <form onSubmit={submitLesson}>
             <div className="flex flex-row w-full gap-8">
               <div className="gap-7 flex flex-col max-w-[380px] md:max-w-[632px]">
                 <LabeledField label="Título del módulo">

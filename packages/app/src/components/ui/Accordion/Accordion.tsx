@@ -44,7 +44,7 @@ export const Accordion = ({
         {...rest}
       >
         <div className="flex-grow">{Bar}</div>
-        <ToggleButton isActive={isOpen} onClick={toggleAccordion}>
+        <ToggleButton isActive={isOpen} onClick={() => toggleAccordion}>
           <VscChevronDown />
           <VscChevronUp />
         </ToggleButton>

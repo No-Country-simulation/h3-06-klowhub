@@ -34,7 +34,8 @@
     "recharts": "^2.14.1",
     "tailwindcss-animate": "^1.0.7",
     "ts-jest": "^29.1.0",
-    "uuid": "^11.0.3"
+    "uuid": "^11.0.3",
+    "zustand": "^5.0.2"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "3.2.2",
