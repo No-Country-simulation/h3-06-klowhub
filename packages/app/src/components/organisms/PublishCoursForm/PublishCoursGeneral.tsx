@@ -6,20 +6,29 @@ import {
   TextArea,
 } from '@/components/molecules/FormsMolecules';
 import { BaseButton as Button, Field, FileField, Tag } from '@/components/ui';
-
 import { useStepStore } from '@/stores/stepStore.store';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { FormEvent, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+
+type Inputs = z.infer<typeof PublishGeneralCoursSchema>;
 
 const PublishCoursGeneral = () => {
+  // Calling Global multiform step store
+  const { currentStep, nextStep, steps, loadSteps, updateStepState } =
+    useStepStore((state) => state);
+
   const {
-    currentStep,
-    nextStep,
-    steps,
-    getStep,
-    getCurrentStep,
-    loadSteps,
-    updateStepState,
-  } = useStepStore((state) => state);
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    trigger,
+    formState: { errors },
+  } = useForm<Inputs>({
+    resolver: zodResolver(PublishGeneralCoursSchema),
+  });
 
   useEffect(() => {
     useStepStore.persist.rehydrate();
@@ -28,14 +37,8 @@ const PublishCoursGeneral = () => {
 
   const submitForm = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log('submit');
     nextStep();
-    const currentStep = getCurrentStep();
-    const step = getStep(currentStep);
-    console.log('step', step);
-    updateStepState({ ...step, state: 'VALID' });
-    const newstep = getStep(currentStep);
-    console.log(newstep);
+    updateStepState({ state: 'VALID' });
   };
 
   return (

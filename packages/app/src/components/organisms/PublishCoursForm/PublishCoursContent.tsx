@@ -6,9 +6,8 @@ import { LuPlus } from 'react-icons/lu';
 import { ModuleForm } from '.';
 
 const PublishCoursContent = () => {
-  const { steps, loadSteps, nextStep, currentStep } = useStepStore(
-    (state) => state,
-  );
+  const { steps, loadSteps, nextStep, updateStepState, currentStep } =
+    useStepStore((state) => state);
   const [modules, setModules] = useState<IModule[]>([]);
 
   useEffect(() => {
@@ -18,8 +17,8 @@ const PublishCoursContent = () => {
 
   const submitForm = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log('submit');
     nextStep();
+    updateStepState({ state: 'VALID' });
   };
 
   return (

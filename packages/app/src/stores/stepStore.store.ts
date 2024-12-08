@@ -41,7 +41,7 @@ export type State = {
 
 export type Actions = {
   loadSteps: (steps: TStep[]) => void;
-  updateStepState: (newState: TStep) => void;
+  updateStepState: (newState: Partial<TStep>) => void;
   clearSteps: () => void;
   getStep: (stepId: number) => TStep;
   getSteps: () => TStep[];
@@ -59,21 +59,25 @@ export const useStepStore = create<State & Actions>()(
       loadSteps: (newSteps: TStep[]) => {
         useStepStore.getState().steps.length !== 0 && set({ steps: newSteps });
       },
-      updateStepState: (newStepState: TStep) =>
+      updateStepState: (newStepState: Partial<TStep>) => {
+        const stepId = useStepStore.getState().currentStep;
         set((state) => ({
           steps: state.steps.map((step: TStep) =>
-            step.id === newStepState.id ? newStepState : step,
+            step.id === stepId ? { ...step, ...newStepState } : step,
           ),
-        })),
+        }));
+      },
+
       clearSteps: () => {
         set({ steps: [] as TStep[] });
       },
-      getStep: (stepId: number): TStep => {
-        console.log(stepId);
+      getStep: (): TStep => {
         return (
           useStepStore
             .getState()
-            .steps.find((step: TStep) => step.id === stepId) || {
+            .steps.find(
+              (step: TStep) => step.id === useStepStore.getState().currentStep,
+            ) || {
             id: 0,
             name: 'esto no funciona',
             state: 'ERROR',

@@ -10,9 +10,8 @@ import sectorOptions from '@shared/data/sectorOptions.json';
 import { FormEvent, useEffect } from 'react';
 
 const PublishDetailCoursForm = () => {
-  const { steps, loadSteps, nextStep, currentStep } = useStepStore(
-    (state) => state,
-  );
+  const { steps, loadSteps, nextStep, updateStepState, currentStep } =
+    useStepStore((state) => state);
 
   useEffect(() => {
     useStepStore.persist.rehydrate();
@@ -21,8 +20,8 @@ const PublishDetailCoursForm = () => {
 
   const submitForm = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log('submit');
     nextStep();
+    updateStepState({ state: 'VALID' });
   };
   return (
     <div>

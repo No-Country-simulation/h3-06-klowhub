@@ -12,6 +12,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.1",
     "@tailwindcss/typography": "^0.5.15",
     "@tiptap/extension-code-block": "^2.10.3",
     "@tiptap/extension-link": "^2.10.3",

@@ -18,7 +18,7 @@ const StepperItem: FC<TStepperItemProps> = ({
 }) => {
   return (
     <div className=" flex flex-row w-full justify-center items-center">
-      {step.state === 'valid' ? (
+      {step.state === 'VALID' ? (
         <LuCheck className="h-[30px] w-[30px] text-gray-950 bg-success-light rounded-full p-1" />
       ) : (
         <span
