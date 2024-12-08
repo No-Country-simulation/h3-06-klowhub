@@ -51,8 +51,6 @@ const PublishCoursGeneral = () => {
   }, []);
 
   const professForm: SubmitHandler<Inputs> = async (data) => {
-    console.log('formulario enviado', data);
-
     const output = await trigger(
       [
         'title',
@@ -68,11 +66,14 @@ const PublishCoursGeneral = () => {
         shouldFocus: true,
       },
     );
-    nextStep();
+    console.log('formulario enviado', data);
+
     updateStepState({ state: 'VALID' });
+    nextStep();
   };
 
   const access = watch('access');
+  const image = watch('image');
 
   const submitForm = (data: Inputs) => {
     console.log(data);
@@ -130,7 +131,7 @@ const PublishCoursGeneral = () => {
               control={control}
               render={({ field: { ref, name, onBlur, onChange } }) => (
                 <FileField
-                  urlImageCourse=""
+                  urlImage=""
                   name={name}
                   onChange={onChange}
                   onBlur={onBlur}

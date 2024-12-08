@@ -4,7 +4,7 @@ import { forwardRef, Ref, useEffect, useState } from 'react';
 import { LuImport } from 'react-icons/lu';
 
 export type TFileFieldProps = {
-  urlImageCourse: string;
+  urlImage: string;
   onChange: (file: File) => void;
   className?: string;
   onBlur: () => void;
@@ -13,11 +13,11 @@ export type TFileFieldProps = {
 
 const FileField = forwardRef<HTMLInputElement, TFileFieldProps>(
   (
-    { urlImageCourse, name, onChange, onBlur, className }: TFileFieldProps,
+    { urlImage, name, onChange, onBlur, className }: TFileFieldProps,
     ref: Ref<HTMLInputElement>,
   ) => {
     const [urlImageLoaded, setUrlImageLoaded] = useState<string | null>(
-      urlImageCourse || null,
+      urlImage || null,
     );
     const [file, setFile] = useState<File | null>(null);
 

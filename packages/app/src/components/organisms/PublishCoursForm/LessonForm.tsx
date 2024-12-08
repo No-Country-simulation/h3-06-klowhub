@@ -6,6 +6,7 @@ import Button from '@/components/ui/buttons/BaseButton/BaseButton';
 import FileField from '@/components/ui/fields/FileField/FileField';
 import { ILesson } from '@shared/types/ILesson';
 import { FC } from 'react';
+import { Controller } from 'react-hook-form';
 import { LuPlus, LuTrash } from 'react-icons/lu';
 
 export type TLessonFormProps = {
@@ -70,20 +71,36 @@ const LessonForm: FC<TLessonFormProps> = ({
                     <p className="font-semibold p-4 w-full text-center">
                       Imagen miniatura
                     </p>
-                    <FileField
-                      className="w-[312px]"
-                      photo=""
-                      onChange={() => {}}
-                    />
+                    {/* <Controller
+                      name="image"
+                      control={control}
+                      render={({ field: { ref, name, onBlur, onChange } }) => (
+                        <FileField
+                          urlImageCourse=""
+                          name={name}
+                          onChange={onChange}
+                          onBlur={onBlur}
+                          ref={ref}
+                        />
+                      )}
+                    /> */}
                   </div>
                   <div>
                     <p className="font-semibold p-4 w-full text-center">
                       Video
                     </p>
-                    <FileField
-                      className="w-[312px]"
-                      photo=""
-                      onChange={() => {}}
+                    <Controller
+                      name="image"
+                      control={control}
+                      render={({ field: { ref, name, onBlur, onChange } }) => (
+                        <FileField
+                          urlImage=""
+                          name={name}
+                          onChange={onChange}
+                          onBlur={onBlur}
+                          ref={ref}
+                        />
+                      )}
                     />
                   </div>
                 </div>
