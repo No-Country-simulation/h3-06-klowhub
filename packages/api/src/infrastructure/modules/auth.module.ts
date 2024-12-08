@@ -10,8 +10,7 @@ import { PasswordUtil } from '../../infrastructure/utils/password.util';
 import { AuthController } from '../controllers/auth.controller';
 import { MongoSanitizeMiddleware } from '../middlewares/mongo-sanitize.middleware';
 import { ConfirmUserUseCase } from '@/application/use-case/confirm-user.use-case';
-//TODO: Descomentar para produccion
-//import { ThrottleMiddleware } from '../middlewares/throttle.middleware';
+import { JwtStrategy } from '@/infrastructure/guards/jwt.strategy';
 
 @Module({
   imports: [
@@ -29,8 +28,9 @@ import { ConfirmUserUseCase } from '@/application/use-case/confirm-user.use-case
     RegisterUserUseCase,
     PasswordUtil,
     EmailService,
+    JwtStrategy,
   ],
-  exports: [UserRepository],
+  exports: [UserRepository, JwtModule],
 })
 export class AuthModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

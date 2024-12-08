@@ -35,12 +35,14 @@ export class AuthController {
     @Body() loginDto: LoginDto,
     @Res({ passthrough: true }) response: Response,
   ) {
-    const { accessToken, refreshToken, id, userName, roles } = await this.loginUseCase.execute(loginDto);
+    const { accessToken, refreshToken, id, userName, roles } =
+      await this.loginUseCase.execute(loginDto);
 
-     response.cookie('accessToken', accessToken, {
-      httpOnly: true, // Previene acceso desde JavaScript en el navegador
-      sameSite: 'strict', // Evita que la cookie se envíe en solicitudes de origen cruzado
-      maxAge: 1000 * 60 * 60, // Expira en 1 hora
+    response.cookie('accessToken', accessToken, {
+      httpOnly: true,
+      sameSite: 'strict',
+      secure: true,
+      maxAge: 1000 * 60 * 60,
     });
 
     response.cookie('refreshToken', refreshToken, {
@@ -50,15 +52,14 @@ export class AuthController {
     });
 
     return {
-      statusCode: HttpStatus.OK,
+      statusCode: HttpStatus.CREATED,
       message: 'Login exitoso',
       data: {
         id: id,
         userName: userName,
-        roles: roles, 
+        roles: roles,
       },
     };
-    
   }
 
   @Post('register')
@@ -86,12 +87,9 @@ export class AuthController {
       throw new BadRequestException({
         status: 'error',
         message: 'El parámetro "token" es requerido.',
-    });
+      });
     }
 
     return await this.confirmUseCase.execute(token);
   }
 }
-
-
-

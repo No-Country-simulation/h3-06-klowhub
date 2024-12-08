@@ -10,9 +10,14 @@ export class LoginUseCase {
     private readonly jwtService: JwtService,
   ) {}
 
-  async execute(loginDto: LoginDto): Promise<{ accessToken: string; refreshToken: string; id: string; userName: string; roles: string[]}> {
+  async execute(loginDto: LoginDto): Promise<{
+    accessToken: string;
+    refreshToken: string;
+    id: string;
+    userName: string;
+    roles: string[];
+  }> {
     const { email, password } = loginDto;
-
 
     // Buscar el usuario por email
     const user = await this.userRepository.findByEmail(email);
@@ -25,9 +30,16 @@ export class LoginUseCase {
     const accessToken = await this.jwtService.signAsync(payload);
 
     const refreshTokenPayload = { sub: user._id };
-    const refreshToken = await this.jwtService.signAsync(refreshTokenPayload, { expiresIn: '1d' });
+    const refreshToken = await this.jwtService.signAsync(refreshTokenPayload, {
+      expiresIn: '1d',
+    });
 
-    return { accessToken, refreshToken, id: user._id, userName: user.userName, roles: user.roles};
+    return {
+      accessToken,
+      refreshToken,
+      id: user._id,
+      userName: user.userName,
+      roles: user.roles,
+    };
   }
 }
-

@@ -67,7 +67,11 @@ export class RegisterUserDto {
     example: true,
     description: 'Debe ser verdadero para indicar que se aceptan los términos.',
   })
-  @IsBoolean({ message: 'Por favor, indique si acepta los términos y condiciones.' })
-  @Equals(true, { message: 'Debe aceptar los términos y condiciones para continuar.' })
+  @IsBoolean({
+    message: 'Por favor, indique si acepta los términos y condiciones.',
+  })
+  @Equals(true, {
+    message: 'Debe aceptar los términos y condiciones para continuar.',
+  })
   termsAccepted: boolean;
 }

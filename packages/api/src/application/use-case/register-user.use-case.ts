@@ -42,7 +42,7 @@ export class RegisterUserUseCase {
       registerUserDto.email,
       hashedPassword,
       false,
-      confirmationToken
+      confirmationToken,
     );
 
     // Asignar el rol predeterminado
@@ -53,7 +53,7 @@ export class RegisterUserUseCase {
 
     // Generar enlace de confirmación
     const confirmationLink = `http://localhost:3000/auth/confirm?token=${confirmationToken}`;
-        
+
     // Enviar correo de confirmación
     await this.emailService.sendConfirmationEmail(
       createdUser.email,

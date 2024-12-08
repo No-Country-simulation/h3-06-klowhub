@@ -21,6 +21,10 @@ import { AddLessonUseCase } from '../../application/use-case/lesson/add-lesson.u
 import { CreateCourseDto } from '../../application/dtos/create.course.dto';
 import { ModuleDto } from '../../application/dtos/create-module.dto';
 import { ILesson } from '@shared/types/ICourse';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../../infrastructure/guards/jwt-auth.guard';
+import { RolesGuard } from '../../infrastructure/guards/roles.guard';
+import { Roles } from '../../infrastructure/guards/decorators/roles.decorator';
 
 @ApiTags('courses')
 @Controller('courses')
@@ -33,6 +37,8 @@ export class CourseController {
 
   @Post()
   @HttpCode(201)
+  @Roles('VENDEDOR')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'Crear un nuevo curso' })
   @ApiResponse({
     status: 201,
@@ -96,43 +102,9 @@ export class CourseController {
 
   @Post(':courseId/modules')
   @HttpCode(201)
+  @Roles('VENDEDOR')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'Agregar un módulo a un curso existente' })
-  @ApiResponse({
-    status: 201,
-    description: 'Módulo agregado con éxito.',
-    schema: {
-      example: {
-        status: 'success',
-        message: 'Módulo agregado con éxito',
-        data: {
-          id: '60d0fe4f5311236168a109cb',
-          title: 'Módulo 1: Introducción',
-          description: 'Descripción del módulo',
-        },
-      },
-    },
-  })
-  @ApiNotFoundResponse({
-    description: 'Curso no encontrado.',
-    schema: {
-      example: {
-        status: 'error',
-        message: 'Curso no encontrado',
-      },
-    },
-  })
-  @ApiBadRequestResponse({
-    description: 'Error en la validación de datos del módulo.',
-    schema: {
-      example: {
-        status: 'error',
-        message: 'Datos inválidos',
-        errors: [
-          { field: 'title', message: 'El título del módulo es obligatorio' },
-        ],
-      },
-    },
-  })
   async addModule(
     @Param('courseId') courseId: string,
     @Body() ModuleDto: ModuleDto,
@@ -168,7 +140,10 @@ export class CourseController {
       );
     }
   }
+
   @Post(':courseId/modules/:moduleId/lessons')
+  @Roles('VENDEDOR')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Agregar una lección a un módulo existente' })
   @ApiResponse({

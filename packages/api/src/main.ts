@@ -17,7 +17,12 @@ async function bootstrap() {
 
     // Configuración global
     app.use(cookieParser());
-    app.enableCors();
+    app.enableCors({
+      origin:
+        configService.get<string>('FRONTEND_URL') || 'http://localhost:3000',
+      credentials: true,
+    });
+
     app.use(helmet());
     app.useGlobalPipes(
       new ValidationPipe({
