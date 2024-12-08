@@ -5,16 +5,41 @@ import {
   OptionGroup,
   TextArea,
 } from '@/components/molecules/FormsMolecules';
-import { Field, Tag } from '@/components/ui';
-import FileField from '@/components/ui/fields/FileField/FileField';
-import { FC } from 'react';
+import { BaseButton as Button, Field, FileField, Tag } from '@/components/ui';
 
-export type TPublishCoursGeneralProps = {
-  handleNext?: () => void;
-};
-const PublishCoursGeneral: FC<TPublishCoursGeneralProps> = ({ handleNext }) => {
+import { useStepStore } from '@/stores/stepStore.store';
+import { FormEvent, useEffect } from 'react';
+
+const PublishCoursGeneral = () => {
+  const {
+    currentStep,
+    nextStep,
+    steps,
+    getStep,
+    getCurrentStep,
+    loadSteps,
+    updateStepState,
+  } = useStepStore((state) => state);
+
+  useEffect(() => {
+    useStepStore.persist.rehydrate();
+    loadSteps(steps);
+  }, []);
+
+  const submitForm = (e: FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    console.log('submit');
+    nextStep();
+    const currentStep = getCurrentStep();
+    const step = getStep(currentStep);
+    console.log('step', step);
+    updateStepState({ ...step, state: 'VALID' });
+    const newstep = getStep(currentStep);
+    console.log(newstep);
+  };
+
   return (
-    <>
+    <div>
       <form className="w-full max-w-[1500px] my-0 mx-auto flex flex-col gap-8">
         <div className="flex flex-col md:flex-row gap-4 justify-between w-full text-white bg-gray-950 rounded-lg p-6 shadow-md ">
           <div className="flex flex-col w-full gap-6">
@@ -64,22 +89,13 @@ const PublishCoursGeneral: FC<TPublishCoursGeneralProps> = ({ handleNext }) => {
               optionalInfo="Escribe el valor en pesos argentinos"
             >
               <Field
-                padding={false}
                 placeholder="Ej: 10000"
-                type="number"
+                type="text"
                 className="max-w-[266px]"
               />
             </LabeledField>
           </div>
-          <OptionGroup
-            title="Acceso al curso:"
-            className="md:max-w-[700px]"
-            options={[
-              { value: 'Gratuito', label: 'Gratuito' },
-              { value: 'Pago', label: 'Pago' },
-            ]}
-            name="precio"
-          />
+
           <OptionGroup
             title="Nivel de competencia:"
             className="md:max-w-[700px]"
@@ -88,7 +104,7 @@ const PublishCoursGeneral: FC<TPublishCoursGeneralProps> = ({ handleNext }) => {
               { value: 'Intermedio', label: 'Intermedio' },
               { value: 'Avanzado', label: 'Avanzado' },
             ]}
-            name="precio"
+            name="competencia"
           />
           <OptionGroup
             title="Plataforma:"
@@ -114,22 +130,36 @@ const PublishCoursGeneral: FC<TPublishCoursGeneralProps> = ({ handleNext }) => {
                 ),
               },
             ]}
-            name="precio"
+            name="plataforma"
           />
           <LabeledField
             label="Duración del curso:"
             optionalInfo="Escribe la cantidad en horas."
           >
             <Field
-              padding={false}
               placeholder="Ej: 12"
-              type="number"
+              type="text"
+              name="duracion"
               className="max-w-[266px]"
             ></Field>
           </LabeledField>
         </div>
       </form>
-    </>
+      {/* navigation */}
+      <div className="">
+        <div className="mt-8 w-full flex justify-end">
+          <Button
+            variant="quaternary"
+            size="sm"
+            type="button"
+            onClick={submitForm}
+            disabled={currentStep === steps.length - 1}
+          >
+            Continuar
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 };
 

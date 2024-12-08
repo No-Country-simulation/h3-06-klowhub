@@ -3,7 +3,7 @@ import AccordionContent from './AccordionContent';
 
 import { cn } from '@/_lib';
 import { VscChevronDown, VscChevronUp } from 'react-icons/vsc';
-import ToggleButton from '../buttons/ToggleButton/ToggleButton';
+import ToggleButton from '../../ui/buttons/ToggleButton/ToggleButton';
 import AccordionBar from './AccordionBar';
 
 export type accordionProps = HTMLAttributes<HTMLElement> & {

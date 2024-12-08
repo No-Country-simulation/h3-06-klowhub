@@ -10,6 +10,7 @@ export { default as Hero } from './Hero/Hero';
 export { default as HeroCard } from './Hero/HeroCard';
 export { default as InputText } from './InputText/InputText';
 
+export { default as FileField } from './fields/FileField/FileField';
 export { default as Wrapper } from './layouts/Wrappers/Wrapper/Wrapper';
 export { default as ButtonLink } from './links/buttonLink/ButtonLink';
 export { default as HeaderLink } from './links/headerLink/HeaderLink';

@@ -1,7 +1,7 @@
+import { Accordion } from '@/components/molecules/Accordion';
 import { LabeledField } from '@/components/molecules/FormsMolecules';
 import Tiptap from '@/components/molecules/FormsMolecules/Editor/components/TipTap';
 import { Field } from '@/components/ui';
-import { Accordion } from '@/components/ui/Accordion';
 import Button from '@/components/ui/buttons/BaseButton/BaseButton';
 import FileField from '@/components/ui/fields/FileField/FileField';
 import { ILesson } from '@shared/types/ILesson';
@@ -22,6 +22,7 @@ const LessonForm: FC<TLessonFormProps> = ({
   const { _id, title, content, moduleId, videoUrl } = data || {};
   const submitLesson = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    onSubmit?.();
   };
 
   return (

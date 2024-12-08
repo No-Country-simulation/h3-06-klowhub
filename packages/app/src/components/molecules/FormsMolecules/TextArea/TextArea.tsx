@@ -13,7 +13,7 @@ const TextArea: FC<TTextareaProps> = ({
   ...rest
 }) => {
   return (
-    <div className="flex flex-col text-sm text-gray-50 gap-3">
+    <div className="flex flex-col text-sm text-gray-950 gap-3">
       <p className="font-semibold">{label}</p>
       <p className="font-normal">{optionalInfo}</p>
       <textarea

@@ -22,7 +22,9 @@ const Tiptap: FC<TTiptapProps> = ({ content, onChange, placeholder }) => {
 
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        codeBlock: false,
+      }),
       Underline,
       CodeBlock,
       Placeholder.configure({ placeholder: placeholder }),
@@ -101,7 +103,7 @@ const Tiptap: FC<TTiptapProps> = ({ content, onChange, placeholder }) => {
     editorProps: {
       attributes: {
         class:
-          'prose mytiptap px-4 py-3 border-b border-r border-l border-gray-700 text-gray-950 w-full text-base bg-gray-50 rounded-b-xl pt-4 rounded-bl-xl rounded-br-xl outline-none min-w-[320px] min-h-[120px] w-full ',
+          'prose mytiptap px-4 py-3  border-b border-r border-l border-gray-700 text-gray-950 w-full text-base bg-gray-50 rounded-b-xl pt-4 rounded-bl-xl rounded-br-xl outline-none min-w-[320px] min-h-[120px] w-full ',
       },
     },
     immediatelyRender: false,

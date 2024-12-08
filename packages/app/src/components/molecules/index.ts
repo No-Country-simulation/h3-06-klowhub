@@ -6,4 +6,5 @@ export { default as PassField } from './PassField/PassField';
 export { default as SignInButton } from './SignInButton/SignInButton';
 export { default as SocialLogin } from './SocialLogin/SocialLogin';
 export { default as SocialLoginIcon } from './SocialLogin/SocialLoginIcon';
+export { default as StepperMenu } from './StepperMenu/StepperMenu';
 export { default as SwitcherButtonWrapper } from './SwitcherButtonWrapper/SwitcherButtonWrapper';

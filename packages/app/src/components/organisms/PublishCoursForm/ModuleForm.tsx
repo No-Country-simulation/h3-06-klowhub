@@ -1,32 +1,27 @@
+import { Accordion } from '@/components/molecules/Accordion';
 import { LabeledField } from '@/components/molecules/FormsMolecules';
 import Tiptap from '@/components/molecules/FormsMolecules/Editor/components/TipTap';
 import { Field } from '@/components/ui';
-import { Accordion } from '@/components/ui/Accordion';
 import Button from '@/components/ui/buttons/BaseButton/BaseButton';
 import { ILesson } from '@shared/types/ILesson';
 import { IModule } from '@shared/types/IModule';
 import { FC, FormEvent, useState } from 'react';
 import { LuPlus, LuTrash } from 'react-icons/lu';
-import LessonForm from '../LessonForm/LessonForm';
+import LessonForm from './LessonForm';
 
-export type TModuleForm = {
-  data?: IModule;
+export type TModuleFormProps = {
   isOpen?: boolean;
+  data?: IModule;
 };
 
-const ModuleForm: FC<TModuleForm> = ({ data, isOpen = true }) => {
-  const { _id: moduleId, title, description, lessons, courseId } = data ?? {};
+const ModuleForm: FC<TModuleFormProps> = ({ data, isOpen = true }) => {
+  const { _id: courseId, title, description, lessons } = data ?? {};
   const [moduleLessons, setModuleLessons] = useState<ILesson[]>(lessons || []);
   const [newLesson, setNewLesson] = useState<ILesson[]>(lessons || []);
 
-  {
-    /** Server action load lessons from module*/
-  }
   const handleAddLesson = (e: FormEvent<HTMLFormElement>) => {
-    {
-      /** Server action submit a leson */
-    }
     e.preventDefault();
+    // guarda el nuevo modulo si no lo guardo.
     setModuleLessons([...moduleLessons]);
   };
 
@@ -50,8 +45,8 @@ const ModuleForm: FC<TModuleForm> = ({ data, isOpen = true }) => {
         }
       >
         <Accordion.Content className="bg-gray-950 p-6 ">
-          <form className="flex flex-col gap-6">
-            <div className="flex flex-row w-full gap-8 justify-around">
+          <div className="flex flex-col gap-6">
+            <form className="flex flex-row w-full gap-8 justify-around">
               <div className="gap-7 flex flex-col max-w-[380px] md:max-w-[632px] w-full md:w-1/2">
                 <LabeledField label="Título del módulo">
                   <Field placeholder="Ej: introducción" fluid />
@@ -66,7 +61,7 @@ const ModuleForm: FC<TModuleForm> = ({ data, isOpen = true }) => {
                   />
                 </LabeledField>
               </div>
-            </div>
+            </form>
             <div className="flex flex-col gap-6">
               {moduleLessons.length !== 0 &&
                 moduleLessons.map((lesson, index) => (
@@ -78,7 +73,7 @@ const ModuleForm: FC<TModuleForm> = ({ data, isOpen = true }) => {
 
             <div className="bg-neutral-700 p-6 rounded-lg">
               <Button
-                type="submit"
+                type="button"
                 onClick={() => handleAddLesson}
                 variant="outline"
                 size="xs"
@@ -87,7 +82,7 @@ const ModuleForm: FC<TModuleForm> = ({ data, isOpen = true }) => {
                 <LuPlus className="w-5 h-5" /> Agregar Lección
               </Button>
             </div>
-          </form>
+          </div>
         </Accordion.Content>
       </Accordion>
     </div>
