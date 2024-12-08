@@ -1,3 +1,4 @@
+'use client';
 import AppSheetLogo from '@/assets/appSheetLogo.svg';
 import PowerAppLogo from '@/assets/powerAppLogo.svg';
 import {
@@ -14,12 +15,12 @@ import {
 } from '@/components/ui';
 import { useStepStore } from '@/stores/stepStore.store';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { PublishCoursGeneralSchema } from '@shared/validation/cours';
+import { CourseSchema } from '@shared/validation/cours';
 import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import * as z from 'zod';
 
-type Inputs = z.infer<typeof PublishCoursGeneralSchema>;
+type Inputs = z.infer<typeof CourseSchema>;
 
 const PublishCoursGeneral = () => {
   // Calling Global multiform step store
@@ -31,6 +32,7 @@ const PublishCoursGeneral = () => {
     handleSubmit,
     watch,
     reset,
+    control,
     trigger,
     formState: { errors },
   } = useForm<Inputs>({
@@ -40,7 +42,7 @@ const PublishCoursGeneral = () => {
       platform: 'appsheet',
     },
     mode: 'onChange',
-    resolver: zodResolver(PublishCoursGeneralSchema),
+    resolver: zodResolver(CourseSchema),
   });
 
   useEffect(() => {
@@ -48,8 +50,9 @@ const PublishCoursGeneral = () => {
     loadSteps(steps);
   }, []);
 
-  const submitForm = async (data: Inputs) => {
-    // e.preventDefault();
+  const professForm: SubmitHandler<Inputs> = async (data) => {
+    console.log('formulario enviado', data);
+
     const output = await trigger(
       [
         'title',
@@ -70,6 +73,11 @@ const PublishCoursGeneral = () => {
   };
 
   const access = watch('access');
+
+  const submitForm = (data: Inputs) => {
+    console.log(data);
+    professForm(data);
+  };
 
   return (
     <form onSubmit={handleSubmit(submitForm)}>
@@ -117,12 +125,20 @@ const PublishCoursGeneral = () => {
               Se recomienda que la imagen sea representativa del curso y
               atractiva para que capte la atención de posibles estudiantes.
             </p>
-            <FileField
-              photo=""
-              onChange={register('image').onChange}
-              onBlur={register('image').onBlur}
-              ref={register('image').ref}
+            <Controller
+              name="image"
+              control={control}
+              render={({ field: { ref, name, onBlur, onChange } }) => (
+                <FileField
+                  urlImageCourse=""
+                  name={name}
+                  onChange={onChange}
+                  onBlur={onBlur}
+                  ref={ref}
+                />
+              )}
             />
+
             {errors?.image?.message && (
               <MessageField variant="error">
                 {errors.image.message}
@@ -140,8 +156,12 @@ const PublishCoursGeneral = () => {
                 { value: 'premiun', label: 'Pago' },
               ]}
               register={register('access')}
-            />
-
+            />{' '}
+            {errors?.access?.message && (
+              <MessageField variant="error">
+                {errors.access.message}
+              </MessageField>
+            )}
             {access === 'premiun' && (
               <LabeledField
                 label="Precio:"
@@ -172,6 +192,9 @@ const PublishCoursGeneral = () => {
             ]}
             register={register('level')}
           />
+          {errors?.level?.message && (
+            <MessageField variant="error">{errors.level.message}</MessageField>
+          )}
           <OptionGroup
             title="Plataforma:"
             options={[
@@ -198,6 +221,11 @@ const PublishCoursGeneral = () => {
             ]}
             register={register('platform')}
           />
+          {errors?.platform?.message && (
+            <MessageField variant="error">
+              {errors.platform.message}
+            </MessageField>
+          )}
           <LabeledField
             label="Duración del curso:"
             optionalInfo="Escribe la cantidad en horas."
@@ -224,7 +252,10 @@ const PublishCoursGeneral = () => {
             variant="quaternary"
             size="sm"
             type="submit"
-            disabled={currentStep === steps.length - 1}
+            disabled={currentStep === steps.length}
+            onClick={() => {
+              console.dir(errors);
+            }}
           >
             Continuar
           </Button>

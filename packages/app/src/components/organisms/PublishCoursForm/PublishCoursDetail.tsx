@@ -98,7 +98,7 @@ const PublishDetailCoursForm = () => {
             size="sm"
             type="button"
             onClick={submitForm}
-            disabled={currentStep === steps.length - 1}
+            disabled={currentStep === steps.length}
           >
             Continuar
           </Button>

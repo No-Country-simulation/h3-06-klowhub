@@ -12,13 +12,14 @@ import {
 } from './';
 
 const PublishCoursForm = () => {
-  const { currentStep, prevStep, steps, loadSteps, getSteps } = useStepStore(
+  const { currentStep, prevStep, steps, resetCurrentStep } = useStepStore(
     (state) => state,
   );
   const [course, setCourse] = useState({});
 
   useEffect(() => {
     useStepStore.persist.rehydrate();
+    resetCurrentStep();
     //Buscar curso borrador si existe
   }, []);
 
@@ -34,7 +35,7 @@ const PublishCoursForm = () => {
         <Button
           type="button"
           onClick={prevStep}
-          disabled={currentStep === 0}
+          disabled={currentStep === 1}
           variant="outline"
           className="outline-none border-none"
           size="xs"
@@ -42,10 +43,10 @@ const PublishCoursForm = () => {
           <LuArrowLeft className="h-6 w-6" /> Volver
         </Button>
 
-        {currentStep === 0 && <PublishCoursGeneral />}
-        {currentStep === 1 && <PublishCoursDetail />}
-        {currentStep === 2 && <PublishCoursContent />}
-        {currentStep === 3 && <PromotionsForm />}
+        {currentStep === 1 && <PublishCoursGeneral />}
+        {currentStep === 2 && <PublishCoursDetail />}
+        {currentStep === 3 && <PublishCoursContent />}
+        {currentStep === 4 && <PromotionsForm />}
       </section>
     </div>
   );

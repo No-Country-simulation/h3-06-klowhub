@@ -1,59 +1,74 @@
 'use client';
 import { cn } from '@/_lib';
-import { FC, forwardRef, Ref } from 'react';
+import { forwardRef, Ref, useEffect, useState } from 'react';
 import { LuImport } from 'react-icons/lu';
-import useFileFieldHook from './useFileFieldHook';
 
 export type TFileFieldProps = {
-  photo: string;
-  onChange: any;
+  urlImageCourse: string;
+  onChange: (file: File) => void;
   className?: string;
-  onBlur: any;
-  ref: any;
+  onBlur: () => void;
+  name: string;
 };
 
-const FileField: FC<TFileFieldProps> = forwardRef<
-  HTMLInputElement,
-  TFileFieldProps
->(({ photo, onChange, className, onBlur }, ref: Ref<HTMLInputElement>) => {
-  const { urlImageLoaded, loadImagePreviewHandler } = useFileFieldHook({
-    onChange,
-    photo,
-  });
+const FileField = forwardRef<HTMLInputElement, TFileFieldProps>(
+  (
+    { urlImageCourse, name, onChange, onBlur, className }: TFileFieldProps,
+    ref: Ref<HTMLInputElement>,
+  ) => {
+    const [urlImageLoaded, setUrlImageLoaded] = useState<string | null>(
+      urlImageCourse || null,
+    );
+    const [file, setFile] = useState<File | null>(null);
 
-  return (
-    <label
-      htmlFor="coursImage"
-      className={cn(
-        'h-[237px] w-full flex flex-col items-center justify-center gap-3 border border-dashed border-secondary-200 bg-secondary-900',
-        className,
-      )}
-    >
-      {urlImageLoaded ? (
-        <img
-          className="w-full h-full object-cover"
-          src={urlImageLoaded}
-          alt="imageLoaded"
+    useEffect(() => {
+      if (file instanceof File) {
+        const imageUrl = URL.createObjectURL(file);
+        setUrlImageLoaded(imageUrl);
+        return () => URL.revokeObjectURL(imageUrl);
+      }
+    }, [file]);
+
+    return (
+      <label
+        htmlFor="coursImage"
+        className={cn(
+          'h-[237px] w-full flex flex-col items-center justify-center gap-3 border border-dashed border-secondary-200 bg-secondary-900',
+          className,
+        )}
+      >
+        {urlImageLoaded ? (
+          <img
+            className="w-full h-full object-cover"
+            src={urlImageLoaded}
+            alt="imageLoaded"
+          />
+        ) : (
+          <div className="flex flex-col items-center gap-3">
+            <LuImport className="h-12 w-12" />
+            <span>Haga click aquí para subir el archivo</span>
+          </div>
+        )}
+
+        <input
+          onChange={(e) => {
+            const newFile = e.target.files?.[0];
+            if (newFile) {
+              setFile(newFile);
+              onChange(newFile); // Envía el objeto File
+            }
+          }}
+          onBlur={onBlur}
+          accept="image/*"
+          name={name}
+          id="coursImage"
+          type="file"
+          style={{ display: 'none' }}
+          ref={ref}
         />
-      ) : (
-        <div className="flex flex-col items-center gap-3">
-          <LuImport className="h-12 w-12" />
-          <span>Haga click aquí para subir el archivo</span>
-        </div>
-      )}
-
-      <input
-        onChange={loadImagePreviewHandler}
-        accept="image/*"
-        name="image"
-        ref={ref}
-        onBlur={onBlur}
-        id="coursImage"
-        type="file"
-        style={{ display: 'none' }}
-      />
-    </label>
-  );
-});
+      </label>
+    );
+  },
+);
 
 export default FileField;

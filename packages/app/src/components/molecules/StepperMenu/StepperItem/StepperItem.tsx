@@ -24,7 +24,7 @@ const StepperItem: FC<TStepperItemProps> = ({
         <span
           className={cn(
             'text-sm font-mediumtransition-colors rounded-full h-[30px] w-[30px] flex items-center justify-center',
-            currentStep === step.id - 1
+            currentStep === step.id
               ? 'text-gray-950 bg-primary-lavander-200'
               : 'text-gray-950 bg-gray-300 ',
           )}
