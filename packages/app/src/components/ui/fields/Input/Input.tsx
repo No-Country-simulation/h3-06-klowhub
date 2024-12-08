@@ -14,7 +14,7 @@ const Input = forwardRef<HTMLInputElement, TBaseInputProps>(
     return (
       <input
         className={cn(
-          'inline-block font-inter text-base bg-transparentplaceholder:text-sm placeholder:text-gray-700 placeholder:p-1 border-y-transparent rounded-md outline-none focus:outline-none py-3',
+          'inline-block font-inter text-base bg-transparent placeholder:text-sm placeholder:text-gray-700 placeholder:p-1 border-y-transparent rounded-md outline-none focus:outline-none py-3',
           className,
           fluid ? 'w-full flex-grow' : 'w-[250px]',
           padding ? ' px-4' : '',

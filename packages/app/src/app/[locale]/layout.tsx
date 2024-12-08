@@ -1,4 +1,4 @@
-import Appbar from '@/components/molecules/Appbar/Appbar';
+import { Appbar } from '@/components/molecules';
 import { routing } from '@/i18n/routing';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';

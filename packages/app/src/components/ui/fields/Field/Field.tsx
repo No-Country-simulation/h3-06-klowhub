@@ -5,7 +5,7 @@ import { LuAlertCircle, LuCheckCircle } from 'react-icons/lu';
 import Input, { TBaseInputProps } from '../Input/Input';
 
 const fieldProps = cva(
-  'flex flex-row justify-between items-center border bg-gray-50 font-inter text-base rounded-md disabled:bg-gray-100 text-black focus-within:border-secondary-400',
+  'flex flex-row justify-between items-center border bg-gray-50 font-inter text-base rounded-md disabled:bg-gray-100 text-black focus-within:border-secondary-400 ',
   {
     variants: {
       colorState: {

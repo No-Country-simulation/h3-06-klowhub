@@ -1,3 +1,4 @@
+'use client';
 import { Field, ToggleButton } from '@/components/ui';
 import { TFieldProps } from '@/components/ui/fields/Field/Field';
 import { FC, MouseEvent, useState } from 'react';

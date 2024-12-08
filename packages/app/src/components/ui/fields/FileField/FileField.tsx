@@ -1,16 +1,21 @@
 'use client';
 import { cn } from '@/_lib';
-import { FC } from 'react';
+import { FC, forwardRef, Ref } from 'react';
 import { LuImport } from 'react-icons/lu';
 import useFileFieldHook from './useFileFieldHook';
 
 export type TFileFieldProps = {
   photo: string;
-  onChange: (file: File) => void;
+  onChange: any;
   className?: string;
+  onBlur: any;
+  ref: any;
 };
 
-const FileField: FC<TFileFieldProps> = ({ photo, onChange, className }) => {
+const FileField: FC<TFileFieldProps> = forwardRef<
+  HTMLInputElement,
+  TFileFieldProps
+>(({ photo, onChange, className, onBlur }, ref: Ref<HTMLInputElement>) => {
   const { urlImageLoaded, loadImagePreviewHandler } = useFileFieldHook({
     onChange,
     photo,
@@ -41,12 +46,14 @@ const FileField: FC<TFileFieldProps> = ({ photo, onChange, className }) => {
         onChange={loadImagePreviewHandler}
         accept="image/*"
         name="image"
+        ref={ref}
+        onBlur={onBlur}
         id="coursImage"
         type="file"
         style={{ display: 'none' }}
       />
     </label>
   );
-};
+});
 
 export default FileField;

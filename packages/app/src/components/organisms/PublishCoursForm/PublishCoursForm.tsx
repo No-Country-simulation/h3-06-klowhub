@@ -1,10 +1,8 @@
 'use client';
 import Button from '@/components/ui/buttons/BaseButton/BaseButton';
 import { useStepStore } from '@/stores/stepStore.store';
-import { PublishCoursSchema } from '@shared/validation/cours';
 import { useEffect, useState } from 'react';
 import { LuArrowLeft } from 'react-icons/lu';
-import { z } from 'zod';
 import StepperMenu from '../../molecules/StepperMenu/StepperMenu';
 import {
   PromotionsForm,
@@ -12,9 +10,6 @@ import {
   PublishCoursDetail,
   PublishCoursGeneral,
 } from './';
-
-type TInputs = z.infer<typeof PublishCoursSchema>;
-type TFieldName = keyof TInputs;
 
 const PublishCoursForm = () => {
   const { currentStep, prevStep, steps, loadSteps, getSteps } = useStepStore(

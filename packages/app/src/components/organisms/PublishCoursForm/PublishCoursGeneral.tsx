@@ -5,14 +5,21 @@ import {
   OptionGroup,
   TextArea,
 } from '@/components/molecules/FormsMolecules';
-import { BaseButton as Button, Field, FileField, Tag } from '@/components/ui';
+import {
+  BaseButton as Button,
+  Field,
+  FileField,
+  MessageField,
+  Tag,
+} from '@/components/ui';
 import { useStepStore } from '@/stores/stepStore.store';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FormEvent, useEffect } from 'react';
+import { PublishCoursGeneralSchema } from '@shared/validation/cours';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
-type Inputs = z.infer<typeof PublishGeneralCoursSchema>;
+type Inputs = z.infer<typeof PublishCoursGeneralSchema>;
 
 const PublishCoursGeneral = () => {
   // Calling Global multiform step store
@@ -27,7 +34,13 @@ const PublishCoursGeneral = () => {
     trigger,
     formState: { errors },
   } = useForm<Inputs>({
-    resolver: zodResolver(PublishGeneralCoursSchema),
+    defaultValues: {
+      access: 'free',
+      level: 'basic',
+      platform: 'appsheet',
+    },
+    mode: 'onChange',
+    resolver: zodResolver(PublishCoursGeneralSchema),
   });
 
   useEffect(() => {
@@ -35,15 +48,32 @@ const PublishCoursGeneral = () => {
     loadSteps(steps);
   }, []);
 
-  const submitForm = (e: FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const submitForm = async (data: Inputs) => {
+    // e.preventDefault();
+    const output = await trigger(
+      [
+        'title',
+        'description',
+        'access',
+        'price',
+        'level',
+        'image',
+        'duration',
+        'platform',
+      ],
+      {
+        shouldFocus: true,
+      },
+    );
     nextStep();
     updateStepState({ state: 'VALID' });
   };
 
+  const access = watch('access');
+
   return (
-    <div>
-      <form className="w-full max-w-[1500px] my-0 mx-auto flex flex-col gap-8">
+    <form onSubmit={handleSubmit(submitForm)}>
+      <div className="w-full max-w-[1500px] my-0 mx-auto flex flex-col gap-8">
         <div className="flex flex-col md:flex-row gap-4 justify-between w-full text-white bg-gray-950 rounded-lg p-6 shadow-md ">
           <div className="flex flex-col w-full gap-6">
             <LabeledField
@@ -51,20 +81,34 @@ const PublishCoursGeneral = () => {
               optionalInfo="Máximo 70 caracteres"
             >
               <Field
+                {...register('title')}
                 placeholder="Ej: Aprende a desarrollar aplicaciones con AppSheet"
                 type="text"
                 className="max-w-[700px]"
               />
+              {errors?.title?.message && (
+                <MessageField variant="error">
+                  {errors.title.message}
+                </MessageField>
+              )}
             </LabeledField>
 
-            <TextArea
-              label="Descripción del curso:"
-              maxLength={180}
-              rows={3}
-              optionalInfo="Escribe una breve descripción de qué se trata. Máximo 180 caracteres."
-              placeholder="Ej.: Aprende a crear flujos de trabajo automatizados en AppSheet, optimizando la gestión de tareas y aprobaciones, lo que mejorará la productividad en tus proyectos."
-              className="max-w-[700px]"
-            />
+            <div className="flex flex-col w-full gap-3">
+              <TextArea
+                label="Descripción del curso:"
+                maxLength={180}
+                rows={3}
+                optionalInfo="Escribe una breve descripción de qué se trata. Máximo 180 caracteres."
+                placeholder="Ej.: Aprende a crear flujos de trabajo automatizados en AppSheet, optimizando la gestión de tareas y aprobaciones, lo que mejorará la productividad en tus proyectos."
+                className="max-w-[700px]"
+                register={register('description')}
+              />
+              {errors?.description?.message && (
+                <MessageField variant="error">
+                  {errors.description.message}
+                </MessageField>
+              )}
+            </div>
           </div>
 
           <div className="flex flex-col text-sm text-gray-50 gap-3 max-w-[507px]">
@@ -73,41 +117,60 @@ const PublishCoursGeneral = () => {
               Se recomienda que la imagen sea representativa del curso y
               atractiva para que capte la atención de posibles estudiantes.
             </p>
-            <FileField photo="" onChange={() => {}} />
+            <FileField
+              photo=""
+              onChange={register('image').onChange}
+              onBlur={register('image').onBlur}
+              ref={register('image').ref}
+            />
+            {errors?.image?.message && (
+              <MessageField variant="error">
+                {errors.image.message}
+              </MessageField>
+            )}
           </div>
         </div>
         <div className="flex flex-col md:flex-row n w-full text-white bg-gray-950 rounded-lg p-6 shadow-md  flex-wrap gap-7 md:gap-4 justify-between">
           <div className="flex flex-col gap-6">
             <OptionGroup
-              title="Titulo del curso:"
+              title="Acceso al curso:"
               className=" md:max-w-[700px]"
               options={[
-                { value: 'Gratuito', label: 'Gratuito' },
-                { value: 'Pago', label: 'Pago' },
+                { value: 'free', label: 'Grauito' },
+                { value: 'premiun', label: 'Pago' },
               ]}
-              name="precio"
+              register={register('access')}
             />
-            <LabeledField
-              label="Precio:"
-              optionalInfo="Escribe el valor en pesos argentinos"
-            >
-              <Field
-                placeholder="Ej: 10000"
-                type="text"
-                className="max-w-[266px]"
-              />
-            </LabeledField>
+
+            {access === 'premiun' && (
+              <LabeledField
+                label="Precio:"
+                optionalInfo="Escribe el valor en pesos argentinos"
+              >
+                <Field
+                  placeholder="Ej: 10000"
+                  type="number"
+                  className="max-w-[266px]"
+                  {...register('price')}
+                />
+                {errors?.price?.message && (
+                  <MessageField variant="error">
+                    {errors.price.message}
+                  </MessageField>
+                )}
+              </LabeledField>
+            )}
           </div>
 
           <OptionGroup
             title="Nivel de competencia:"
             className="md:max-w-[700px]"
             options={[
-              { value: 'Basico', label: 'Básico' },
-              { value: 'Intermedio', label: 'Intermedio' },
-              { value: 'Avanzado', label: 'Avanzado' },
+              { value: 'basic', label: 'Básico' },
+              { value: 'intermediate', label: 'Intermedio' },
+              { value: 'advanced', label: 'Avanzado' },
             ]}
-            name="competencia"
+            register={register('level')}
           />
           <OptionGroup
             title="Plataforma:"
@@ -133,7 +196,7 @@ const PublishCoursGeneral = () => {
                 ),
               },
             ]}
-            name="plataforma"
+            register={register('platform')}
           />
           <LabeledField
             label="Duración del curso:"
@@ -141,28 +204,33 @@ const PublishCoursGeneral = () => {
           >
             <Field
               placeholder="Ej: 12"
-              type="text"
-              name="duracion"
+              type="number"
               className="max-w-[266px]"
-            ></Field>
+              {...register('duration')}
+            />
+            {errors?.duration?.message && (
+              <MessageField variant="error">
+                {errors.duration.message}
+              </MessageField>
+            )}
           </LabeledField>
         </div>
-      </form>
+      </div>
+
       {/* navigation */}
       <div className="">
         <div className="mt-8 w-full flex justify-end">
           <Button
             variant="quaternary"
             size="sm"
-            type="button"
-            onClick={submitForm}
+            type="submit"
             disabled={currentStep === steps.length - 1}
           >
             Continuar
           </Button>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 

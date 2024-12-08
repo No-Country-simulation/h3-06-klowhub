@@ -7,16 +7,18 @@ interface IOptionGroupProps {
     value: string | number;
     label: string | ReactNode;
   }[];
-  name: string;
+  register: any;
   className?: string;
+  nameGroup?: string;
 }
 const OptionGroup: React.FC<IOptionGroupProps> = ({
   title,
   options,
-  name,
   className,
+  register,
 }) => {
   const [selected, setSelected] = React.useState(options[0].value);
+  // Get the register function from useForm
 
   return (
     <div
@@ -31,11 +33,9 @@ const OptionGroup: React.FC<IOptionGroupProps> = ({
           <label key={option.value} className="flex flex-row gap-3">
             <input
               className="text-base"
-              name={name}
               type="radio"
               value={option.value}
-              checked={selected === option.value}
-              onChange={() => setSelected(option.value)}
+              {...register}
             />
             {option.label}
           </label>

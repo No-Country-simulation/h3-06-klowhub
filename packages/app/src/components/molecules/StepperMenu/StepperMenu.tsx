@@ -1,3 +1,4 @@
+'use client';
 import { TStep, useStepStore } from '@/stores/stepStore.store';
 import { FC, useEffect } from 'react';
 import StepperItem from './StepperItem/StepperItem';
