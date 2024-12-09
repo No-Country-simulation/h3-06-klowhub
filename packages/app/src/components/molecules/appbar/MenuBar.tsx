@@ -1,14 +1,18 @@
+import { getSession } from '@/_lib';
 import SignInButton from '@/components/molecules/SignInButton/SignInButton';
 import HeaderLink from '@/components/ui/links/headerLink/HeaderLink';
 import { useTranslations } from 'next-intl';
 
-const MenuBar = () => {
+const MenuBar = async () => {
   const t = useTranslations('Appbar');
+  const session = await getSession();
+
+  // const isVendor = session?.user?.role === 'vendor' && appState === 'vendor';
 
   return (
     <div className="w-full h-full md:flex md:grow md:justify-between">
       <div className="flex flex-col gap-3 pt-6 text-black md:pt-0 md:justify-start md:items-center md:flex-row md:text-white ">
-        <HeaderLink href="/courses">{t('courses')}</HeaderLink>
+        <HeaderLink href={'/courses/publish'}>{t('courses')}</HeaderLink>
         <HeaderLink href="/applications">{t('applications')}</HeaderLink>
         <HeaderLink href="/projects">{t('projects')}</HeaderLink>
         <HeaderLink href="/mentorships">{t('mentorships')}</HeaderLink>

@@ -1,7 +1,9 @@
-import React from 'react';
-
 const MentorshipsPage = () => {
-  return <div>This is MentorshipsPage page</div>;
+  return (
+    <div className="flex w-full justify-center items-center">
+      PAGINA MENTORIAS EN CONSTRUCCION
+    </div>
+  );
 };
 
 export default MentorshipsPage;

@@ -1,9 +1,9 @@
 import { cn } from '@/_lib';
+import { MenuBar } from '@/components/molecules';
+import MenuNavbarCollapse from '@/components/molecules/appbar/NavBarCollapse/NavBarCollapse';
 import Logo from '@/components/ui/Logo/Logo';
 import { useTranslations } from 'next-intl';
 import SwitcherButtonWrapper from '../SwitcherButtonWrapper/SwitcherButtonWrapper';
-import MenuBar from './MenuBar';
-import MenuNavbarCollapse from './NavBarCollapse/NavBarCollapse';
 
 const AppBar = ({ className }: { className?: string }) => {
   const t = useTranslations('Appbar');
@@ -21,6 +21,7 @@ const AppBar = ({ className }: { className?: string }) => {
         leftComponent="Home"
         rightComponent="Platform"
         variant="primary"
+        isActive={false}
       />
       <div className="md:grow">
         <MenuNavbarCollapse>

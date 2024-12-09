@@ -1,0 +1,40 @@
+[
+  {
+    "_id": "1",
+    "title": "Fronted from zero to hero",
+    "description": "Vuelvete un experto en Next js",
+    "creatorId": "1",
+    "access": "free",
+    "price": 0,
+    "duration": 3,
+    "level": "basic",
+    "platform": "appsheet",
+    "imageUrl": "https://miro.medium.com/v2/resize:fit:720/format:webp/0*88d2HLzIxs23W4Fv.png",
+    "descriptionContent": "",
+    "competences": "",
+    "requirements": "",
+    "langage": "",
+    "sector": "Informática",
+    "labels": [],
+    "modules": ["1"]
+  },
+  {
+    "_id": "2",
+    "title": "Fronted from zero to hero",
+    "description": "Vuelvete un experto en Next js",
+    "creatorId": "1",
+    "access": "free",
+    "price": 0,
+    "duration": 3,
+    "level": "basic",
+    "platform": "appsheet",
+    "imageUrl": "https://miro.medium.com/v2/resize:fit:720/format:webp/0*88d2HLzIxs23W4Fv.png",
+    "descriptionContent": "",
+    "competences": "",
+    "requirements": "",
+    "langage": "",
+    "sector": "Informática",
+    "labels": [],
+    "modules": ["1"]
+  }
+]

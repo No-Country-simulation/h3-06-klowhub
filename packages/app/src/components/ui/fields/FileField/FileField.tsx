@@ -39,14 +39,16 @@ const FileField = forwardRef<HTMLInputElement, TFileFieldProps>(
       >
         {urlImageLoaded ? (
           <img
-            className="w-full h-full object-cover"
+            className="w-full h-full object-fill"
             src={urlImageLoaded}
             alt="imageLoaded"
           />
         ) : (
-          <div className="flex flex-col items-center gap-3">
+          <div className="flex flex-col justify-center items-center gap-3">
             <LuImport className="h-12 w-12" />
-            <span>Haga click aquí para subir el archivo</span>
+            <span className="text-center">
+              Haga click aquí para subir el archivo
+            </span>
           </div>
         )}
 

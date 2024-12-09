@@ -19,7 +19,7 @@ const Wrapper: FC<TWrapper> = async ({ children, title, href, className }) => {
       )}
     >
       {title && <p className=" font-bold text-xl leading-10">{title}</p>}
-      {children}
+      <div className="flex flex-row gap-6 py-6">{children}</div>
       {href && (
         <div className={'flex justify-center'}>
           <ButtonLink size="sm" variant="outline" href={href}>

@@ -1,5 +1,9 @@
 const CursorPage = () => {
-  return <div>This is cursors page</div>;
+  return (
+    <div className="flex w-full justify-center items-center">
+      PAGINA CURSOS EN CONSTRUCCION
+    </div>
+  );
 };
 
 export default CursorPage;

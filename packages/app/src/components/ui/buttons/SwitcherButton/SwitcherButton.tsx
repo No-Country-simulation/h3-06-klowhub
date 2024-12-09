@@ -48,6 +48,7 @@ export type TSwitcherButtonProps = VariantProps<typeof switcherButtonProps> &
   ButtonHTMLAttributes<HTMLButtonElement> & {
     leftComponent?: React.ReactNode;
     rightComponent?: React.ReactNode;
+    isActive: boolean;
   };
 
 const SwitcherButton: FC<TSwitcherButtonProps> = ({

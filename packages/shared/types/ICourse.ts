@@ -11,6 +11,13 @@ export interface ICourse {
   platform: 'appsheet' | 'powerapps'; //added MariaV
   image: File; //added MariaV
   modules: IModule[];
+  descriptionContent?: string; //added MariaV
+  competences?: string; //added MariaV
+  requirements?: string; //added MariaV
+  langage: string;
+  sector: string;
+  labels?: string[]; //added MariaV
+  state?: 'DRAFT' | 'PUBLISHED' | 'REVIEW'; //added MariaV
   createdAt?: Date;
   updatedAt?: Date;
 }

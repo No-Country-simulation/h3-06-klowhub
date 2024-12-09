@@ -114,8 +114,8 @@ const LessonForm: FC<TLessonFormProps> = ({
                     </MessageField>
                   )}
                 </LabeledField>
-                <div className="flex flex-col md:flex-row gap-3">
-                  <div>
+                <div className="flex flex-col md:flex-row gap-3 max-w-[632px]">
+                  <div className="w-[237px]">
                     <p className="font-semibold p-4 w-full srhrink-0 text-center">
                       Imagen miniatura
                     </p>
@@ -138,7 +138,7 @@ const LessonForm: FC<TLessonFormProps> = ({
                       </MessageField>
                     )}
                   </div>
-                  <div>
+                  <div className="w-[237px] ">
                     <p className="font-semibold shrink-0 p-4 w-full text-center">
                       Video
                     </p>

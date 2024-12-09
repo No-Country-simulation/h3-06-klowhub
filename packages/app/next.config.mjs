@@ -12,11 +12,13 @@ const nextConfig = {
     staticFolder: '/public',
   },
   // @TODO: eliminar la key iamges en produccion
-  images: { 
+  images: {
+    domains: ['miro.medium.com'],
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'picsum.photos',
+
         port: '',
         pathname: '/**',
       },

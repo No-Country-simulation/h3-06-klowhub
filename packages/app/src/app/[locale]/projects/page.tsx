@@ -1,7 +1,9 @@
-import React from 'react';
-
 const ProjectsPage = () => {
-  return <div>This is ProjectsPage page</div>;
+  return (
+    <div className="flex w-full justify-center items-center">
+      PAGINA PROYECTOS EN CONSTRUCCION
+    </div>
+  );
 };
 
 export default ProjectsPage;

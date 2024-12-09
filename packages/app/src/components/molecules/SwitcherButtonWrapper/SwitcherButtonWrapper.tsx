@@ -16,7 +16,7 @@ const SwitcherButtonWrapper: FC<TSwitcherWrapperProps> = ({
   leftComponent,
   rightComponent,
   variant = 'primary',
-  isActive = false,
+  isActive,
   onClick,
   ...rest
 }) => {

@@ -1,7 +1,11 @@
 import { getSession } from '@/_lib';
 import { Wrapper } from '@/components/ui';
+import Card from '@/components/ui/cards/Card';
 import Hero from '@/components/ui/Hero/Hero';
 import HeroCard from '@/components/ui/Hero/HeroCard';
+import coursesData from '@shared/data/coursesData.json';
+import coursesInProgress from '@shared/data/coursesInProgress.json';
+
 export const HomePage = async () => {
   const session = await getSession();
 
@@ -12,17 +16,45 @@ export const HomePage = async () => {
       </Hero>
 
       <main className="flex flex-grow flex-col justify-start items-center py-[30px] px-[30px] md:px-[60px]  bg-gray-700 gap-5">
-        {session && (
+        {session && coursesInProgress.length < 0 && (
           <Wrapper title="Continua tu aprendizaje" href="/courses">
-            Cursos con progreso card aqui
+            {coursesInProgress.map((course) => (
+              <p>{course}</p>
+            ))}
           </Wrapper>
         )}
 
         <Wrapper title="Cursos recomendados" href="/courses">
-          Cursos
+          {coursesData.map((course) => (
+            <Card
+              key={course._id}
+              id={+course._id}
+              title={course.title}
+              description={course.description}
+              duration={course.duration.toString()}
+              level={course.level}
+              tag={course.platform}
+              imageUrl={course.imageUrl}
+              rating={0}
+              reviews={0}
+            />
+          ))}
         </Wrapper>
         <Wrapper title="Aplicaciones recomendadas" href="/applications">
-          Cursos
+          {coursesData.map((course) => (
+            <Card
+              key={course._id}
+              id={+course._id}
+              title={course.title}
+              description={course.description}
+              duration={course.duration.toString()}
+              level={course.level}
+              tag={course.platform}
+              imageUrl={course.imageUrl}
+              rating={0}
+              reviews={0}
+            />
+          ))}
         </Wrapper>
       </main>
     </div>

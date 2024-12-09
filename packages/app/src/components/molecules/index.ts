@@ -1,6 +1,6 @@
-export { default as Appbar } from './Appbar/Appbar';
-export { default as MenuBar } from './Appbar/MenuBar';
-export { default as NavBarCollapse } from './Appbar/NavBarCollapse/NavBarCollapse';
+export { default as Appbar } from './appbar/appbar';
+export { default as MenuBar } from './appbar/MenuBar';
+export { default as NavBarCollapse } from './appbar/NavBarCollapse/NavBarCollapse';
 export { default as HaveAccountLink } from './HaveAccountLink/HaveAccountLink';
 export { default as PassField } from './PassField/PassField';
 export { default as SignInButton } from './SignInButton/SignInButton';
