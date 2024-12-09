@@ -44,6 +44,48 @@ export class CourseRepository {
     return this.toEntity(savedCourse);
   }
 
+  async update(courseId: string, courseEntity: Partial<CourseEntity>): Promise<CourseEntity | null> {
+    try {
+      const updateData = {
+        ...courseEntity,
+        modules: courseEntity.modules?.map((module) => ({
+          title: module.title,
+          description: module.description,
+          lessons: module.lessons?.map((lesson) => ({
+            title: lesson.title,
+            content: lesson.content,
+            videoUrl: lesson.videoUrl,
+          })),
+        })),
+        updatedAt: new Date(), // Actualizamos la fecha de modificación
+      };
+  
+      const updatedCourse = await this.courseModel
+        .findByIdAndUpdate(courseId, updateData, { new: true })
+        .lean();
+  
+      if (!updatedCourse) {
+        return null;
+      }
+  
+      return this.toEntity(updatedCourse);
+    } catch (error) {
+      console.error('Error al actualizar el curso:', error);
+      throw new Error('No se pudo actualizar el curso');
+    }
+  }
+
+  async delete(courseId: string): Promise<{ acknowledged: boolean; deletedCount: number }> {
+    try {
+      return await this.courseModel.deleteOne({ _id: courseId });
+      
+    } catch (error) {
+      // Manejo del error
+      console.error('Error al eliminar el curso:', error);
+      throw new Error('No se pudo eliminar el curso');
+    }
+  }
+
   async findById(courseId: string): Promise<CourseEntity | null> {
     const course = await this.courseModel.findById(courseId).lean();
     if (!course) {

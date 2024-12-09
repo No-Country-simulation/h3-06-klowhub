@@ -7,6 +7,8 @@ import {
   HttpException,
   HttpStatus,
   NotFoundException,
+  Delete,
+  Put,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -14,6 +16,7 @@ import {
   ApiResponse,
   ApiBadRequestResponse,
   ApiNotFoundResponse,
+  ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
 import { CreateCourseUseCase } from '../../application/use-case/course/create-course.use-case';
 import { AddModuleUseCase } from '../../application/use-case/modules/add-module.use-case';
@@ -21,12 +24,17 @@ import { AddLessonUseCase } from '../../application/use-case/lesson/add-lesson.u
 import { CreateCourseDto } from '../../application/dtos/create.course.dto';
 import { ModuleDto } from '../../application/dtos/create-module.dto';
 import { ILesson } from '@shared/types/ICourse';
+import { DeleteCourseUseCase } from '@/application/use-case/course/delete-course-use.case';
+import { UpdateCourseUseCase } from '@/application/use-case/course/update-course-use.case';
+import { UpdateCourseDto } from '@/application/dtos/update-course.dto';
 
 @ApiTags('courses')
 @Controller('courses')
 export class CourseController {
   constructor(
     private readonly createCourseUseCase: CreateCourseUseCase,
+    private readonly updateCourseUseCase: UpdateCourseUseCase,
+    private readonly deleteCourseUseCase: DeleteCourseUseCase,
     private readonly addModuleUseCase: AddModuleUseCase,
     private readonly addLessonUseCase: AddLessonUseCase,
   ) {}
@@ -93,6 +101,152 @@ export class CourseController {
       );
     }
   }
+
+  @Put(':courseId')
+  @HttpCode(200)
+  @ApiOperation({ summary: 'Actualizar un curso existente' })
+  @ApiResponse({
+    status: 200,
+    description: 'Curso actualizado con éxito.',
+    schema: {
+      example: {
+        status: 'success',
+        message: 'Curso actualizado con éxito',
+        
+      },
+    },
+  })
+  @ApiNotFoundResponse({
+    description: 'Curso no encontrado.',
+    schema: {
+      example: {
+        status: 'error',
+        message: 'Curso no encontrado',
+      },
+    },
+  })
+  @ApiBadRequestResponse({
+    description: 'Error en la validación de datos.',
+    schema: {
+      example: {
+        status: 'error',
+        message: 'Datos inválidos',
+        errors: [
+          { field: 'title', message: 'El título es obligatorio' },
+          { field: 'price', message: 'El precio debe ser mayor a 0' },
+        ],
+      },
+    },
+  })
+  @ApiInternalServerErrorResponse({
+    description: 'Error interno del servidor.',
+    schema: {
+      example: {
+        status: 'error',
+        message: 'No se pudo actualizar el curso',
+        details: 'Ocurrió un error desconocido.',
+      },
+    },
+  })
+  async updateCourse(
+    @Param('courseId') courseId: string,
+    @Body() updateCourseDto: UpdateCourseDto,
+  ) {
+    try {
+      const updatedCourse = await this.updateCourseUseCase.execute(
+        courseId,
+        updateCourseDto,
+      );
+      return {
+        status: 'success',
+        message: 'Curso actualizado con éxito',
+        data: updatedCourse,
+      };
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw new HttpException(
+          {
+            status: 'error',
+            message: `Curso con ID ${courseId} no encontrado`,
+          },
+          HttpStatus.NOT_FOUND,
+        );
+      }
+
+      if (error instanceof Error) {
+        throw new HttpException(
+          {
+            status: 'error',
+            message: 'No se pudo actualizar el curso',
+            details: error.message,
+          },
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      throw new HttpException(
+        {
+          status: 'error',
+          message: 'No se pudo actualizar el curso',
+          details: 'Ocurrió un error desconocido',
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  
+    @Delete(':courseId')
+    @HttpCode(204)
+    @ApiOperation({ summary: 'Eliminar un curso existente' })
+    @ApiResponse({
+      status: 204,
+      description: 'Curso eliminado con éxito.',
+    })
+    @ApiNotFoundResponse({
+      description: 'Curso no encontrado.',
+      schema: {
+        example: {
+          status: 'error',
+          message: 'Curso no encontrado',
+        },
+      },
+    })
+    @ApiInternalServerErrorResponse({
+      description: 'Error interno del servidor.',
+      schema: {
+        example: {
+          status: 'error',
+          message: 'No se pudo eliminar el curso',
+          details: 'Error desconocido.',
+        },
+      },
+    })
+    async deleteCourse(@Param('courseId') courseId: string) {
+      try {
+        await this.deleteCourseUseCase.execute(courseId);
+      } catch (error) {
+        if (error instanceof NotFoundException) {
+          throw new HttpException(
+            {
+              status: 'error',
+              message: `Curso con ID ${courseId} no encontrado`,
+            },
+            HttpStatus.NOT_FOUND,
+          );
+        }
+  
+        throw new HttpException(
+          {
+            status: 'error',
+            message: 'No se pudo eliminar el curso',
+            details: error || 'Ocurrió un error desconocido',
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
+    }
+  
 
   @Post(':courseId/modules')
   @HttpCode(201)
