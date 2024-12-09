@@ -1,23 +1,37 @@
-import { IModule } from './IModule';
+export interface ILesson {
+  title: string;
+  content: string;
+  videoUrl?: string;
+  _id?: string;
+}
+
+export interface IModule {
+  title: string;
+  description: string;
+  lessons: ILesson[];
+  _id?: string;
+}
+
 export interface ICourse {
   _id: string;
   title: string;
   description: string;
   creatorId: string;
-  access: 'free' | 'premiun'; //added MariaV
-  price: number; //added MariaV
-  duration: number; //added MariaV
-  level: 'basic' | 'intermediate' | 'advanced'; //added MariaV
-  platform: 'appsheet' | 'powerapps'; //added MariaV
-  image: File; //added MariaV
   modules: IModule[];
-  descriptionContent?: string; //added MariaV
-  competences?: string; //added MariaV
-  requirements?: string; //added MariaV
-  langage: string;
-  sector: string;
-  labels?: string[]; //added MariaV
-  state?: 'DRAFT' | 'PUBLISHED' | 'REVIEW'; //added MariaV
+  price: number;
+  duration: number;
+  level: string;
+  imageUrl: string;
+  tags: string[];
+  isPublished: boolean;
+  competencyLevel?: string;
+  platform?: string;
+  language?: string; 
+  sector?: string;
+  functionalities?: string[];
+  tools?: string[];
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+
