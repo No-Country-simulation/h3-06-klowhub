@@ -41,6 +41,7 @@ const ModuleForm: FC<TModuleFormProps> = ({ data, isOpen = true }) => {
     const output = await trigger(['title', 'description'], {
       shouldFocus: true,
     });
+    if (moduleLessons.length === 0) return;
     console.log('formulario enviado', data);
   };
 

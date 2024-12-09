@@ -4,6 +4,7 @@ import Tiptap from '@/components/molecules/FormsMolecules/Editor/components/TipT
 import { Field, MessageField } from '@/components/ui';
 import Button from '@/components/ui/buttons/BaseButton/BaseButton';
 import FileField from '@/components/ui/fields/FileField/FileField';
+import VideoField from '@/components/ui/fields/FileField/VideoField';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ILesson } from '@shared/types/ILesson';
 import { LessonSchema } from '@shared/validation/lessons';
@@ -146,8 +147,8 @@ const LessonForm: FC<TLessonFormProps> = ({
                       name="video"
                       control={control}
                       render={({ field: { ref, name, onBlur, onChange } }) => (
-                        <FileField
-                          urlImage={videoUrl || ''}
+                        <VideoField
+                          urlVideo={videoUrl || ''}
                           name={name}
                           onChange={onChange}
                           onBlur={onBlur}
