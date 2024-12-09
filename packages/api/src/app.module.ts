@@ -5,7 +5,7 @@ import { DatabaseService } from './infrastructure/config/database.service';
 import { AuthModule } from './infrastructure/modules/auth.module';
 import { CourseModule } from './infrastructure/modules/course.module';
 import { AppController } from './app.controller'; // Importar AppController
-
+import {ImagesModule} from '@/infrastructure/modules/images.module'
 @Module({
   imports: [
     // Configuración global
@@ -21,6 +21,8 @@ import { AppController } from './app.controller'; // Importar AppController
 
     // Módulo de cursos
     CourseModule,
+
+ImagesModule
   ],
   controllers: [AppController], // Registrar AppController
   providers: [DatabaseService], // Registrar AppService
