@@ -36,6 +36,7 @@ const SlipButton = forwardRef<HTMLInputElement, SlipButtonProps>(
     ref: Ref<HTMLInputElement>,
   ) => {
     const toggleMenu: MouseEventHandler<HTMLButtonElement> = (event) => {
+      event.preventDefault();
       toggle(!isOpened);
     };
     return (
@@ -57,9 +58,11 @@ const SlipButton = forwardRef<HTMLInputElement, SlipButtonProps>(
           </ToggleButton>
         </div>
 
-        <div className={isOpened ? 'w-flex' : 'hidden'}>
-          <ul>{children}</ul>
-        </div>
+        {children && (
+          <div className={isOpened ? 'w-flex' : 'hidden'}>
+            <ul>{children}</ul>
+          </div>
+        )}
       </div>
     );
   },

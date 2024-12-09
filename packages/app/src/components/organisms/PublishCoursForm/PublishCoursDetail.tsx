@@ -1,30 +1,74 @@
+'use client';
 import {
   DropDownField,
   LabeledField,
   TagField,
 } from '@/components/molecules/FormsMolecules';
 import Tiptap from '@/components/molecules/FormsMolecules/Editor/components/TipTap';
-import { BaseButton as Button } from '@/components/ui';
+import { BaseButton as Button, MessageField } from '@/components/ui';
 import { useStepStore } from '@/stores/stepStore.store';
+import { zodResolver } from '@hookform/resolvers/zod';
 import sectorOptions from '@shared/data/sectorOptions.json';
-import { FormEvent, useEffect } from 'react';
+import { CourseSchemaDetail } from '@shared/validation/cours';
+import { useEffect } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import * as z from 'zod';
+
+type Inputs = z.infer<typeof CourseSchemaDetail>;
 
 const PublishDetailCoursForm = () => {
   const { steps, loadSteps, nextStep, updateStepState, currentStep } =
     useStepStore((state) => state);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    control,
+    trigger,
+    formState: { errors },
+  } = useForm<Inputs>({
+    defaultValues: {
+      langage: 'es',
+      sector: 'Atención al cliente',
+    },
+    mode: 'onChange',
+    resolver: zodResolver(CourseSchemaDetail),
+  });
 
   useEffect(() => {
     useStepStore.persist.rehydrate();
     loadSteps(steps);
   }, []);
 
-  const submitForm = (e: FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    nextStep();
+  const professForm: SubmitHandler<Inputs> = async (data) => {
+    const output = await trigger(
+      [
+        'descriptionContent',
+        'competences',
+        'requirements',
+        'langage',
+        'sector',
+        'labels',
+      ],
+      {
+        shouldFocus: true,
+      },
+    );
+    console.log('formulario enviado', data);
+
     updateStepState({ state: 'VALID' });
+    nextStep();
   };
+
+  const submitForm = (data: Inputs) => {
+    console.log(data);
+    professForm(data);
+  };
+
   return (
-    <div>
+    <form onSubmit={handleSubmit(submitForm)}>
       <div className="flex w-full  text-white bg-gray-950 rounded-lg p-6 shadow-mdflex sm:flex-row gap-[30px] flex-col max-w-[1500px]">
         <div className="flex flex-col gap-[30px] w-full sm:flex-grow-2">
           <div className="flex flex-col gap-3">
@@ -32,52 +76,124 @@ const PublishDetailCoursForm = () => {
               label=" Haz una descripción detallada del contenido del curso y a quién está
             dirigido."
             >
-              <Tiptap
-                content={''}
-                onChange={() => {}}
-                placeholder="Escribe aquí tu texto"
+              <Controller
+                name="descriptionContent"
+                control={control}
+                render={({ field: { ref, name, onBlur, onChange } }) => (
+                  <Tiptap
+                    content=""
+                    placeholder="Escribe aquí tu texto"
+                    name={name}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    ref={ref}
+                  />
+                )}
               />
+              {errors?.descriptionContent?.message && (
+                <MessageField variant="error">
+                  {errors.descriptionContent.message}
+                </MessageField>
+              )}
             </LabeledField>
           </div>
           <div className="flex flex-col gap-3">
             <LabeledField label="¿Qué van a haber aprendido los estudiantes al finalizar el curso?">
-              <Tiptap
-                content={''}
-                onChange={() => {}}
-                placeholder="Escribe aquí tu texto"
+              <Controller
+                name="competences"
+                control={control}
+                render={({ field: { ref, name, onBlur, onChange } }) => (
+                  <Tiptap
+                    content=""
+                    placeholder="Escribe aquí tu texto"
+                    name={name}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    ref={ref}
+                  />
+                )}
               />
+              {errors?.competences?.message && (
+                <MessageField variant="error">
+                  {errors.competences.message}
+                </MessageField>
+              )}
             </LabeledField>
           </div>
           <div className="flex flex-col gap-3">
             <LabeledField label="¿Qué requisitos previos debe tener el estudiante o su computadora? Menciónelos si hubiese alguno.">
-              <Tiptap
-                content={''}
-                onChange={() => {}}
-                placeholder="Escribe aquí tu texto"
+              <Controller
+                name="requirements"
+                control={control}
+                render={({ field: { ref, name, onBlur, onChange } }) => (
+                  <Tiptap
+                    content=""
+                    placeholder="Escribe aquí tu texto"
+                    name={name}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    ref={ref}
+                  />
+                )}
               />
+              {errors?.requirements?.message && (
+                <MessageField variant="error">
+                  {errors.requirements.message}
+                </MessageField>
+              )}
             </LabeledField>
           </div>
         </div>
         <div className="flex flex-col gap-[30px] w-full sm:min-w-[300px]">
           <div>
             <LabeledField label="Idioma del curso:">
-              <DropDownField
-                options={['español', 'inglés']}
-                placeholder="Seleccionar idioma"
+              <Controller
+                name="langage"
+                control={control}
+                render={({ field: { ref, name, onBlur, onChange } }) => (
+                  <DropDownField
+                    options={['español', 'inglés']}
+                    placeholder="Seleccionar idioma"
+                    name={name}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    ref={ref}
+                  />
+                )}
               />
+              {errors?.langage?.message && (
+                <MessageField variant="error">
+                  {errors.langage.message}
+                </MessageField>
+              )}
             </LabeledField>
           </div>
           <div>
             <LabeledField label="Sector al que va dirigido el curso:">
-              <DropDownField
-                options={sectorOptions}
-                indexChamp="value"
-                placeholder="Seleccionar sector"
-                component={(elem: unknown) => {
-                  const { value } = elem as { id: string; value: string };
-                  return <p>{value}</p>;
-                }}
+              <Controller
+                name="sector"
+                control={control}
+                render={({ field: { ref, name, onBlur, onChange } }) => (
+                  <DropDownField
+                    options={sectorOptions}
+                    indexChamp="value"
+                    placeholder="Seleccionar sector"
+                    component={(elem: unknown) => {
+                      const { value } = elem as { id: string; value: string };
+                      return <p>{value}</p>;
+                    }}
+                    name={name}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    ref={ref}
+                  />
+                )}
               />
+              {errors?.sector?.message && (
+                <MessageField variant="error">
+                  {errors.sector.message}
+                </MessageField>
+              )}
             </LabeledField>
           </div>
           <div>
@@ -86,7 +202,24 @@ const PublishDetailCoursForm = () => {
               optionalInfo="Agrega etiquetas que describan los temas, áreas clave o herramientas
             del curso para facilitar su búsqueda y clasificación."
             >
-              <TagField placeholder="Ej. Automatización, Flujos de trabajo, etc." />
+              <Controller
+                name="labels"
+                control={control}
+                render={({ field: { ref, name, onBlur, onChange } }) => (
+                  <TagField
+                    placeholder="Ej. Automatización, Flujos de trabajo, etc."
+                    name={name}
+                    onBlur={onBlur}
+                    ref={ref}
+                    onChange={(newTags) => onChange(newTags)}
+                  />
+                )}
+              />
+              {errors?.labels?.message && (
+                <MessageField variant="error">
+                  {errors.labels.message}
+                </MessageField>
+              )}
             </LabeledField>
           </div>
         </div>
@@ -96,15 +229,14 @@ const PublishDetailCoursForm = () => {
           <Button
             variant="quaternary"
             size="sm"
-            type="button"
-            onClick={submitForm}
+            type="submit"
             disabled={currentStep === steps.length}
           >
             Continuar
           </Button>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 

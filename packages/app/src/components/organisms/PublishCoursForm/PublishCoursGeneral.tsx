@@ -254,9 +254,6 @@ const PublishCoursGeneral = () => {
             size="sm"
             type="submit"
             disabled={currentStep === steps.length}
-            onClick={() => {
-              console.dir(errors);
-            }}
           >
             Continuar
           </Button>

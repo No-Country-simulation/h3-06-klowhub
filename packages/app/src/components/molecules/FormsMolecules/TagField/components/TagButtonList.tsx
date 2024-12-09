@@ -2,7 +2,7 @@ import TagButton from '@/components/ui/buttons/TagButton/TagButton';
 import { HTMLAttributes } from 'react';
 
 export type TTagButtonListProps = {
-  data: { id: string; label: string }[];
+  data: string[];
   onDelete: (val: string) => void;
 } & HTMLAttributes<HTMLButtonElement>;
 
@@ -19,15 +19,15 @@ const TagButtonList = ({
   return (
     <>
       {data.length > 0 &&
-        data.map((el: { id: string; label: string }) => (
+        data.map((el: string, index) => (
           <TagButton
             className={className}
-            key={el.id}
-            onClick={() => handleDeleteTag(el.label)}
+            key={index}
+            onClick={() => handleDeleteTag(el)}
             withHash
             {...rest}
           >
-            {el.label}
+            {el}
           </TagButton>
         ))}
     </>

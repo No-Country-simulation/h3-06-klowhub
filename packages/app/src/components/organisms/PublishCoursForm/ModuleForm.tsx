@@ -1,14 +1,18 @@
 import { Accordion } from '@/components/molecules/Accordion';
 import { LabeledField } from '@/components/molecules/FormsMolecules';
 import Tiptap from '@/components/molecules/FormsMolecules/Editor/components/TipTap';
-import { Field } from '@/components/ui';
+import { Field, MessageField } from '@/components/ui';
 import Button from '@/components/ui/buttons/BaseButton/BaseButton';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { ILesson } from '@shared/types/ILesson';
 import { IModule } from '@shared/types/IModule';
+import { ModuleSchema } from '@shared/validation/module';
 import { FC, FormEvent, useState } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { LuPlus, LuTrash } from 'react-icons/lu';
+import * as z from 'zod';
 import LessonForm from './LessonForm';
-
+type Inputs = z.infer<typeof ModuleSchema>;
 export type TModuleFormProps = {
   isOpen?: boolean;
   data?: IModule;
@@ -18,6 +22,34 @@ const ModuleForm: FC<TModuleFormProps> = ({ data, isOpen = true }) => {
   const { _id: courseId, title, description, lessons } = data ?? {};
   const [moduleLessons, setModuleLessons] = useState<ILesson[]>(lessons || []);
   const [newLesson, setNewLesson] = useState<ILesson[]>(lessons || []);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    control,
+    trigger,
+    formState: { errors },
+  } = useForm<Inputs>({
+    defaultValues: {},
+    mode: 'onChange',
+    resolver: zodResolver(ModuleSchema),
+  });
+
+  const professForm: SubmitHandler<Inputs> = async (data) => {
+    const output = await trigger(['title', 'description'], {
+      shouldFocus: true,
+    });
+    console.log('formulario enviado', data);
+  };
+
+  const moduletitle = watch('title');
+
+  const submitForm = (data: Inputs) => {
+    console.log(data);
+    professForm(data);
+  };
 
   const handleAddLesson = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,7 +68,9 @@ const ModuleForm: FC<TModuleFormProps> = ({ data, isOpen = true }) => {
           <Accordion.Bar>
             <div className="flex justify-between w-full">
               <div>
-                <span className="font-bold text-xl">Modulo 1:</span>
+                <span className="font-bold text-xl">
+                  Modulo 1:{moduletitle}
+                </span>
                 {title && <span className={title}>{title}</span>}
               </div>
               <LuTrash className="w-6 h-6 p-1 rounded-full border border-gray-50 text-gray-50" />
@@ -46,19 +80,45 @@ const ModuleForm: FC<TModuleFormProps> = ({ data, isOpen = true }) => {
       >
         <Accordion.Content className="bg-gray-950 p-6 ">
           <div className="flex flex-col gap-6">
-            <form className="flex flex-row w-full gap-8 justify-around">
+            <form
+              onSubmit={handleSubmit(submitForm)}
+              className="flex flex-row w-full gap-8 justify-around"
+            >
               <div className="gap-7 flex flex-col max-w-[380px] md:max-w-[632px] w-full md:w-1/2">
                 <LabeledField label="Título del módulo">
-                  <Field placeholder="Ej: introducción" fluid />
+                  <Field
+                    placeholder="Ej: introducción"
+                    fluid
+                    {...register('title')}
+                  />
+                  {errors?.title?.message && (
+                    <MessageField variant="error">
+                      {errors.title.message}
+                    </MessageField>
+                  )}
                 </LabeledField>
               </div>
               <div className="gap-7 flex flex-col min-w-[380px] w-full md:w-1/2 ">
                 <LabeledField label="Descripción.">
-                  <Tiptap
-                    content={description || ''}
-                    onChange={() => {}}
-                    placeholder="Escribe aquí tu texto. Recuerda que no es obligatorio este campo."
+                  <Controller
+                    name="description"
+                    control={control}
+                    render={({ field: { ref, name, onBlur, onChange } }) => (
+                      <Tiptap
+                        content={description || ''}
+                        placeholder="Escribe aquí tu texto. Recuerda que no es obligatorio este campo."
+                        name={name}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        ref={ref}
+                      />
+                    )}
                   />
+                  {errors?.description?.message && (
+                    <MessageField variant="error">
+                      {errors.description.message}
+                    </MessageField>
+                  )}
                 </LabeledField>
               </div>
             </form>

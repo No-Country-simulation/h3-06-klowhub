@@ -1,13 +1,18 @@
 import { Accordion } from '@/components/molecules/Accordion';
 import { LabeledField } from '@/components/molecules/FormsMolecules';
 import Tiptap from '@/components/molecules/FormsMolecules/Editor/components/TipTap';
-import { Field } from '@/components/ui';
+import { Field, MessageField } from '@/components/ui';
 import Button from '@/components/ui/buttons/BaseButton/BaseButton';
 import FileField from '@/components/ui/fields/FileField/FileField';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { ILesson } from '@shared/types/ILesson';
+import { LessonSchema } from '@shared/validation/lessons';
 import { FC } from 'react';
-import { Controller } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { LuPlus, LuTrash } from 'react-icons/lu';
+import * as z from 'zod';
+
+type Inputs = z.infer<typeof LessonSchema>;
 
 export type TLessonFormProps = {
   isOpen?: boolean;
@@ -20,10 +25,35 @@ const LessonForm: FC<TLessonFormProps> = ({
   onSubmit,
   isOpen = true,
 }) => {
-  const { _id, title, content, moduleId, videoUrl } = data || {};
-  const submitLesson = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onSubmit?.();
+  const { _id, title, content, moduleId, videoUrl, imageUrl } = data || {};
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    control,
+    trigger,
+    formState: { errors },
+  } = useForm<Inputs>({
+    defaultValues: {},
+    mode: 'onChange',
+    resolver: zodResolver(LessonSchema),
+  });
+  const professForm: SubmitHandler<Inputs> = async (data) => {
+    const output = await trigger(
+      ['title', 'content', 'image', 'link', 'video'],
+      {
+        shouldFocus: true,
+      },
+    );
+    console.log('formulario enviado', data);
+  };
+
+  const titleWatch = watch('title');
+  const submitForm = (data: Inputs) => {
+    console.log(data);
+    professForm(data);
   };
 
   return (
@@ -38,7 +68,7 @@ const LessonForm: FC<TLessonFormProps> = ({
             <div className="flex justify-between w-full">
               <div>
                 <span className="font-bold text-xl">Lección 1:</span>
-                {data && <span className={title}>{title}</span>}
+                <span>{titleWatch}</span>
               </div>
               <LuTrash className="w-6 h-6 p-1 rounded-full border border-gray-50 text-gray-50" />
             </div>
@@ -46,13 +76,22 @@ const LessonForm: FC<TLessonFormProps> = ({
         }
       >
         <Accordion.Content className="bg-neutral-700 p-6">
-          <form onSubmit={submitLesson}>
+          <form onSubmit={handleSubmit(submitForm)}>
             <div className="flex flex-row w-full gap-8">
               <div className="gap-7 flex flex-col max-w-[380px] md:max-w-[632px]">
-                <LabeledField label="Título del módulo">
-                  <Field placeholder="Ej: introducción" fluid />
+                <LabeledField label="Título de la lección">
+                  <Field
+                    placeholder="Ej: introducción"
+                    fluid
+                    {...register('title')}
+                  />
+                  {errors?.title?.message && (
+                    <MessageField variant="error">
+                      {errors.title.message}
+                    </MessageField>
+                  )}
                 </LabeledField>
-                <LabeledField label="Contenido del módulo">
+                <LabeledField label="Enlace:">
                   <div className="flex flex-row">
                     <Button
                       rounded="left"
@@ -63,38 +102,29 @@ const LessonForm: FC<TLessonFormProps> = ({
                       Enlace
                     </Button>
 
-                    <Field className="rounded-l-none" fluid />
+                    <Field
+                      className="rounded-l-none"
+                      fluid
+                      {...register('link')}
+                    />
                   </div>
+                  {errors?.link?.message && (
+                    <MessageField variant="error">
+                      {errors.link.message}
+                    </MessageField>
+                  )}
                 </LabeledField>
                 <div className="flex flex-col md:flex-row gap-3">
                   <div>
-                    <p className="font-semibold p-4 w-full text-center">
+                    <p className="font-semibold p-4 w-full srhrink-0 text-center">
                       Imagen miniatura
-                    </p>
-                    {/* <Controller
-                      name="image"
-                      control={control}
-                      render={({ field: { ref, name, onBlur, onChange } }) => (
-                        <FileField
-                          urlImageCourse=""
-                          name={name}
-                          onChange={onChange}
-                          onBlur={onBlur}
-                          ref={ref}
-                        />
-                      )}
-                    /> */}
-                  </div>
-                  <div>
-                    <p className="font-semibold p-4 w-full text-center">
-                      Video
                     </p>
                     <Controller
                       name="image"
                       control={control}
                       render={({ field: { ref, name, onBlur, onChange } }) => (
                         <FileField
-                          urlImage=""
+                          urlImage={imageUrl || ''}
                           name={name}
                           onChange={onChange}
                           onBlur={onBlur}
@@ -102,16 +132,58 @@ const LessonForm: FC<TLessonFormProps> = ({
                         />
                       )}
                     />
+                    {errors?.image?.message && (
+                      <MessageField variant="error">
+                        {errors.image.message}
+                      </MessageField>
+                    )}
+                  </div>
+                  <div>
+                    <p className="font-semibold shrink-0 p-4 w-full text-center">
+                      Video
+                    </p>
+                    <Controller
+                      name="video"
+                      control={control}
+                      render={({ field: { ref, name, onBlur, onChange } }) => (
+                        <FileField
+                          urlImage={videoUrl || ''}
+                          name={name}
+                          onChange={onChange}
+                          onBlur={onBlur}
+                          ref={ref}
+                        />
+                      )}
+                    />
+                    {errors?.video?.message && (
+                      <MessageField variant="error">
+                        {errors.video.message}
+                      </MessageField>
+                    )}
                   </div>
                 </div>
               </div>
               <div className="gap-7 flex flex-col min-w-[380px] w-full">
                 <LabeledField label="Descripción.">
-                  <Tiptap
-                    content={content || ''}
-                    onChange={() => {}}
-                    placeholder="Escribe aquí tu texto. Recuerda que no es obligatorio este campo."
+                  <Controller
+                    name="content"
+                    control={control}
+                    render={({ field: { ref, name, onBlur, onChange } }) => (
+                      <Tiptap
+                        content={content || ''}
+                        placeholder="Escribe aquí tu texto. Recuerda que no es obligatorio este campo."
+                        name={name}
+                        onChange={onChange}
+                        onBlur={onBlur}
+                        ref={ref}
+                      />
+                    )}
                   />
+                  {errors?.content?.message && (
+                    <MessageField variant="error">
+                      {errors.content.message}
+                    </MessageField>
+                  )}
                 </LabeledField>
                 {/* TODO: Pasar a un componente separado"*/}
                 <div className="flex flex-col text-sm text-gray-50 gap-3">

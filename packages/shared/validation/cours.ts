@@ -26,3 +26,12 @@ export const CourseSchema = z.object({
   duration: z.string(),
   platform: z.enum(['powerapps', 'appsheet']),
 });
+
+export const CourseSchemaDetail = z.object({
+  descriptionContent: z.string(),
+  competences: z.string(),
+  requirements: z.string(),
+  langage: z.string(),
+  sector: z.string(),
+  labels: z.array(z.string()),
+});
