@@ -24,8 +24,9 @@ export const Accordion = ({
 }: accordionProps) => {
   const [isOpen, setIsOpen] = useState(isOpenOnInit);
 
-  const toggleAccordion = (e: MouseEvent) => {
+  const toggleAccordion = (e: React.MouseEvent) => {
     e.preventDefault();
+    console.log('accordion ', isOpen);
     setIsOpen(!isOpen);
   };
   return (
@@ -44,7 +45,7 @@ export const Accordion = ({
         {...rest}
       >
         <div className="flex-grow">{Bar}</div>
-        <ToggleButton isActive={isOpen} onClick={() => toggleAccordion}>
+        <ToggleButton isActive={isOpen} onClick={(e) => toggleAccordion(e)}>
           <VscChevronDown />
           <VscChevronUp />
         </ToggleButton>

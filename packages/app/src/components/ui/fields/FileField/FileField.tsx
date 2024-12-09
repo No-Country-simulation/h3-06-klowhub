@@ -21,7 +21,7 @@ const FileField = forwardRef<HTMLInputElement, TFileFieldProps>(
       urlImage || null,
     );
     const [file, setFile] = useState<File | null>(null);
-    const idFile = `video-${new Date().getTime()}`;
+    const idFile = 'imageId';
     useEffect(() => {
       if (file instanceof File) {
         const imageUrl = URL.createObjectURL(file);
