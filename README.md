@@ -35,7 +35,7 @@ Completar nombre [Linkedin](https://www.linkedin.com/in)| [GitHub](https://githu
 Completar nombre [Linkedin](https://www.linkedin.com/in)| [GitHub](https://github.com)
 
 ### QA TESTER
-Completar nombre [Linkedin](https://www.linkedin.com/in)| [GitHub](https://github.com)
+Luz Tabraj [Linkedin](www.linkedin.com/in/luz-tabraj)| [GitHub](https://github.com/luztabraj)
 
 ### FRONTEND 🖼️
 Maria Villen [Linkedin](https://www.linkedin.com/in/maria-villen/)| [GitHub](https://github.com/MariaVillen)
