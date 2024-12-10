@@ -1,40 +1,34 @@
-import { ILesson } from '@shared/types/ILesson';
-import { Schema, model, Types } from 'mongoose';
+import { Schema } from 'mongoose';
 
-export interface IModule {
-  _id: Types.ObjectId;
-  title: string;
-  description: string;
-  lessons: Types.DocumentArray<ILesson>;
-}
-
-export interface ICourse {
-  _id: Types.ObjectId;
-  title: string;
-  description: string;
-  creatorId: Types.ObjectId;
-  modules: Types.DocumentArray<IModule>;
-}
-
-const lessonSchema = new Schema<ILesson>({
+export const LessonSchema = new Schema({
   title: { type: String, required: true },
   content: { type: String, required: true },
+  videoUrl: { type: String },
 });
 
-const moduleSchema = new Schema<IModule>({
+export const ModuleSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
-  lessons: [lessonSchema],
+  lessons: [LessonSchema],
 });
 
-export const courseSchema = new Schema<ICourse>(
+export const CourseSchema = new Schema(
   {
     title: { type: String, required: true },
     description: { type: String, required: true },
-    creatorId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    modules: [moduleSchema],
+    creatorId: { type: String, required: true },
+    courseImage: { type: String, required: false },
+    category: { type: String, required: false },
+    tags: { type: [String], required: false },
+    price: { type: Number, required: true },
+    rating: { type: Number, default: 0 },
+    isPublished: { type: Boolean, default: false },
+    modules: [ModuleSchema],
+    competencyLevel: { type: String, required: false },
+    platform: { type: String, required: false },
+    language: { type: String, required: false },
+    functionalities: { type: [String], required: false },
+    tools: { type: [String], required: false },
   },
   { timestamps: true },
 );
-
-export const Course = model<ICourse>('Course', courseSchema);
