@@ -57,3 +57,4 @@ coverage/
 .idea/
 
 .next/
+.vercel

@@ -1,7 +1,7 @@
 import { cn } from '@/_lib';
 import { cva, VariantProps } from 'class-variance-authority';
 import { forwardRef, Ref } from 'react';
-import { LuAlertCircle, LuCheckCircle } from 'react-icons/lu';
+import { LuCircleAlert, LuCircleCheck } from 'react-icons/lu';
 import Input, { TBaseInputProps } from '../Input/Input';
 
 const fieldProps = cva(
@@ -56,9 +56,9 @@ const Field = forwardRef<HTMLInputElement, TFieldProps>(
         />
         {!children &&
           (colorState === 'error' ? (
-            <LuAlertCircle className="text-invalid-dark h-4 w-4 mx-3" />
+            <LuCircleAlert className="text-invalid-dark h-4 w-4 mx-3" />
           ) : colorState === 'success' ? (
-            <LuCheckCircle className="text-success-dark  h-4 w-4 mx-3" />
+            <LuCircleCheck className="text-success-dark  h-4 w-4 mx-3" />
           ) : null)}
         {children && children}
       </div>
