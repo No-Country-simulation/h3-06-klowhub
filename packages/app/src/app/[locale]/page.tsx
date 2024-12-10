@@ -6,7 +6,7 @@ import HeroCard from '@/components/ui/Hero/HeroCard';
 import coursesData from '@shared/data/coursesData.json';
 import coursesInProgress from '@shared/data/coursesInProgress.json';
 
-export const HomePage = async () => {
+const HomePage = async () => {
   const session = await getSession();
 
   return (
@@ -18,8 +18,8 @@ export const HomePage = async () => {
       <main className="flex flex-grow flex-col justify-start items-center py-[30px] px-[30px] md:px-[60px]  bg-gray-700 gap-5">
         {session && coursesInProgress.length < 0 && (
           <Wrapper title="Continua tu aprendizaje" href="/courses">
-            {coursesInProgress.map((course) => (
-              <p>{course}</p>
+            {coursesInProgress.map((course, index) => (
+              <p key={index}>{course}</p>
             ))}
           </Wrapper>
         )}

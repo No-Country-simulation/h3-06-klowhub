@@ -2,13 +2,7 @@
 import { cn } from '@/_lib/utils/cn-utility-function';
 import { Input } from '@/components/ui';
 import MessageField from '@/components/ui/fields/MessageField/MessageField';
-import {
-  forwardRef,
-  HTMLAttributes,
-  MutableRefObject,
-  Ref,
-  useState,
-} from 'react';
+import { forwardRef, HTMLAttributes, Ref, RefObject, useState } from 'react';
 import TagButtonList from './components/TagButtonList';
 import useTagField from './useTagField';
 
@@ -28,7 +22,7 @@ const TagField = forwardRef<HTMLInputElement, TTagField>(
     const onError = (error: string) => setIsError(error);
     const { tagsOfArticle, onLocalChange, onLocalKeyDown, deleteTag, value } =
       useTagField({
-        ref: ref as MutableRefObject<HTMLInputElement | null>,
+        ref: ref as RefObject<HTMLInputElement | null>,
         data: data || [],
         articleTags: [],
         onChange: onChange,
@@ -73,6 +67,7 @@ const TagField = forwardRef<HTMLInputElement, TTagField>(
                 onBlur={onBlur}
                 fluid
                 value={value}
+                name={name}
                 ref={ref}
                 padding={false}
                 className="py-3"
@@ -88,5 +83,7 @@ const TagField = forwardRef<HTMLInputElement, TTagField>(
     );
   },
 );
+
+TagField.displayName = 'TagField';
 
 export default TagField;

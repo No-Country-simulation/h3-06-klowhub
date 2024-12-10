@@ -1,7 +1,7 @@
 'use client';
 import {
   //KeyboardEventHandler,
-  MutableRefObject,
+  RefObject,
   SetStateAction,
   useEffect,
   useState,
@@ -13,7 +13,7 @@ export type useDropDownProps<T> = {
   iconChamp?: string | keyof T;
   options: (T | string)[];
   onChange?: (value: string) => void;
-  ref: MutableRefObject<HTMLInputElement | null>;
+  ref: RefObject<HTMLInputElement | null>;
   onError?: (error: string) => void;
 };
 
@@ -62,9 +62,10 @@ function useDropDownField<T>({
   const toggleMenu = (val: boolean) => setIsSuggestionsOpen(val);
 
   useEffect(() => {
-    console.log('onchange');
-    onChange && onChange(inputValue as string);
-  }, [inputValue]);
+    if (onChange) {
+      onChange(inputValue as string);
+    }
+  }, [inputValue, onChange]);
 
   return {
     inputValue,

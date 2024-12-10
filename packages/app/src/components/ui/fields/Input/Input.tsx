@@ -25,5 +25,5 @@ const Input = forwardRef<HTMLInputElement, TBaseInputProps>(
     );
   },
 );
-
+Input.displayName = 'Input';
 export default Input;

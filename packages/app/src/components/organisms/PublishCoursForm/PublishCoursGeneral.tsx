@@ -31,7 +31,6 @@ const PublishCoursGeneral = () => {
     register,
     handleSubmit,
     watch,
-    reset,
     control,
     trigger,
     formState: { errors },
@@ -51,7 +50,7 @@ const PublishCoursGeneral = () => {
   }, []);
 
   const professForm: SubmitHandler<Inputs> = async (data) => {
-    const output = await trigger(
+    await trigger(
       [
         'title',
         'description',
@@ -73,7 +72,6 @@ const PublishCoursGeneral = () => {
   };
 
   const access = watch('access');
-  const image = watch('image');
 
   const submitForm = (data: Inputs) => {
     console.log(data);

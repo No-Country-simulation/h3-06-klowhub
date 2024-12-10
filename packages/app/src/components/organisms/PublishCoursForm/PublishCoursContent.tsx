@@ -8,7 +8,7 @@ import { ModuleForm } from '.';
 const PublishCoursContent = () => {
   const { steps, loadSteps, nextStep, updateStepState, currentStep } =
     useStepStore((state) => state);
-  const [modules, setModules] = useState<IModule[]>([]);
+  const [modules] = useState<IModule[]>([]);
 
   useEffect(() => {
     useStepStore.persist.rehydrate();

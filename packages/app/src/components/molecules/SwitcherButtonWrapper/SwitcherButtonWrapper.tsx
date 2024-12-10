@@ -26,7 +26,7 @@ const SwitcherButtonWrapper: FC<TSwitcherWrapperProps> = ({
     e: MouseEvent<HTMLButtonElement, MouseEvent> | MouseEvent,
   ) => {
     setIsButtonActive((prev) => !prev);
-    onClick && onClick(e);
+    if (onClick) onClick(e);
   };
 
   return (

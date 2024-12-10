@@ -16,7 +16,7 @@ export async function createSession(payload: TSession) {
     .setExpirationTime(expiredAt)
     .sign(encodedKey);
 
-  cookies().set('session', session, {
+  (await cookies()).set('session', session, {
     httpOnly: true,
     // secure: true,
     expires: expiredAt,
@@ -26,7 +26,7 @@ export async function createSession(payload: TSession) {
 }
 
 export async function getSession() {
-  const cookie = cookies().get('session')?.value;
+  const cookie = (await cookies()).get('session')?.value;
   console.log('cookie', cookie);
   if (!cookie) {
     return null;
@@ -45,7 +45,7 @@ export async function getSession() {
 }
 
 export async function deleteSession() {
-  await cookies().delete('session');
+  await (await cookies()).delete('session');
 }
 
 // TODO: esto hay que revisarlo
@@ -56,7 +56,7 @@ export async function updateTokens({
   accessToken: string;
   refreshToken: string;
 }) {
-  const cookie = cookies().get('session')?.value;
+  const cookie = (await cookies()).get('session')?.value;
   if (!cookie) {
     return null;
   }
@@ -74,5 +74,7 @@ export async function updateTokens({
     };
 
     await createSession(newPayload);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 }

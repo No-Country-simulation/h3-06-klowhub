@@ -1,6 +1,6 @@
 import { cn } from '@/_lib';
 import { cva, VariantProps } from 'class-variance-authority';
-import { forwardRef, Ref } from 'react';
+import { FC, Ref } from 'react';
 import { LuCircleAlert, LuCircleCheck } from 'react-icons/lu';
 import Input, { TBaseInputProps } from '../Input/Input';
 
@@ -37,33 +37,35 @@ export type TFieldProps = VariantProps<typeof fieldProps> &
   TBaseInputProps & {
     children?: React.ReactNode;
     withIconState?: boolean;
+    ref?: Ref<HTMLInputElement>;
   };
 
-const Field = forwardRef<HTMLInputElement, TFieldProps>(
-  (
-    { colorState, children, fluid, reverse, className, ...rest }: TFieldProps,
-    ref: Ref<HTMLInputElement>,
-  ) => {
-    return (
-      <div
-        className={cn(fieldProps({ colorState, fluid, reverse }), className)}
-      >
-        <Input
-          ref={ref}
-          fluid={true}
-          padding={reverse ? false : true}
-          {...rest}
-        />
-        {!children &&
-          (colorState === 'error' ? (
-            <LuCircleAlert className="text-invalid-dark h-4 w-4 mx-3" />
-          ) : colorState === 'success' ? (
-            <LuCircleCheck className="text-success-dark  h-4 w-4 mx-3" />
-          ) : null)}
-        {children && children}
-      </div>
-    );
-  },
-);
+const Field: FC<TFieldProps> = ({
+  colorState,
+  children,
+  fluid,
+  reverse,
+  ref,
+  className,
+  ...rest
+}: TFieldProps) => {
+  return (
+    <div className={cn(fieldProps({ colorState, fluid, reverse }), className)}>
+      <Input
+        ref={ref}
+        fluid={true}
+        padding={reverse ? false : true}
+        {...rest}
+      />
+      {!children &&
+        (colorState === 'error' ? (
+          <LuCircleAlert className="text-invalid-dark h-4 w-4 mx-3" />
+        ) : colorState === 'success' ? (
+          <LuCircleCheck className="text-success-dark  h-4 w-4 mx-3" />
+        ) : null)}
+      {children && children}
+    </div>
+  );
+};
 
 export default Field;

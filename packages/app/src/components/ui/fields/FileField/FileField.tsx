@@ -96,5 +96,5 @@ const FileField = forwardRef<HTMLInputElement, TFileFieldProps>(
     );
   },
 );
-
+FileField.displayName = 'FileField';
 export default FileField;

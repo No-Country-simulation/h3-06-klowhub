@@ -24,10 +24,6 @@ const meta = {
     toggle: () => console.log('Toggled!'),
   },
   argTypes: {
-    onToggle: {
-      description:
-        'Callback function to handle the toggle state of the dropdown.',
-    },
     placeholder: {
       description: 'Placeholder text for the SlipButton input field.',
       control: {

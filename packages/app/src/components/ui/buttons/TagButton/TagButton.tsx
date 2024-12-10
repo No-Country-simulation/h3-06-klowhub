@@ -7,7 +7,6 @@ import { RiCloseFill } from 'react-icons/ri';
 export type ButtonTagProps = HTMLAttributes<HTMLButtonElement> & {
   children: string;
   type?: 'close' | 'arrow';
-  withHash?: boolean;
 };
 
 const TagButton: FC<ButtonTagProps> = ({
@@ -15,7 +14,6 @@ const TagButton: FC<ButtonTagProps> = ({
   className,
   onClick,
   type = 'close',
-  withHash = false,
   ...rest
 }) => {
   return (

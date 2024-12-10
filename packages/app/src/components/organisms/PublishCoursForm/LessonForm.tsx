@@ -22,16 +22,16 @@ export type TLessonFormProps = {
 
 const LessonForm: FC<TLessonFormProps> = ({
   data,
-  onSubmit,
+  // onSubmit,
   isOpen = true,
 }) => {
-  const { _id, title, content, moduleId, videoUrl, imageUrl } = data || {};
+  // const { _id, title, content, moduleId, videoUrl, imageUrl } = data || {};
+  const { content, videoUrl, imageUrl } = data || {};
 
   const {
     register,
     handleSubmit,
     watch,
-    reset,
     control,
     trigger,
     formState: { errors },
@@ -41,12 +41,9 @@ const LessonForm: FC<TLessonFormProps> = ({
     resolver: zodResolver(LessonSchema),
   });
   const professForm: SubmitHandler<Inputs> = async (data) => {
-    const output = await trigger(
-      ['title', 'content', 'image', 'link', 'video'],
-      {
-        shouldFocus: true,
-      },
-    );
+    await trigger(['title', 'content', 'image', 'link', 'video'], {
+      shouldFocus: true,
+    });
     console.log('formulario enviado', data);
   };
 

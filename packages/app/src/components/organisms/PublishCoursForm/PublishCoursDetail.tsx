@@ -21,10 +21,7 @@ const PublishDetailCoursForm = () => {
     useStepStore((state) => state);
 
   const {
-    register,
     handleSubmit,
-    watch,
-    reset,
     control,
     trigger,
     formState: { errors },
@@ -43,7 +40,7 @@ const PublishDetailCoursForm = () => {
   }, []);
 
   const professForm: SubmitHandler<Inputs> = async (data) => {
-    const output = await trigger(
+    await trigger(
       [
         'descriptionContent',
         'competences',

@@ -2,11 +2,9 @@ import { cn } from '@/_lib';
 import { MenuBar } from '@/components/molecules';
 import MenuNavbarCollapse from '@/components/molecules/Appbar/NavBarCollapse/NavBarCollapse';
 import Logo from '@/components/ui/Logo/Logo';
-import { useTranslations } from 'next-intl';
 import SwitcherButtonWrapper from '../SwitcherButtonWrapper/SwitcherButtonWrapper';
 
 const AppBar = ({ className }: { className?: string }) => {
-  const t = useTranslations('Appbar');
   return (
     <div
       className={cn(

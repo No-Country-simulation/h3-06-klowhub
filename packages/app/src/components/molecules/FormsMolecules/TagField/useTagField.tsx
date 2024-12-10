@@ -56,8 +56,7 @@ const useTagField = ({
   const onLocalKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === ',') {
       e.preventDefault();
-      let newValue;
-      newValue = value;
+      const newValue = value;
       AddTag(newValue);
       setValue('');
     } else {

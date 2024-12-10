@@ -1,13 +1,10 @@
-import { getSession } from '@/_lib';
-import SignInButton from '@/components/molecules/SignInButton/SignInButton';
 import HeaderLink from '@/components/ui/links/headerLink/HeaderLink';
+
 import { useTranslations } from 'next-intl';
+import SignInButton from '../SignInButton/SignInButton';
 
-const MenuBar = async () => {
+const MenuBar = () => {
   const t = useTranslations('Appbar');
-  const session = await getSession();
-
-  // const isVendor = session?.user?.role === 'vendor' && appState === 'vendor';
 
   return (
     <div className="w-full h-full md:flex md:grow md:justify-between">

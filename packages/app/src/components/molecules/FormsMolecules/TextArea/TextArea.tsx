@@ -1,10 +1,11 @@
 import { cn } from '@/_lib';
 import { FC, TextareaHTMLAttributes } from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
 export type TTextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   label: string;
   optionalInfo: string;
-  register: any;
+  register: UseFormRegisterReturn<string>;
 };
 const TextArea: FC<TTextareaProps> = ({
   label,

@@ -26,19 +26,6 @@ const categoryLabel = cva(
   },
 );
 
-const categoryIcon = cva('', {
-  variants: {
-    size: {
-      small: 'h-5 w-5',
-      normal: 'h-6 w-6',
-      big: 'h-8 w-8',
-    },
-  },
-  defaultVariants: {
-    size: 'normal',
-  },
-});
-
 export type TCategoryLabelprops = HTMLAttributes<HTMLDivElement> & {
   icon: ComponentType;
   text: string;

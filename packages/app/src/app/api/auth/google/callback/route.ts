@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
 
   await createSession({
     user: {
-      id: userId,
+      _id: userId,
       userName,
       role,
     },

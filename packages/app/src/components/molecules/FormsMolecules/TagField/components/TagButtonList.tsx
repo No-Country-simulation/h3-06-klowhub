@@ -24,7 +24,6 @@ const TagButtonList = ({
             className={className}
             key={index}
             onClick={() => handleDeleteTag(el)}
-            withHash
             {...rest}
           >
             {el}

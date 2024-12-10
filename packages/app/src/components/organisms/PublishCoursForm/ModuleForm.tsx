@@ -19,15 +19,14 @@ export type TModuleFormProps = {
 };
 
 const ModuleForm: FC<TModuleFormProps> = ({ data, isOpen = true }) => {
-  const { _id: courseId, title, description, lessons } = data ?? {};
+  const { _id: title, description, lessons } = data ?? {};
   const [moduleLessons, setModuleLessons] = useState<ILesson[]>(lessons || []);
-  const [newLesson, setNewLesson] = useState<ILesson[]>(lessons || []);
+  // const [newLesson, setNewLesson] = useState<ILesson[]>(lessons || []);
 
   const {
     register,
     handleSubmit,
     watch,
-    reset,
     control,
     trigger,
     formState: { errors },
@@ -38,7 +37,7 @@ const ModuleForm: FC<TModuleFormProps> = ({ data, isOpen = true }) => {
   });
 
   const professForm: SubmitHandler<Inputs> = async (data) => {
-    const output = await trigger(['title', 'description'], {
+    await trigger(['title', 'description'], {
       shouldFocus: true,
     });
     if (moduleLessons.length === 0) return;

@@ -1,12 +1,11 @@
 'use server';
-import { getTranslations, getLocale } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 //import { BACKEND_URL } from '@/_lib/constants';
+import { redirect } from '@/i18n/routing';
 import { TFormState } from '@shared/types/formState';
 import { SignInSchema, SignUpSchema } from '@shared/validation';
-import { redirect } from '@/i18n/routing';
-import { createSession, deleteSession } from '../actions/session';
-import { TSignInUser, TSignUpUser } from '@shared/types/users';
 import axios from 'axios';
+import { createSession, deleteSession } from '../actions/session';
 import { BACKEND_URL } from '../config';
 
 export async function signUp(
@@ -47,10 +46,7 @@ export async function signUp(
   }
 }
 
-export async function signIn(
-  state: TFormState,
-  formData: FormData,
-): Promise<TFormState> {
+export async function signIn(formData: FormData): Promise<TFormState> {
   const validationFields = SignInSchema.safeParse({
     email: formData.get('email') as string,
     password: formData.get('password') as string,

@@ -21,11 +21,9 @@ export type TToolbarProps = {
   content?: string;
 };
 
-const Toolbar: FC<TToolbarProps> = ({ editor, content }) => {
-  if (!editor) return null;
-
+const Toolbar: FC<TToolbarProps> = ({ editor }) => {
   const setLink = useCallback(() => {
-    const previousUrl = editor.getAttributes('link').href;
+    const previousUrl = editor?.getAttributes('link').href;
     const url = window.prompt('URL', previousUrl);
 
     // cancelled
@@ -35,14 +33,23 @@ const Toolbar: FC<TToolbarProps> = ({ editor, content }) => {
 
     // empty
     if (url === '') {
-      editor.chain().focus().extendMarkRange('link').unsetLink().run();
+      editor?.chain().focus().extendMarkRange('link').unsetLink().run();
 
       return;
     }
 
     // update link
-    editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+    editor
+      ?.chain()
+      .focus()
+      .extendMarkRange('link')
+      .setLink({ href: url })
+      .run();
   }, [editor]);
+
+  if (!editor) {
+    return null;
+  }
 
   return (
     <div className="flex-row px-1 py-1 rounded-tl-xl rounded-tr-xl flex justify-between items-start gap-4 w-full flex-wrap border border-gray-800 bg-gray-50  min-w-[320px]">
@@ -140,7 +147,9 @@ const Toolbar: FC<TToolbarProps> = ({ editor, content }) => {
             <ToolbarButton
               onClick={(e) => {
                 e.preventDefault();
-                setLink();
+                if (setLink) {
+                  setLink();
+                }
               }}
               disabled={!editor.isActive('link')}
             >

@@ -57,7 +57,9 @@ export const useStepStore = create<State & Actions>()(
       steps: stepConfig as TStep[],
       currentStep: 1,
       loadSteps: (newSteps: TStep[]) => {
-        useStepStore.getState().steps.length !== 0 && set({ steps: newSteps });
+        if (useStepStore.getState().steps.length !== 0) {
+          set({ steps: newSteps });
+        }
       },
       updateStepState: (newStepState: Partial<TStep>) => {
         const stepId = useStepStore.getState().currentStep;

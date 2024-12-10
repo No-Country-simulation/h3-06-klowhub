@@ -1,4 +1,3 @@
-import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import Card from './Card'; // Ruta de tu componente
 
@@ -24,7 +23,7 @@ type Story = StoryObj<typeof Card>;
 
 export const Default: Story = {
   args: {
-    id:1,
+    id: 1,
     title: 'Creación de aplicaciones empresariales',
     description:
       'Descubre cómo desarrollar aplicaciones personalizadas que optimicen los procesos de tu empresa.',

@@ -8,7 +8,8 @@
     "front:dev": "concurrently \"pnpm --filter shared run watch\" \"pnpm --filter app dev\"",
     "back:dev": "concurrently \"pnpm --filter shared run watch\" \"pnpm --filter api start:dev\"",
     "dev": "concurrently \"pnpm --filter shared run watch\" \"pnpm --filter app dev\" \"pnpm --filter api start:dev\"",
-    "storybook": "pnpm --filter app run storybook"
+    "storybook": "pnpm --filter app run storybook",
+    "front:build": "pnpm --filter app run build"
   },
   "keywords": [],
   "author": "Maria Villen",

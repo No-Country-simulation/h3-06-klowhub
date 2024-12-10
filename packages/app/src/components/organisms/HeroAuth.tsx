@@ -1,12 +1,12 @@
 import { cn } from '@/_lib';
-import React, { FC } from 'react';
+import React from 'react';
 
 export type THeroAuth = {
   title: string;
   children: React.ReactNode;
   className?: string;
 };
-const HeroAuth: FC<THeroAuth> = async ({ title, children, className }) => {
+const HeroAuth = ({ title, children, className }: THeroAuth) => {
   return (
     <div
       className={cn(

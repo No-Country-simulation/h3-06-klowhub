@@ -35,6 +35,3 @@ const StepperMenu: FC<TStepperMenuProps> = ({ stepConfig }) => {
 };
 
 export default StepperMenu;
-function loadSteps(steps: import('@/stores/stepStore.store').TStep[]) {
-  throw new Error('Function not implemented.');
-}

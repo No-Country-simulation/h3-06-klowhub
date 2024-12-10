@@ -1,5 +1,6 @@
 import { cn } from '@/_lib';
 import React, { ReactNode } from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
 interface IOptionGroupProps {
   title: string;
@@ -7,9 +8,8 @@ interface IOptionGroupProps {
     value: string | number;
     label: string | ReactNode;
   }[];
-  register: any;
+  register: UseFormRegisterReturn<string>;
   className?: string;
-  nameGroup?: string;
 }
 const OptionGroup: React.FC<IOptionGroupProps> = ({
   title,

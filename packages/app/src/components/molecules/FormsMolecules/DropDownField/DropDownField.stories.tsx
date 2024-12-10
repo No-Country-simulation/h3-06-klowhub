@@ -1,5 +1,6 @@
 'use client';
 import type { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
 import {
   categoryList,
   TCategoryItem,
@@ -25,6 +26,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    ref: null,
     options: ['Pequeño', 'Regular', 'Medio'],
     placeholder: 'Tamaño',
   },
@@ -32,6 +34,7 @@ export const Default: Story = {
 
 export const Objects: Story = {
   args: {
+    ref: null,
     options: categoryList,
     indexChamp: 'text',
     iconChamp: 'icon',

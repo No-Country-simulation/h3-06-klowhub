@@ -1,20 +1,26 @@
-"use client"
+'use client';
 
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/components/ui/shadcn/card"
+} from '@/components/ui/shadcn/card';
 import {
+  ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/shadcn/chart"
+} from '@/components/ui/shadcn/chart';
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 
-
-export function BarChartMultiple({ chartData, chartConfig }: any) {
+export function BarChartMultiple({
+  chartData,
+  chartConfig,
+}: {
+  chartData: unknown[];
+  chartConfig: ChartConfig;
+}) {
   return (
     <Card className="border-none">
       <CardContent className="p-0">
@@ -47,5 +53,5 @@ export function BarChartMultiple({ chartData, chartConfig }: any) {
         </ChartContainer>
       </CardContent>
     </Card>
-  )
+  );
 }

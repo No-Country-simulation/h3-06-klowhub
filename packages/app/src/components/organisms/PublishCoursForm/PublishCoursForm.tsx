@@ -1,11 +1,10 @@
 'use client';
 import Button from '@/components/ui/buttons/BaseButton/BaseButton';
 import { useStepStore } from '@/stores/stepStore.store';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { LuArrowLeft } from 'react-icons/lu';
 import StepperMenu from '../../molecules/StepperMenu/StepperMenu';
 import {
-  PromotionsForm,
   PublishCoursContent,
   PublishCoursDetail,
   PublishCoursGeneral,
@@ -15,7 +14,7 @@ const PublishCoursForm = () => {
   const { currentStep, prevStep, steps, resetCurrentStep } = useStepStore(
     (state) => state,
   );
-  const [course, setCourse] = useState({});
+  // const [course, setCourse] = useState({});
 
   useEffect(() => {
     useStepStore.persist.rehydrate();
@@ -46,7 +45,7 @@ const PublishCoursForm = () => {
         {currentStep === 1 && <PublishCoursGeneral />}
         {currentStep === 2 && <PublishCoursDetail />}
         {currentStep === 3 && <PublishCoursContent />}
-        {currentStep === 4 && <PromotionsForm />}
+        {currentStep === 4 && <PublishCoursContent />}
       </section>
     </div>
   );
