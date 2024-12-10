@@ -24,6 +24,6 @@
       "@shared/*": ["../shared/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".storybook/__mock__/session.mock.ts", "src/components/organisms/PublishCoursForm/PromotionsForm.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".storybook/__mock__/session.mock.ts", "src/components/organisms/PublishCoursForm/PromotionsForm.tsx.back"],
   "exclude": ["node_modules", "**/*.stories.ts", "**/*.stories.tsx"],
 }
