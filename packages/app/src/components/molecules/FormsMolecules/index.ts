@@ -3,7 +3,7 @@ export { default as CategoryLabel } from './DropDownField/components/CategoryLab
 export { default as SuggestDropDown } from './DropDownField/components/SuggestDropDown';
 export { default as useDropDownField } from './DropDownField/components/useDropDownField';
 export { default as DropDownField } from './DropDownField/DropDownField';
-export { default as TipTap } from './Editor/components/TipTap';
+export { default as Tiptap } from './Editor/TipTap';
 export { default as LabeledField } from './LabeledField/LabeledField';
 export { default as OptionGroup } from './OptionGroup/OptionGroup';
 export { default as SlipButton } from './SlipButton/SlipButton';

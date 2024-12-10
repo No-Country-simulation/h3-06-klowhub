@@ -3,8 +3,8 @@ import {
   DropDownField,
   LabeledField,
   TagField,
+  Tiptap,
 } from '@/components/molecules/FormsMolecules';
-import Tiptap from '@/components/molecules/FormsMolecules/Editor/components/TipTap';
 import { BaseButton as Button, MessageField } from '@/components/ui';
 import { useStepStore } from '@/stores/stepStore.store';
 import { zodResolver } from '@hookform/resolvers/zod';

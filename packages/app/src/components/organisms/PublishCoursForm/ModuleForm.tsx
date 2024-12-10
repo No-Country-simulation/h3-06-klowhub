@@ -1,6 +1,6 @@
 import { Accordion } from '@/components/molecules/Accordion';
-import { LabeledField } from '@/components/molecules/FormsMolecules';
-import Tiptap from '@/components/molecules/FormsMolecules/Editor/components/TipTap';
+import { LabeledField, Tiptap } from '@/components/molecules/FormsMolecules';
+
 import { Field, MessageField } from '@/components/ui';
 import Button from '@/components/ui/buttons/BaseButton/BaseButton';
 import { zodResolver } from '@hookform/resolvers/zod';

@@ -38,7 +38,7 @@ const PromotionsForm = () => {
                 { value: 'true', label: 'Si' },
                 { value: 'false', label: 'No' },
               ]}
-              name="promotions"
+              register={register('discount')}
             />
           </LabeledField>
 
