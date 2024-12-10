@@ -12,17 +12,11 @@ import {
 import TagButtonList from './components/TagButtonList';
 import useTagField from './useTagField';
 
-// const myData = [
-//   { id: '0', label: 'mercado' },
-//   { id: '1', label: 'moneda' },
-// ];
-
-type TData = string;
 export type TTagField = HTMLAttributes<HTMLInputElement> & {
   placeholder: string;
-  data?: TData[];
+  data?: string[];
   name: string;
-  onChange: (value: TData[]) => void;
+  onChange: (value: string[]) => void;
 };
 
 const TagField = forwardRef<HTMLInputElement, TTagField>(
@@ -32,25 +26,14 @@ const TagField = forwardRef<HTMLInputElement, TTagField>(
   ) => {
     const [isError, setIsError] = useState('');
     const onError = (error: string) => setIsError(error);
-    // const onChange = (submitedValue: TData) =>
-    //   console.log('submit article ', submitedValue);
-    const {
-      tagsOfArticle,
-      // suggestionList,
-      onLocalChange,
-      onLocalKeyDown,
-      // isSuggestionBoxOpen,
-      // applyValue,
-      deleteTag,
-      // selectedItem,
-      value,
-    } = useTagField({
-      ref: ref as MutableRefObject<HTMLInputElement | null>,
-      data: data || [],
-      articleTags: [],
-      onChange: onChange,
-      onError: onError,
-    });
+    const { tagsOfArticle, onLocalChange, onLocalKeyDown, deleteTag, value } =
+      useTagField({
+        ref: ref as MutableRefObject<HTMLInputElement | null>,
+        data: data || [],
+        articleTags: [],
+        onChange: onChange,
+        onError: onError,
+      });
 
     return (
       <>
@@ -97,15 +80,6 @@ const TagField = forwardRef<HTMLInputElement, TTagField>(
               />
             </div>
           </div>
-          {/* 
-        <ul className={isSuggestionBoxOpen ? 'flex flex-col px-0' : 'hidden'}>
-          <Suggest
-            selectedItem={selectedItem}
-            data={suggestionList}
-            nameList="tags"
-            onSelect={applyValue}
-          />
-        </ul> */}
         </div>
         <MessageField variant="error" className={isError ? 'flex' : 'hidden'}>
           {isError}

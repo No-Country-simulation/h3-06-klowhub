@@ -18,15 +18,10 @@ const useTagField = ({
   onChange,
   ref,
 }: useTagFieldProps) => {
-  // Input for all the list of tags for one article
   const [tagsOfArticle, setTagsOfArticle] = useState(articleTags || []);
-  // the value of the input entry
   const [value, setValue] = useState('');
-  // The input element
-  // Focus on the Input of TagField
   const focus = () => ref?.current?.focus();
 
-  // Return a new array with all tags that match with the letter of the input value */
   const deleteTag = (val: string) => {
     const newTagList = tagsOfArticle.filter(
       (el) => el.toLowerCase() !== val.toLowerCase(),
@@ -36,13 +31,11 @@ const useTagField = ({
     focus();
   };
 
-  // Checks if the input text is already in the tags values array
   const isTagDuplicated = (val: string) => {
     const isRepeat = tagsOfArticle.filter((el) => el === val);
     return isRepeat.length > 0;
   };
 
-  // Function: add a tag to de list of value tag array
   const AddTag = (valueTag: TtagDataProps) => {
     const val = valueTag.toWellFormed().trim();
     if (validateOnlyAlphaNumerics(val)) {

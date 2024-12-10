@@ -1,31 +1,30 @@
 'use client';
 import { cn } from '@/_lib';
-import { forwardRef, Ref, useEffect, useRef, useState } from 'react';
+import { forwardRef, Ref, useEffect, useState } from 'react';
 import { LuImport } from 'react-icons/lu';
 
-export type TFileFieldProps = {
-  urlImage: string;
+export type TVideoFieldProps = {
+  urlVideo: string;
   onChange: (file: File) => void;
   className?: string;
   onBlur?: () => void;
   name?: string;
 };
 
-const FileField = forwardRef<HTMLInputElement, TFileFieldProps>(
+const VideoField = forwardRef<HTMLInputElement, TVideoFieldProps>(
   (
-    { urlImage, name, onChange, onBlur, className }: TFileFieldProps,
+    { urlVideo, name, onChange, onBlur, className }: TVideoFieldProps,
     ref: Ref<HTMLInputElement>,
   ) => {
-    const dropRef = useRef<HTMLLabelElement>(null);
-    const [urlImageLoaded, setUrlImageLoaded] = useState<string | null>(
-      urlImage || null,
+    const [urlVideoLoaded, setUrlVideoLoaded] = useState<string | null>(
+      urlVideo || null,
     );
     const [file, setFile] = useState<File | null>(null);
-    const idFile = 'imageId';
+    const idVideo = 'video';
     useEffect(() => {
       if (file instanceof File) {
         const imageUrl = URL.createObjectURL(file);
-        setUrlImageLoaded(imageUrl);
+        setUrlVideoLoaded(imageUrl);
         return () => URL.revokeObjectURL(imageUrl);
       }
     }, [file]);
@@ -33,7 +32,6 @@ const FileField = forwardRef<HTMLInputElement, TFileFieldProps>(
     const handleDragOver = (e: React.DragEvent<HTMLLabelElement>) => {
       e.preventDefault();
     };
-
     const handleDrop = (e: React.DragEvent<HTMLLabelElement>) => {
       e.preventDefault();
       if (e.dataTransfer.files && e.dataTransfer.files[0]) {
@@ -42,7 +40,7 @@ const FileField = forwardRef<HTMLInputElement, TFileFieldProps>(
         reader.onload = function (e) {
           const result = e?.target?.result;
           if (result !== null) {
-            setUrlImageLoaded(result as string);
+            setUrlVideoLoaded(result as string);
           }
         };
         reader.readAsDataURL(file);
@@ -52,21 +50,28 @@ const FileField = forwardRef<HTMLInputElement, TFileFieldProps>(
 
     return (
       <label
-        htmlFor={idFile}
+        htmlFor={idVideo}
         className={cn(
           'h-[237px] w-full flex flex-col items-center justify-center gap-3 border border-dashed border-secondary-200 bg-secondary-900',
           className,
         )}
-        ref={dropRef}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
       >
-        {urlImageLoaded ? (
-          <img
+        {urlVideoLoaded ? (
+          <video
             className="w-full h-full object-fill"
-            src={urlImageLoaded}
-            alt="imageLoaded"
-          />
+            src={urlVideoLoaded}
+            autoPlay
+            loop
+            muted
+          >
+            {/* <track
+              kind="description"
+              srcLang="en"
+              src="videoDescription.vtt" // Replace with the actual description file URL
+            /> */}
+          </video>
         ) : (
           <div className="flex flex-col justify-center items-center gap-3">
             <LuImport className="h-12 w-12" />
@@ -85,9 +90,9 @@ const FileField = forwardRef<HTMLInputElement, TFileFieldProps>(
             }
           }}
           onBlur={onBlur}
-          accept="image/*"
+          accept="video/*"
           name={name}
-          id={idFile}
+          id={idVideo}
           type="file"
           style={{ display: 'none' }}
           ref={ref}
@@ -97,4 +102,4 @@ const FileField = forwardRef<HTMLInputElement, TFileFieldProps>(
   },
 );
 
-export default FileField;
+export default VideoField;

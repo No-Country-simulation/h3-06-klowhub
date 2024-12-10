@@ -10,7 +10,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'TagField is a component designed for adding tags with auto-suggestions. It provides a user-friendly interface for adding and managing tags, along with error handling. This component supports customization options, including custom CSS classes and suggestions. It uses useTagField hook',
+          'TagField is a component designed for adding tags. It provides a user-friendly interface for adding and managing tags, along with error handling. This component supports customization options, including custom CSS classes and suggestions. It uses useTagField hook',
       },
     },
   },
@@ -33,5 +33,13 @@ type Story = StoryObj<typeof meta>;
 // DEFAULT CATEGORY
 
 export const Default: Story = {
-  args: {},
+  args: {
+    placeholder: 'Placeholder text for the TagField input field.',
+    data: ['Tag 1', 'Tag 2', 'Tag 3'],
+    name: 'tagField',
+    onChange: () => {},
+    onBlur: () => {},
+    ref: null,
+    onError: () => {},
+  },
 };

@@ -7,7 +7,7 @@ import Underline from '@tiptap/extension-underline';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { forwardRef, Ref } from 'react';
-import Toolbar from './Toolbar';
+import Toolbar from './components/Toolbar/Toolbar';
 
 export type TTiptapProps = {
   content: string;
@@ -109,7 +109,7 @@ const Tiptap = forwardRef<HTMLDivElement, TTiptapProps>(
       editorProps: {
         attributes: {
           class:
-            'prose mytiptap px-4 py-3  border-b border-r border-l border-gray-700 text-gray-950 w-full text-base bg-gray-50 rounded-b-xl pt-4 rounded-bl-xl rounded-br-xl outline-none min-w-[320px] min-h-[120px] w-full ',
+            'prose max-w-none mytiptap px-4 py-3 border-b border-r border-l border-gray-700 text-gray-950 text-base bg-gray-50 rounded-b-xl pt-4 rounded-bl-xl rounded-br-xl outline-none min-h-[120px] w-full',
         },
       },
       immediatelyRender: false,

@@ -14,7 +14,7 @@ import {
   LuUnderline,
   LuUndo,
 } from 'react-icons/lu';
-import ToolbarButton from './ToolbarButton';
+import ToolbarButton from '../ToolbarButton/ToolbarButton';
 
 export type TToolbarProps = {
   editor: Editor | null;
@@ -45,8 +45,8 @@ const Toolbar: FC<TToolbarProps> = ({ editor, content }) => {
   }, [editor]);
 
   return (
-    <div className="flex-row px-1 py-1 rounded-tl-xl rounded-tr-xl flex justify-between items-start gap-4 w-full flex-wrap border border-gray-800 bg-gray-50">
-      <div className="flex justify-start items-center gap-2 wfull lg:w-10/12 flex-wrap">
+    <div className="flex-row px-1 py-1 rounded-tl-xl rounded-tr-xl flex justify-between items-start gap-4 w-full flex-wrap border border-gray-800 bg-gray-50  min-w-[320px]">
+      <div className="flex justify-start items-center gap-2 w-full  lg:w-10/12 flex-wrap">
         <ToolbarButton
           onClick={(e) => {
             e.preventDefault();

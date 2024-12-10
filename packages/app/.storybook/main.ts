@@ -14,7 +14,6 @@ const config: StorybookConfig = {
     getAbsolutePath('@storybook/theming'),
     getAbsolutePath('@storybook/manager-api'),
     getAbsolutePath('@storybook/addon-styling-webpack'),
-    getAbsolutePath('storybook-addon-cookie'),
   ],
   framework: {
     name: '@storybook/nextjs',

@@ -6,6 +6,7 @@ const meta = {
   tags: ['autodocs'],
   component: TextArea,
   parameters: {
+    background: 'light',
     layout: 'padded',
     title: 'TextArea Buttons',
     componentSubtitle:
@@ -19,6 +20,7 @@ type Story = StoryObj<typeof meta>;
 // DEFAULT CATEGORY
 export const Default: Story = {
   args: {
+    register: { name: 'description' },
     label: 'Descripción del curso:',
     optionalInfo:
       'Escribe una breve descripción de qué se trata. Máximo 180 caracteres',

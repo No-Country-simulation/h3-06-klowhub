@@ -23,7 +23,7 @@ type Story = StoryObj<typeof meta>;
 // DEFAULT CATEGORY
 export const Competencia: Story = {
   args: {
-    name: 'competenceLevel',
+    register: { name: 'competenceLevel' },
     title: 'Nivel de Competencia',
     options: [
       { label: 'Basico', value: 'basico' },
@@ -35,7 +35,7 @@ export const Competencia: Story = {
 
 export const Pago: Story = {
   args: {
-    name: 'accessMode',
+    register: { name: 'accessMode' },
     title: 'Acceso al curso:',
     options: [
       { label: 'Gratuito', value: 'gratuito' },
@@ -46,7 +46,7 @@ export const Pago: Story = {
 
 export const Plataforma: Story = {
   args: {
-    name: 'platform',
+    register: { name: 'platform' },
     title: 'Plataforma',
     options: [
       {

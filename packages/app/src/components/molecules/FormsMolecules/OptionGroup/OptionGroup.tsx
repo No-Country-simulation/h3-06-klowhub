@@ -17,7 +17,6 @@ const OptionGroup: React.FC<IOptionGroupProps> = ({
   className,
   register,
 }) => {
-  const [selected, setSelected] = React.useState(options[0].value);
   // Get the register function from useForm
 
   return (

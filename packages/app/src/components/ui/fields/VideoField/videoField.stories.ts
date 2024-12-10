@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import FileField from './FileField';
+import VideoField from './VideoField';
 
 const meta = {
-  title: 'Field/FileField',
-  component: FileField,
+  title: 'Fields/VideoField',
+  component: VideoField,
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
   },
   argTypes: {},
-} satisfies Meta<typeof FileField>;
+} satisfies Meta<typeof VideoField>;
 
 export default meta;
 
@@ -17,7 +17,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    urlImage: 'https://dummyjson.com/image/400x200/282828',
+    urlVideo: 'https://youtu.be/hP0TcRcr95Q?si=RcCDiPxvcouWCt7-',
     onChange: (file) => {
       console.log(file);
     },
