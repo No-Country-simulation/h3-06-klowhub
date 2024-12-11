@@ -24,6 +24,10 @@ import { AddLessonUseCase } from '../../application/use-case/lesson/add-lesson.u
 import { CreateCourseDto } from '../../application/dtos/create.course.dto';
 import { ModuleDto } from '../../application/dtos/create-module.dto';
 import { ILesson } from '@shared/types/ICourse';
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../../infrastructure/guards/jwt-auth.guard';
+import { RolesGuard } from '../../infrastructure/guards/roles.guard';
+import { Roles } from '@/infrastructure/guards/decorator/roles.decorator';
 import { DeleteCourseUseCase } from '@/application/use-case/course/delete-course-use.case';
 import { UpdateCourseUseCase } from '@/application/use-case/course/update-course-use.case';
 import { UpdateCourseDto } from '@/application/dtos/update-course.dto';
@@ -41,6 +45,8 @@ export class CourseController {
 
   @Post()
   @HttpCode(201)
+  @Roles('VENDEDOR')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'Crear un nuevo curso' })
   @ApiResponse({
     status: 201,
@@ -104,6 +110,8 @@ export class CourseController {
 
   @Put(':courseId')
   @HttpCode(200)
+  @Roles('VENDEDOR')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'Actualizar un curso existente' })
   @ApiResponse({
     status: 200,
@@ -198,6 +206,8 @@ export class CourseController {
   
     @Delete(':courseId')
     @HttpCode(204)
+    @Roles('VENDEDOR')
+    @UseGuards(JwtAuthGuard, RolesGuard)
     @ApiOperation({ summary: 'Eliminar un curso existente' })
     @ApiResponse({
       status: 204,
@@ -250,6 +260,8 @@ export class CourseController {
 
   @Post(':courseId/modules')
   @HttpCode(201)
+  @Roles('VENDEDOR')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'Agregar un módulo a un curso existente' })
   @ApiResponse({
     status: 201,
@@ -324,6 +336,8 @@ export class CourseController {
   }
   @Post(':courseId/modules/:moduleId/lessons')
   @HttpCode(HttpStatus.CREATED)
+  @Roles('VENDEDOR')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @ApiOperation({ summary: 'Agregar una lección a un módulo existente' })
   @ApiResponse({
     status: 201,
