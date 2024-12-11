@@ -5,7 +5,7 @@ import { TFormState } from '@shared/types/formState';
 import { SignInSchema, SignUpSchema } from '@shared/validation';
 import axios, { AxiosResponse } from 'axios';
 import { getLocale, getTranslations } from 'next-intl/server';
-import { createSession } from './session';
+import { createSession, deleteSession } from './session';
 
 export async function signUp(
   state: TFormState,
@@ -82,8 +82,17 @@ export async function signIn(
   console.log('SUCCESS STATUS', result?.status);
 
   if (result && result?.status === 201) {
-    console.log(result.data);
-    const data = result.data;
+    const data = result.data.data;
+    const cookie = (result.headers as unknown as Headers)?.get('set-cookie');
+    console.log('data', data);
+
+    const accessTokenCookie = cookie ? cookie[0] : '';
+    const refreshTokenCookie = cookie ? cookie[1] : '';
+    const refreshTokenMatch = refreshTokenCookie.match(/refreshToken=([^;]*)/);
+    const refreshToken = refreshTokenMatch ? refreshTokenMatch[1] : undefined;
+    const accessTokenMatch = accessTokenCookie.match(/accessToken=([^;]*)/);
+    const accessToken = accessTokenMatch ? accessTokenMatch[1] : undefined;
+
     // await createSession({
     //   user: {
     //     _id: data.user._id || '1',
@@ -93,26 +102,26 @@ export async function signIn(
     //   refreshToken: data.refreshToken || 'refreshToken',
     //   accessToken: data.accessToken,
     // });
+    if (!accessToken || !refreshToken) throw new Error('Invalid tokens');
+    await createSession({
+      user: {
+        _id: data.id,
+        userName: data.userName,
+        roles: data.roles,
+      },
+      refreshToken: refreshToken,
+      accessToken: accessToken,
+    });
 
     // await createSession({
     //   user: {
-    //     _id: data.user.id,
-    //     userName: data.user.userName,
-    //     role: data.user.role,
+    //     _id: 'uno',
+    //     userName: 'maria',
+    //     role: 'VENDEDOR',
     //   },
-    //   refreshToken: data.refreshToken,
+    //   refreshToken: 'refreshToken',
     //   accessToken: data.accessToken,
     // });
-
-    await createSession({
-      user: {
-        _id: 'uno',
-        userName: 'maria',
-        role: 'VENDEDOR',
-      },
-      refreshToken: 'refreshToken',
-      accessToken: data.accessToken,
-    });
     //TODO: redirect to the last page visited and not only home
 
     const locale = await getLocale();
@@ -146,4 +155,8 @@ export const refreshToken = async (oldRefreshToken: string) => {
     console.error('Refresh token failed:', error);
     return null;
   }
+};
+
+export const logoutAction = async () => {
+  await deleteSession();
 };

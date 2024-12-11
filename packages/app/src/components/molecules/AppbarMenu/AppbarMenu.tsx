@@ -2,7 +2,6 @@ import { cn } from '@/_lib';
 import { MenuBar } from '@/components/molecules';
 import MenuNavbarCollapse from '@/components/molecules/AppbarMenu/NavBarCollapse/NavBarCollapse';
 import Logo from '@/components/ui/Logo/Logo';
-import SwitcherButtonWrapper from '../SwitcherButtonWrapper/SwitcherButtonWrapper';
 
 const AppBar = ({ className }: { className?: string }) => {
   return (
@@ -14,13 +13,6 @@ const AppBar = ({ className }: { className?: string }) => {
     >
       <Logo className="w-14 " />
 
-      <SwitcherButtonWrapper
-        className="mx-7 justify-center items-center hidden lg:flex"
-        leftComponent="Home"
-        rightComponent="Platform"
-        variant="primary"
-        isActive={false}
-      />
       <div className="md:grow">
         <MenuNavbarCollapse>
           <MenuBar />

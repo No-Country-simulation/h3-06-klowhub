@@ -10,7 +10,8 @@
     "mentorships": "Mentorías",
     "login": "Iniciar Sesión",
     "register": "Registrarse",
-    "logout": "Cerrar Sesión"
+    "logout": "Cerrar Sesión",
+    "dashboard": "Panel de control"
   },
   "Auth": {
     "heroText": "Explora, aprende, enseña y conecta. Crea tu cuenta en Klowhub y accede a un mundo de posibilidades.",

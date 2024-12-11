@@ -1,4 +1,4 @@
-const CursorPage = () => {
+const CoursPage = () => {
   return (
     <div className="flex w-full justify-center items-center">
       PAGINA CURSOS EN CONSTRUCCION
@@ -6,4 +6,4 @@ const CursorPage = () => {
   );
 };
 
-export default CursorPage;
+export default CoursPage;

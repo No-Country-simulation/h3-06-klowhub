@@ -1,13 +1,35 @@
+'use client';
 import { cn } from '@/_lib';
 import { Link } from '@/i18n/routing';
-import { FC } from 'react';
+import { useConfigStateAppStore } from '@/stores/configStateApp.store';
+import { FC, useEffect, useState } from 'react';
 
 export type THeaderLink = {
   children?: React.ReactNode;
   href: string;
   className?: string;
+  seller?: boolean;
+  linkSeller?: string;
 };
-const HeaderLink: FC<THeaderLink> = ({ children, href, className }) => {
+const HeaderLink: FC<THeaderLink> = ({
+  children,
+  linkSeller,
+  href,
+  seller,
+  className,
+}) => {
+  const { getSellerMode } = useConfigStateAppStore((state) => state);
+
+  const [sellerMode, setSellerMode] = useState(getSellerMode());
+
+  useEffect(() => {
+    setSellerMode(getSellerMode());
+  }, [getSellerMode()]);
+  const isSellerMode = sellerMode === 'EXPLORADOR' ? true : false;
+  if (seller && isSellerMode) {
+    href = linkSeller || href;
+  }
+
   return (
     <Link
       href={href}

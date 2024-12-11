@@ -10,8 +10,8 @@
     "mentorships": "Mentorships",
     "login": "Login",
     "register": "Register",
-
-    "logout": "Logout"
+    "logout": "Logout",
+    "dashboard": "Dashboard"
   },
   "Auth": {
     "heroText": "Explore, learn, teach, and connect. Create your account on Klowhub and access a world of possibilities.",

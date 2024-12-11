@@ -3,10 +3,11 @@
 import SwitcherButton, {
   TSwitcherButtonProps,
 } from '@/components/ui/buttons/SwitcherButton/SwitcherButton';
+import { useConfigStateAppStore } from '@/stores/configStateApp.store';
 import { FC, HTMLAttributes, MouseEvent, useState } from 'react';
 
 export type TSwitcherWrapperProps = HTMLAttributes<HTMLDivElement> &
-  TSwitcherButtonProps & {
+  Omit<TSwitcherButtonProps, 'isActive'> & {
     onClick?: (
       e: MouseEvent<HTMLButtonElement, MouseEvent> | MouseEvent,
     ) => void;
@@ -16,17 +17,26 @@ const SwitcherButtonWrapper: FC<TSwitcherWrapperProps> = ({
   leftComponent,
   rightComponent,
   variant = 'primary',
-  isActive,
   onClick,
   ...rest
 }) => {
-  const [isButtonActive, setIsButtonActive] = useState(isActive);
+  const { getSellerMode, updateSellerModeState } = useConfigStateAppStore(
+    (state) => state,
+  );
+  const isExplorer = getSellerMode() === 'EXPLORADOR' ? true : false;
+  const [isButtonActive, setIsButtonActive] = useState(isExplorer || true);
 
   const handleSwitcherClick = (
     e: MouseEvent<HTMLButtonElement, MouseEvent> | MouseEvent,
   ) => {
     setIsButtonActive((prev) => !prev);
-    if (onClick) onClick(e);
+    if (!isButtonActive) updateSellerModeState('VENDEDOR');
+    if (isButtonActive) updateSellerModeState('EXPLORADOR');
+
+    if (onClick) {
+      e.preventDefault();
+      onClick(e);
+    }
   };
 
   return (
@@ -34,11 +44,11 @@ const SwitcherButtonWrapper: FC<TSwitcherWrapperProps> = ({
       <SwitcherButton
         leftComponent={leftComponent}
         rightComponent={rightComponent}
-        isActive={isButtonActive}
         variant={variant}
         onClick={(e) => handleSwitcherClick(e)}
         className="mx-7"
         {...rest}
+        isActive={isButtonActive}
       />
     </div>
   );

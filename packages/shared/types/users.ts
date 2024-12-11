@@ -32,7 +32,7 @@ export type TLoggedUser = {
   user: {
     _id: string;
     userName: string;
-    role: string;
+    roles: string[];
   };
   accessToken: string;
   refreshToken: string;
