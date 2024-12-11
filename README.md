@@ -41,7 +41,7 @@ Luz Tabraj [Linkedin](www.linkedin.com/in/luz-tabraj)| [GitHub](https://github.c
 Maria Villen [Linkedin](https://www.linkedin.com/in/maria-villen/)| [GitHub](https://github.com/MariaVillen)
 
 ### BACKEND 🧠💻
-Damian Fernandez [Linkedin](https://www.linkedin.com/in)| [GitHub](https://github.com/damianfe)
+Damian Fernandez [Linkedin](https://www.linkedin.com/in/damian-r-fernandez/)| [GitHub](https://github.com/damianfe)
 
 
 Completar nombre [Linkedin](https://www.linkedin.com/in)| [GitHub](https://github.com)
