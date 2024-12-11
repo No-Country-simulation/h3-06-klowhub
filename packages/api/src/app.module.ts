@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
-import { DatabaseService } from './infrastructure/config/database.service';
-import { AuthModule } from './infrastructure/modules/auth.module';
-import { CourseModule } from './infrastructure/modules/course.module';
-import { AppController } from './app.controller'; // Importar AppController
+import { DatabaseService } from '@/infrastructure/config/database.service';
+import { AuthModule } from '@/infrastructure/modules/auth.module';
+import { CourseModule } from '@/infrastructure/modules/course.module';
+import { AppController } from '@/app.controller';
 import {ImagesModule} from '@/infrastructure/modules/images.module'
 @Module({
   imports: [
@@ -22,7 +22,7 @@ import {ImagesModule} from '@/infrastructure/modules/images.module'
     // Módulo de cursos
     CourseModule,
 
-ImagesModule
+    ImagesModule
   ],
   controllers: [AppController], // Registrar AppController
   providers: [DatabaseService], // Registrar AppService

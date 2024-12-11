@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { ModuleEntity } from '../../domain/entities/module.entity';
-import { LessonEntity } from '../../domain/entities/lesson.entity';
+import { ModuleEntity } from '@/domain/entities/module.entity';
+import { LessonEntity } from '@/domain/entities/lesson.entity';
 @Injectable()
 export class ModuleRepository {
   constructor(

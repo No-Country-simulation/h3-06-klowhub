@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { IUser } from '@shared/types/users';
-import { UserEntity } from '../../domain/entities/user.entities';
+import { UserEntity } from '@/domain/entities/user.entities';
 
 @Injectable()
 export class UserRepository {

@@ -1,9 +1,9 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
-import { UserRepository } from '../../infrastructure/repositories/user.repository';
+import { UserRepository } from '@/infrastructure/repositories/user.repository';
 import { RegisterUserDto } from '../dtos/register-user.dto';
-import { PasswordUtil } from '../../infrastructure/utils/password.util';
-import { EmailService } from '../../infrastructure/utils/email.service';
-import { UserEntity } from '../../domain/entities/user.entities';
+import { PasswordUtil } from '@/infrastructure/utils/password.util';
+import { EmailService } from '@/infrastructure/utils/email.service';
+import { UserEntity } from '@/domain/entities/user.entities';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()

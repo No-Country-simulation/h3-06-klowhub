@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { CourseRepository } from '../../../infrastructure/repositories/course.repository';
+import { CourseRepository } from '@/infrastructure/repositories/course.repository';
 import { UpdateCourseDto } from '../../dtos/update-course.dto';
-import { CourseEntity } from '../../../domain/entities/course.entity';
+import { CourseEntity } from '@/domain/entities/course.entity';
 
 @Injectable()
 export class UpdateCourseUseCase {
