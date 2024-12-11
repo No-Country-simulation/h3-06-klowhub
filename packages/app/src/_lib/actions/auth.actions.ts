@@ -38,8 +38,11 @@ export async function signUp(
     result = response;
   } catch (error: unknown) {
     if (axios.isAxiosError(error) && error.response?.status === 400) {
+      console.log('ERROR', error.message);
+      console.log(error.response);
       return { message: t('userAlreadyExists') };
     }
+    console.log('ERROR', error);
     return { message: `something went wrong: ${error}` };
   }
   console.log('SUCCESS STATUS', result?.status);
@@ -73,10 +76,8 @@ export async function signIn(
     result = response;
   } catch (error: unknown) {
     if (axios.isAxiosError(error) && error.response?.status === 400) {
-      console.log('ERROR', error);
       return { message: t('invalidCredentials') };
     }
-    console.log(error);
     return { message: `something went wrong: ${error}` };
   }
   console.log('SUCCESS STATUS', result?.status);
@@ -84,7 +85,6 @@ export async function signIn(
   if (result && result?.status === 201) {
     const data = result.data.data;
     const cookie = (result.headers as unknown as Headers)?.get('set-cookie');
-    console.log('data', data);
 
     const accessTokenCookie = cookie ? cookie[0] : '';
     const refreshTokenCookie = cookie ? cookie[1] : '';
@@ -93,15 +93,6 @@ export async function signIn(
     const accessTokenMatch = accessTokenCookie.match(/accessToken=([^;]*)/);
     const accessToken = accessTokenMatch ? accessTokenMatch[1] : undefined;
 
-    // await createSession({
-    //   user: {
-    //     _id: data.user._id || '1',
-    //     userName: data.user.userName || 'maria',
-    //     role: data.user.role || 'USER_ESTANDAR',
-    //   },
-    //   refreshToken: data.refreshToken || 'refreshToken',
-    //   accessToken: data.accessToken,
-    // });
     if (!accessToken || !refreshToken) throw new Error('Invalid tokens');
     await createSession({
       user: {
@@ -113,15 +104,6 @@ export async function signIn(
       accessToken: accessToken,
     });
 
-    // await createSession({
-    //   user: {
-    //     _id: 'uno',
-    //     userName: 'maria',
-    //     role: 'VENDEDOR',
-    //   },
-    //   refreshToken: 'refreshToken',
-    //   accessToken: data.accessToken,
-    // });
     //TODO: redirect to the last page visited and not only home
 
     const locale = await getLocale();

@@ -2,7 +2,7 @@ import { Appbar } from '@/components/molecules';
 import { routing } from '@/i18n/routing';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, getTranslations } from 'next-intl/server';
+import { getLocale, getMessages, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import '../globals.css';
 // const inter = localFont({
@@ -13,10 +13,13 @@ import '../globals.css';
 // ;
 
 export async function generateMetadata({
-  params: { locale },
+  params,
 }: {
   params: { locale: string };
 }): Promise<Metadata> {
+  const pathname = await params;
+  console.log(pathname);
+  const locale = getLocale();
   const t = await getTranslations({ locale, namespace: 'Metadata' });
   return {
     title: t('title'),

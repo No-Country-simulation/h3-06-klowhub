@@ -9,10 +9,10 @@ import {
   TextLink,
 } from '@/components/ui';
 import { useTranslations } from 'next-intl';
-import { useFormState } from 'react-dom';
+import { useActionState } from 'react';
 
 const SingUpForm = () => {
-  const [state, action] = useFormState(signUp, undefined);
+  const [state, action] = useActionState(signUp, undefined);
   const tValidation = useTranslations('Auth.ValidationMessages.user');
   const tAuth = useTranslations('Auth.form');
   return (
