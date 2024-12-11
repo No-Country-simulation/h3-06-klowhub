@@ -1,0 +1,75 @@
+{
+  "Metadata": {
+    "title": "Home",
+    "description": "Klowhub is a social network for no-code developers"
+  },
+  "Appbar": {
+    "courses": "Courses",
+    "applications": "Applications",
+    "projects": "Projects",
+    "mentorships": "Mentorships",
+    "login": "Login",
+    "register": "Register",
+
+    "logout": "Logout"
+  },
+  "Auth": {
+    "heroText": "Explore, learn, teach, and connect. Create your account on Klowhub and access a world of possibilities.",
+    "form": {
+      "continue": "Continue",
+      "email": "Email",
+      "password": "Password",
+      "helpPassword": "Must contain at least 1 number, 1 uppercase letter, and be at least 6 characters long.",
+      "confirmPassword": "Confirm password",
+      "successPassword": "Passwords match",
+      "fullName": "Full Name",
+      "helpFullName": "This is how you will be identified on the platform",
+      "userName": "Username",
+      "forgotPassword": "Forgot my password",
+      "notHaveAccount": "Don't have an account?",
+      "haveAccount": "Already have an account?",
+      "register": "Register",
+      "registerSuccess": {
+        "title": "Last step:",
+        "description": "Please check your email to confirm your account. If you don't receive an email, check your spam folder."
+      },
+      "login": "Login",
+      "receiveSubscription": "I want to receive news and tips from the platform",
+      "continueWith": "Or continue with",
+      "conditions": {
+        "accept": "By registering you accept our ",
+        "terms": "Terms of Use",
+        "and": " and ",
+        "privacy": "Privacy Policy"
+      },
+      "placeholder": {
+        "login": {
+          "identifier": "Username or email"
+        }
+      }
+    },
+    "ValidationMessages": {
+      "user": {
+        "fullname": {
+          "minLength": "Full name must be at least 3 characters long"
+        },
+        "username": {
+          "minLength": "Username must be at least 3 characters long"
+        },
+        "email": {
+          "invalid": "Invalid email address"
+        },
+        "password": {
+          "invalid": "Password must be at least 8 characters long, no more than 50 characters, include at least one uppercase letter, one lowercase letter, one number, and one special character",
+          "required": "Password is required"
+        }
+      }
+    }
+  },
+  "Home": {
+    "buttonDeploy": "Deploy Now"
+  },
+  "About": {
+    "default": "About Us"
+  }
+}
