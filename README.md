@@ -41,8 +41,12 @@ Luz Tabraj [Linkedin](www.linkedin.com/in/luz-tabraj)| [GitHub](https://github.c
 Maria Villen [Linkedin](https://www.linkedin.com/in/maria-villen/)| [GitHub](https://github.com/MariaVillen)
 
 ### BACKEND 🧠💻
+Damian Fernandez [Linkedin](https://www.linkedin.com/in)| [GitHub](https://github.com/damianfe)
+
+
 Completar nombre [Linkedin](https://www.linkedin.com/in)| [GitHub](https://github.com)
-Completar nombre [Linkedin](https://www.linkedin.com/in)| [GitHub](https://github.com)
+
+
 Completar nombre [Linkedin](https://www.linkedin.com/in)| [GitHub](https://github.com)
 
 <hr>
@@ -59,7 +63,7 @@ Completar nombre [Linkedin](https://www.linkedin.com/in)| [GitHub](https://githu
 
 Puedes encontrar nuestra APP en el siguiente link: [https://klowhubapp.vercel.app](https://klowhubapp.vercel.app/)
 
-Puedes encontrar nuestra API en el siguiente link: [https://h3-06-klowhub.onrender.com/api/docs]()
+Puedes encontrar nuestra API en el siguiente link: [https://h3-06-klowhub.onrender.com/api/docs](https://h3-06-klowhub.onrender.com/api/docs)
 </br>
 
 
@@ -181,10 +185,13 @@ SESSION_SECRET_KEY=[key]
 ```
 DB_CONNECTION=[mongodbase]
 PORT=3000
-MAIL_HOST=
 EMAIL_USER=
 EMAIL_PASSWORD=
-MAIL_FROM=
+JWT_SECRET=
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+
 ```
 
 
