@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ModuleRepository } from '../../../infrastructure/repositories/module.repository';
+import { ModuleRepository } from '@/infrastructure/repositories/module.repository';
 import { ModuleEntity } from '../../../domain/entities/module.entity';
 import { ModuleDto } from '../../dtos/create-module.dto';
 

@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe, Logger } from '@nestjs/common';
 import helmet from 'helmet';
-import { setupSwagger } from './infrastructure/config/swagger.config';
+import { setupSwagger } from '@/infrastructure/config/swagger.config';
 import cookieParser from 'cookie-parser';
 
 async function bootstrap() {

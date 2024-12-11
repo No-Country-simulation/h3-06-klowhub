@@ -9,11 +9,11 @@ import {
   Query,
   BadRequestException,
 } from '@nestjs/common';
-import { RegisterUserUseCase } from '../../application/use-case/register-user.use-case';
-import { RegisterUserDto } from '../../application/dtos/register-user.dto';
+import { RegisterUserUseCase } from '@/application/use-case/register-user.use-case';
+import { RegisterUserDto } from '@/application/dtos/register-user.dto';
 import { LoginDto } from '@/application/dtos/login-user.dto';
 import { LoginUseCase } from '@/application/use-case/login-user.use-case';
-import { UserRepository } from '../../infrastructure/repositories/user.repository';
+import { UserRepository } from '@/infrastructure/repositories/user.repository';
 import { ApiTags, ApiOperation, ApiResponse, ApiQuery } from '@nestjs/swagger';
 import { ConfirmUserUseCase } from '@/application/use-case/confirm-user.use-case';
 import { Response } from 'express';

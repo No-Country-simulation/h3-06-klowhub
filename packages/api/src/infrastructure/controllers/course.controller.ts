@@ -18,15 +18,15 @@ import {
   ApiNotFoundResponse,
   ApiInternalServerErrorResponse,
 } from '@nestjs/swagger';
-import { CreateCourseUseCase } from '../../application/use-case/course/create-course.use-case';
-import { AddModuleUseCase } from '../../application/use-case/modules/add-module.use-case';
-import { AddLessonUseCase } from '../../application/use-case/lesson/add-lesson.use-case';
-import { CreateCourseDto } from '../../application/dtos/create.course.dto';
-import { ModuleDto } from '../../application/dtos/create-module.dto';
+import { CreateCourseUseCase } from '@/application/use-case/course/create-course.use-case';
+import { AddModuleUseCase } from '@/application/use-case/modules/add-module.use-case';
+import { AddLessonUseCase } from '@/application/use-case/lesson/add-lesson.use-case';
+import { CreateCourseDto } from '@/application/dtos/create.course.dto';
+import { ModuleDto } from '@/application/dtos/create-module.dto';
 import { ILesson } from '@shared/types/ICourse';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from '../../infrastructure/guards/jwt-auth.guard';
-import { RolesGuard } from '../../infrastructure/guards/roles.guard';
+import { JwtAuthGuard } from '@/infrastructure/guards/jwt-auth.guard';
+import { RolesGuard } from '@/infrastructure/guards/roles.guard';
 import { Roles } from '@/infrastructure/guards/decorator/roles.decorator';
 import { DeleteCourseUseCase } from '@/application/use-case/course/delete-course-use.case';
 import { UpdateCourseUseCase } from '@/application/use-case/course/update-course-use.case';

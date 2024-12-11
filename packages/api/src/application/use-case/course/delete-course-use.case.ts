@@ -3,7 +3,7 @@ import {
   NotFoundException,
   InternalServerErrorException,
 } from '@nestjs/common';
-import { CourseRepository } from '../../../infrastructure/repositories/course.repository';
+import { CourseRepository } from '@/infrastructure/repositories/course.repository';
 
 @Injectable()
 export class DeleteCourseUseCase {

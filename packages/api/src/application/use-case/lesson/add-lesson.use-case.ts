@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { LessonEntity } from '../../../domain/entities/lesson.entity';
+import { LessonEntity } from '@/domain/entities/lesson.entity';
 import { CourseRepository } from '../../../infrastructure/repositories/course.repository';
 import { ModuleRepository } from '../../../infrastructure/repositories/module.repository';
 

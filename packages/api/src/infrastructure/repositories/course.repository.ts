@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { ICourse } from '@shared/types/ICourse';
-import { CourseEntity } from '../../domain/entities/course.entity';
-import { ModuleEntity } from '../../domain/entities/module.entity';
-import { LessonEntity } from '../../domain/entities/lesson.entity';
+import { CourseEntity } from '@/domain/entities/course.entity';
+import { ModuleEntity } from '@/domain/entities/module.entity';
+import { LessonEntity } from '@/domain/entities/lesson.entity';
 
 @Injectable()
 export class CourseRepository {

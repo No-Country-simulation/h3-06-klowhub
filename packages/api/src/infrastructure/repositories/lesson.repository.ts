@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { LessonEntity } from '../../domain/entities/lesson.entity';
+import { LessonEntity } from '@/domain/entities/lesson.entity';
 
 @Injectable()
 export class LessonRepository {

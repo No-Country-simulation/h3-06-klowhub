@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CourseRepository } from '../../../infrastructure/repositories/course.repository';
+import { CourseRepository } from '@/infrastructure/repositories/course.repository';
 import { CreateCourseDto } from '../../dtos/create.course.dto';
-import { CourseEntity } from '../../../domain/entities/course.entity';
-import { ModuleEntity } from '../../../domain/entities/module.entity';
-import { LessonEntity } from '../../../domain/entities/lesson.entity';
+import { CourseEntity } from '@/domain/entities/course.entity';
+import { ModuleEntity } from '@/domain/entities/module.entity';
+import { LessonEntity } from '@/domain/entities/lesson.entity';
 
 @Injectable()
 export class CreateCourseUseCase {

@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UserRepository } from '../../infrastructure/repositories/user.repository';
+import { UserRepository } from '@/infrastructure/repositories/user.repository';
 
 @Injectable()
 export class ConfirmUserUseCase {
