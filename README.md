@@ -32,7 +32,7 @@
 Completar nombre [Linkedin](https://www.linkedin.com/in)| [GitHub](https://github.com)
 
 ### UX
-Completar nombre [Linkedin](https://www.linkedin.com/in)| [GitHub](https://github.com)
+Natalia Rovere [Linkedin](https://www.linkedin.com/in/nrovere/)| [GitHub](https://github.com/Natipica)
 
 ### QA TESTER
 Luz Tabraj [Linkedin](www.linkedin.com/in/luz-tabraj)| [GitHub](https://github.com/luztabraj)
